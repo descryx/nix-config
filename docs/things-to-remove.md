@@ -1,7 +1,7 @@
 # things-to-remove
 
 Tracking list of anything that must be kept out of this repo. Keep it updated
-whenever a new secret or identifying value is noticed.
+whenever a new potential place for a secret or identifying value is noticed.
 
 ## Credentials / keys
 
@@ -18,24 +18,24 @@ whenever a new secret or identifying value is noticed.
 
 ## Identifiers (not credentials, but identifying)
 
-- **Kept out** — Syncthing pairs at runtime (`~/.config/syncthing/config.xml`), so
+- **Kept out** - Syncthing pairs at runtime (`~/.config/syncthing/config.xml`), so
   no device IDs live in the repo.
-- **Kept out** — filesystems are mounted by label (`by-label/nixos`, `boot`,
+- **Kept out** - filesystems are mounted by label (`by-label/nixos`, `boot`,
   `cachyos-drive`, `games`, `very-hard-drive`, `old-ssd`, `old-ssd-2`), so no disk
   UUIDs live in the repo.
-- Minecraft player UUID + MOTD — the server is disabled (commented out in
+- Minecraft player UUID + MOTD - the server is disabled (commented out in
   `hosts/*/default.nix`) and uses placeholder values.
 
 ## Personal / location
 
-- Timezone `Europe/Berlin` (low risk).
+- Timezone (low risk).
 - No static IPs, no precise location.
 
 ## Publishing
 
 The public repo is a fresh `git init` (no history), so nothing from the old private
-repo's history ships. Keep the new history clean: use the noreply email only (see
-the SSH tutor in `docs/NOTES.md`).
+repo's history ships (~330 commits left behind). Keep the new history clean:
+use the noreply email only (see the SSH tutor in `docs/NOTES.md`).
 
 ## Future secret handling
 
@@ -45,4 +45,4 @@ the SSH tutor in `docs/NOTES.md`).
   "Noctalia config & secrets".
 - agenix/sops is deferred until there is a **system-level** secret (or Noctalia's
   calendar / encrypted-clipboard credential files). Options and trade-offs are in
-  `docs/NOTES.md` under "Secrets & keys (future plan)".
+  `docs/NOTES.md` under "Secrets & keys (plan)".

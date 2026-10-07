@@ -2,20 +2,20 @@
 nix-config/
 ├── flake.nix
 ├── flake.lock
-├── local.nix               # Username, Git email, home/flake dir, etc...
+├── local.nix               # Username, git email, paths
 ├── configuration.nix       # imports the NixOS (system.nix) side of every feature
 ├── home.nix                # imports the home-manager (home.nix) side of every feature
 ├── README.md
 ├── LICENSE
 ├── AGENTS.md                           #   Instructions for AI agents / contributors
 ├── treefmt.toml                        #   nixfmt + deadnix via `nix fmt`
-├── git-hooks.nix                       #   pre-commit checks (nixfmt/deadnix/statix/check-toml/detect-private-keys/noctalia-scrub/ripsecrets) + devShell
+├── git-hooks.nix                       #   pre-commit checks + devShell (see docs/COMMANDS.md)
 ├── .envrc                              #   `use flake` -> direnv loads the devShell
 │
 ├── docs/
-│   ├── NOTES.md                        #   SSH + disko tutors, secrets plan, scratch notes
-│   ├── COMMANDS.md                     #   Common commands cheat-sheet
-│   ├── ARCHITECTURE.md                 #   How the repo is put together and why
+│   ├── NOTES.md                        #   Tutors (SSH, disko) + working notes
+│   ├── COMMANDS.md                     #   Commands cheat-sheet
+│   ├── ARCHITECTURE.md                 #   How the repo fits together
 │   ├── CREDITS.md                      #   Acknowledgements + third-party notices
 │   ├── structure.md                    #   this file
 │   └── things-to-remove.md             #   Values to scrub before going public
@@ -31,7 +31,7 @@ nix-config/
 │   │   └── disk-config.nix
 │   ├── desk/
 │   │   ├── default.nix
-│   │   ├── graphics.nix                #   NVIDIA drivers + VA-API
+│   │   ├── graphics.nix                #   NVIDIA drivers
 │   │   ├── hardware-configuration.nix
 │   │   └── obs.nix                     #   OBS override (CUDA/NVENC)
 │   └── t480/
@@ -53,13 +53,13 @@ nix-config/
 │   │   ├── power.nix
 │   │   ├── audio.nix
 │   │   └── tools.nix                   #   wshowkeys, nix-index, nix-ld, base system pkgs
-│   ├── appearance/                     # fonts(system) + gtk/cursor(home) + yamis-icon-theme.nix
-│   ├── sddm/                           # system.nix + theme
+│   ├── appearance/                     # fonts (system) + gtk/cursor (home) + yamis-icon-theme
+│   ├── sddm/                           # system.nix (SDDM + theme)
 │   ├── niri/                           # system.nix + home.nix + niri-zoom.nix + config/niri/
 │   ├── noctalia/                       # home.nix + undershell.nix + config/{noctalia,undershell}/
 │   ├── syncthing/                      # system.nix
 │   ├── obs/                            # system.nix (shared); hosts/desk/obs.nix overrides
-│   ├── gaming/                         # system.nix (steam, gamemode) + home.nix (gamescope, ...)
+│   ├── gaming/                         # system.nix (steam, gamemode) + home.nix (gamescope)
 │   ├── kdeconnect/                     # system.nix
 │   ├── storage/                        # system.nix (udisks2/gvfs/tumbler) + home.nix (udiskie)
 │   ├── terminals/                      # home.nix + config/{ghostty,kitty}/
@@ -72,7 +72,7 @@ nix-config/
 │   ├── default-apps/                   # home.nix (mime associations)
 │   ├── easyeffects/                    # home.nix + config/
 │   ├── dev/                            # home.nix (git, direnv, CLI tools) + config/clangd/
-│   ├── desktop-apps/                   # home.nix bundle (chrome, gimp, mpv, kdenlive, ...)
+│   ├── desktop-apps/                   # home.nix bundle (browsers, media, creative apps)
 │   ├── misc-apps/                      # home.nix bundle (btop, cava, fastfetch, wayscriber)
 │   └── optional/                       # Not daily-driver; imported per host
 │       ├── minecraft/                  # system.nix

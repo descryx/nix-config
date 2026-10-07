@@ -42,12 +42,13 @@
 - Any change to code/config must come with the matching doc update in the same task
   (and the same commit): `README.md`, `docs/ARCHITECTURE.md`, `docs/COMMANDS.md`,
   `docs/structure.md`, `docs/NOTES.md`, `docs/CREDITS.md`,
-  `docs/things-to-remove.md`, and this file — whichever the change touches. Never
+  `docs/things-to-remove.md`, and this file - whichever the change touches. Never
   leave docs describing old behaviour.
 - When I say to "update the docs" (fully), audit every doc against the current
   repo: read the real tree and files plus each doc, compare, and fix anything that
   no longer matches (paths, filenames, commands, options, structure, links). Then
   report what changed and what you verified.
+- Docs prose: use `-` (hyphen), not an em dash, for dashes.
 
 ## Workflow rules
 - Show me a diff and explain it before applying any change. Never rebuild/switch,
@@ -82,4 +83,4 @@
 - When a secret is needed, suggest options for keeping it out of the repo
   (e.g. sops-nix or agenix) and explain the trade-offs. Don't pick one for me.
 - Current inventory: `docs/things-to-remove.md`. Current thinking on secret tooling
-  (incl. YubiKey): `docs/NOTES.md` -> "Secrets & keys (future plan)".
+  (incl. YubiKey): `docs/NOTES.md` -> "Secrets & keys (plan)".

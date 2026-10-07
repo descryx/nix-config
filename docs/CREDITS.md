@@ -1,8 +1,8 @@
 # Credits & third-party notices
 
 Acknowledgements for this configuration, the third-party code and config bundled
-in the repository, and their licenses. This repo's own license is MIT — see
-[`../LICENSE`](../LICENSE) — and covers the Nix configuration only; everything
+in the repository, and their licenses. This repo's own license is MIT - see
+[`../LICENSE`](../LICENSE) - and covers the Nix configuration only; everything
 below keeps its own license.
 
 > **Modified files.** Except for the two GPL packages listed under
@@ -14,21 +14,21 @@ below keeps its own license.
 
 Projects this configuration depends on or is inspired by:
 
-- [Niri](https://github.com/YaLTeR/niri) — the Wayland compositor.
-- [Noctalia](https://github.com/noctalia-dev/noctalia) — desktop shell; the
+- [Niri](https://github.com/YaLTeR/niri) - the Wayland compositor.
+- [Noctalia](https://github.com/noctalia-dev/noctalia) - desktop shell; the
   `undershell` widgets and several plugins plug into it.
-- [LazyVim](https://github.com/LazyVim/LazyVim) — Neovim base.
+- [LazyVim](https://github.com/LazyVim/LazyVim) - Neovim base.
 - [Home Manager](https://github.com/nix-community/home-manager) and
-  [nixpkgs](https://github.com/NixOS/nixpkgs) — the framework underneath.
-- [disko](https://github.com/nix-community/disko) — declarative disk layouts.
-- [git-hooks.nix](https://github.com/cachix/git-hooks.nix) — pre-commit checks.
-- [Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) — the
+  [nixpkgs](https://github.com/NixOS/nixpkgs) - the framework underneath.
+- [disko](https://github.com/nix-community/disko) - declarative disk layouts.
+- [git-hooks.nix](https://github.com/cachix/git-hooks.nix) - pre-commit checks.
+- [Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) - the
   pinned skills in [`modules/opencode/skills.nix`](../modules/opencode/skills.nix).
-- [niri-zoom](https://github.com/Ahmedhossamdev/niri-zoom) — packaged in
+- [niri-zoom](https://github.com/Ahmedhossamdev/niri-zoom) - packaged in
   [`modules/niri/niri-zoom.nix`](../modules/niri/niri-zoom.nix), MIT.
-- [Wayscriber](https://github.com/devmobasa/wayscriber) — whiteboard overlay.
-- [opencode](https://opencode.ai) — used to help write parts of this config.
-- [fastfetch](https://github.com/fastfetch-cli/fastfetch) — config based on
+- [Wayscriber](https://github.com/devmobasa/wayscriber) - whiteboard overlay.
+- [opencode](https://opencode.ai) - used to help write parts of this config.
+- [fastfetch](https://github.com/fastfetch-cli/fastfetch) - config based on
   [this Reddit post](https://www.reddit.com/r/NixOS/comments/1tt2qww/fastfetchconfig/),
   with art from [this post](https://x.com/maoxianxiaotao/status/2033224745957929219).
 
@@ -52,10 +52,10 @@ license; the MIT notice is reproduced at the bottom.
 Fetched and packaged at build time by the derivations next to each feature; the
 sources are not copied into this repo. Both are GPL:
 
-- [YAMIS — Yet Another Monochrome Icon Set](https://github.com/googIyEYES/YAMIS)
-  (`modules/appearance/yamis-icon-theme.nix`) — GPL-3.0-only.
+- [YAMIS - Yet Another Monochrome Icon Set](https://github.com/googIyEYES/YAMIS)
+  (`modules/appearance/yamis-icon-theme.nix`) - GPL-3.0-only.
 - [undershell](https://github.com/EternalSelf-2328/undershell)
-  (`modules/noctalia/undershell.nix`) — GPL-3.0-or-later.
+  (`modules/noctalia/undershell.nix`) - GPL-3.0-or-later.
 
 ## MIT license text
 
@@ -97,11 +97,11 @@ SOFTWARE.
 
 Wallpapers:
 
-- `wallpapers/bg.png` — [htkarma (Telegram)](https://x.com/htkarma_).
+- `wallpapers/bg.png` - [htkarma (Telegram)](https://x.com/htkarma_).
 
 fastfetch artwork (`modules/misc-apps/config/fastfetch/pics/`):
 
-- `cosmonaft2.png` — [maoxianxiaotao](https://x.com/maoxianxiaotao/status/2033224745957929219)
-- `loll.png` — [Akiii_kawa](https://x.com/Akiii_kawa/status/2074411483690422470)
-- `o.png` — [Psych0Jesus (Telegram)](https://x.com/Psych0Jesus)
-- `x.png` — [kstk39](https://x.com/kstk39)
+- `cosmonaft2.png` - [maoxianxiaotao](https://x.com/maoxianxiaotao/status/2033224745957929219)
+- `loll.png` - [Akiii_kawa](https://x.com/Akiii_kawa/status/2074411483690422470)
+- `o.png` - [Psych0Jesus (Telegram)](https://x.com/Psych0Jesus)
+- `x.png` - [kstk39](https://x.com/kstk39)
