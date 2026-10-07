@@ -117,7 +117,7 @@ More commands in [docs/COMMANDS.md](docs/COMMANDS.md).
 ## AI assistance & scope
 
 Parts of this were written with an AI assistant ([opencode](https://opencode.ai)).
-AI is mostly used for learning purposes of tedious refactoring,
+AI is mostly used for learning purposes and tedious refactoring,
 i am relatively new to Nix and NixOS (~ since start of july).
 It is a personal project tuned to specific hardware and shared as is: no warranty,
 and you will need to adapt it.
