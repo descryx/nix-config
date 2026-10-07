@@ -1,0 +1,236 @@
+{
+    "$schema": "https://opencode.ai/theme.json",
+    "defs": {
+        "bg": "#1a1a1a",
+        "fg": "#f5f5f5",
+        "comment": "#707070",
+        "keyword": "#ff0000",
+        "func": "#ffffff",
+        "string": "#999999",
+        "type": "#b8b8b8",
+        "number": "#ee0000",
+        "boolean": "#bb0000",
+        "operator": "#ffffff",
+        "variable": "#cccccc",
+        "error": "#ff0000",
+        "warn": "#858f3f",
+        "info": "#664490",
+        "git_add": "#4b824b",
+        "git_delete": "#bb0000",
+        "git_change": "#858f3f",
+        "selection": "#333333",
+        "menu_bg": "#141414",
+        "split": "#2a2a2a",
+        "punctuation": "#b8b8b8",
+        "heading": "#f5f5f5",
+        "link": "#a8a8a8",
+        "macro": "#bb0000",
+        "darkred": "#bb0000",
+        "black": "#000000",
+        "white": "#ffffff",
+        "grey": "#707070",
+        "lightgrey": "#cccccc"
+    },
+    "theme": {
+        "primary": {
+            "dark": "keyword",
+            "light": "keyword"
+        },
+        "secondary": {
+            "dark": "variable",
+            "light": "variable"
+        },
+        "accent": {
+            "dark": "func",
+            "light": "func"
+        },
+        "error": {
+            "dark": "error",
+            "light": "error"
+        },
+        "warning": {
+            "dark": "warn",
+            "light": "warn"
+        },
+        "success": {
+            "dark": "git_add",
+            "light": "git_add"
+        },
+        "info": {
+            "dark": "info",
+            "light": "info"
+        },
+        "text": {
+            "dark": "fg",
+            "light": "fg"
+        },
+        "textMuted": {
+            "dark": "comment",
+            "light": "comment"
+        },
+        "background": {
+            "dark": "none",
+            "light": "none"
+        },
+        "backgroundPanel": {
+            "dark": "black",
+            "light": "black"
+        },
+        "backgroundElement": {
+            "dark": "black",
+            "light": "black"
+        },
+        "border": {
+            "dark": "split",
+            "light": "split"
+        },
+        "borderActive": {
+            "dark": "keyword",
+            "light": "keyword"
+        },
+        "borderSubtle": {
+            "dark": "selection",
+            "light": "selection"
+        },
+        "diffAdded": {
+            "dark": "#a8d4a8",
+            "light": "#a8d4a8"
+        },
+        "diffRemoved": {
+            "dark": "#e88a8a",
+            "light": "#e88a8a"
+        },
+        "diffContext": {
+            "dark": "variable",
+            "light": "variable"
+        },
+        "diffHunkHeader": {
+            "dark": "info",
+            "light": "info"
+        },
+        "diffHighlightAdded": {
+            "dark": "#a8d4a8",
+            "light": "#a8d4a8"
+        },
+        "diffHighlightRemoved": {
+            "dark": "#e88a8a",
+            "light": "#e88a8a"
+        },
+        "diffAddedBg": {
+            "dark": "#1a2e1a",
+            "light": "#1a2e1a"
+        },
+        "diffRemovedBg": {
+            "dark": "#2e1a1a",
+            "light": "#2e1a1a"
+        },
+        "diffContextBg": {
+            "dark": "black",
+            "light": "black"
+        },
+        "diffLineNumber": {
+            "dark": "comment",
+            "light": "comment"
+        },
+        "diffAddedLineNumberBg": {
+            "dark": "#1a2e1a",
+            "light": "#1a2e1a"
+        },
+        "diffRemovedLineNumberBg": {
+            "dark": "#2e1a1a",
+            "light": "#2e1a1a"
+        },
+        "markdownText": {
+            "dark": "fg",
+            "light": "fg"
+        },
+        "markdownHeading": {
+            "dark": "heading",
+            "light": "heading"
+        },
+        "markdownLink": {
+            "dark": "link",
+            "light": "link"
+        },
+        "markdownLinkText": {
+            "dark": "warn",
+            "light": "warn"
+        },
+        "markdownCode": {
+            "dark": "string",
+            "light": "string"
+        },
+        "markdownBlockQuote": {
+            "dark": "comment",
+            "light": "comment"
+        },
+        "markdownEmph": {
+            "dark": "variable",
+            "light": "variable"
+        },
+        "markdownStrong": {
+            "dark": "keyword",
+            "light": "keyword"
+        },
+        "markdownHorizontalRule": {
+            "dark": "split",
+            "light": "split"
+        },
+        "markdownListItem": {
+            "dark": "keyword",
+            "light": "keyword"
+        },
+        "markdownListEnumeration": {
+            "dark": "variable",
+            "light": "variable"
+        },
+        "markdownImage": {
+            "dark": "link",
+            "light": "link"
+        },
+        "markdownImageText": {
+            "dark": "comment",
+            "light": "comment"
+        },
+        "markdownCodeBlock": {
+            "dark": "fg",
+            "light": "fg"
+        },
+        "syntaxComment": {
+            "dark": "comment",
+            "light": "comment"
+        },
+        "syntaxKeyword": {
+            "dark": "keyword",
+            "light": "keyword"
+        },
+        "syntaxFunction": {
+            "dark": "func",
+            "light": "func"
+        },
+        "syntaxVariable": {
+            "dark": "variable",
+            "light": "variable"
+        },
+        "syntaxString": {
+            "dark": "string",
+            "light": "string"
+        },
+        "syntaxNumber": {
+            "dark": "number",
+            "light": "number"
+        },
+        "syntaxType": {
+            "dark": "type",
+            "light": "type"
+        },
+        "syntaxOperator": {
+            "dark": "operator",
+            "light": "operator"
+        },
+        "syntaxPunctuation": {
+            "dark": "punctuation",
+            "light": "punctuation"
+        }
+    }
+}

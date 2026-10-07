@@ -1,0 +1,287 @@
+
+{
+    "logo": {
+        "type": "auto",
+        // "source": "~/.config/fastfetch/pics/cosmonaft2.png",
+        "source": "~/.config/fastfetch/pics/nix-snowflake-white.png",
+        "height": 20,
+        // "width": 30,
+        "padding": {
+            "top": 3,
+            "left": 3,
+        }
+    },
+    "display": {
+        "separator": " ",
+        "constants": [
+            "\u001b[38;2;255;255;255m\u001B[1m",   // {$1}  version
+            "\u001b[38;2;253;248;248m\u001B[1m",   // {$2}  host
+            "\u001b[38;2;251;240;240m\u001B[1m",   // {$3}  board
+            "\u001b[38;2;249;233;233m\u001B[1m",   // {$4}  cpu
+            "\u001b[38;2;247;226;226m\u001B[1m",   // {$5}  gpu
+            "\u001b[38;2;245;219;219m\u001B[1m",   // {$6}  display
+            "\u001b[38;2;243;211;211m\u001B[1m",   // {$7}  sound
+            "\u001b[38;2;241;204;204m\u001B[1m",   // {$8}  battery
+            "\u001b[38;2;239;197;197m\u001B[1m",   // {$9}  memory
+            "\u001b[38;2;238;189;189m\u001B[1m",   // {$10} swap
+            "\u001b[38;2;236;182;182m\u001B[1m",   // {$11} disk NixOS
+            "\u001b[38;2;234;175;175m\u001B[1m",   // {$12} disk Home
+            "\u001b[38;2;232;168;168m\u001B[1m",   // {$13} os
+            "\u001b[38;2;230;160;160m\u001B[1m",   // {$14} kernel
+            "\u001b[38;2;228;153;153m\u001B[1m",   // {$15} bios
+            "\u001b[38;2;226;146;146m\u001B[1m",   // {$16} packages
+            "\u001b[38;2;224;138;138m\u001B[1m",   // {$17} processes
+            "\u001b[38;2;222;131;131m\u001B[1m",   // {$18} shell
+            "\u001b[38;2;220;124;124m\u001B[1m",   // {$19} terminal
+            "\u001b[38;2;218;117;117m\u001B[1m",   // {$20} termfont
+            "\u001b[38;2;216;109;109m\u001B[1m",   // {$21} de
+            "\u001b[38;2;214;102;102m\u001B[1m",   // {$22} lm
+            "\u001b[38;2;212;95;95m\u001B[1m",     // {$23} wm
+            "\u001b[38;2;210;87;87m\u001B[1m",     // {$24} wmtheme
+            "\u001b[38;2;208;80;80m\u001B[1m",     // {$25} font
+            "\u001b[38;2;206;73;73m\u001B[1m",     // {$26} opengl
+            "\u001b[38;2;205;66;66m\u001B[1m",     // {$27} vulkan
+            "\u001b[38;2;203;58;58m\u001B[1m",     // {$28} bluetooth
+            "\u001b[38;2;201;51;51m\u001B[1m",     // {$29} bt radio
+            "\u001b[38;2;199;44;44m\u001B[1m",     // {$30} wifi
+            "\u001b[38;2;197;36;36m\u001B[1m",     // {$31} dns
+            "\u001b[38;2;195;29;29m\u001B[1m",     // {$32} localip
+            "\u001b[38;2;193;22;22m\u001B[1m",     // {$33} publicip
+            "\u001b[38;2;191;15;15m\u001B[1m",     // {$34} datetime
+            "\u001b[38;2;189;7;7m\u001B[1m",       // {$35} os age
+            "\u001b[38;2;187;0;0m\u001B[1m",       // {$36} uptime
+            "┌──────",   // {$37}
+            "───────",   // {$38}
+            "──────┐",   // {$39}
+         ],
+        "percent": {
+            "type": 9,         // 1=number, 2=bar, 3=both, 9=colored number
+            "color": {
+                "green": "#ffffff",
+                "yellow": "#dd6666",
+                "red": "#bb0000"
+            }
+        }
+    },
+    "modules": [
+        "break",
+        {
+            "type": "version",
+            "color": {
+            "keys": ""
+            },
+            "key": "{$1}                Fastfetch ",
+            "format": "{$2}{2}",
+        },
+        {
+            "type": "custom",
+            "format": "{$1}{$37}{$2}{$38}{$3}{$38}{$4}{$38}{$5}{$38}{$6}{$38}{$7}{$38}{$8}{$38}{$9}{$38}{$10}{$39} Hardware "
+        },
+        {
+            "type": "host",
+            "key": "{$2}├   PC        ",
+        },
+                {
+            "type": "board",
+            "key": "{$3}├ 󱔼  Board     ",
+        },
+        {
+            "type": "cpu",
+            "key": "{$4}├   CPU       ",
+        },
+        {
+            "type": "gpu",
+            "key": "{$5}├ 󰾲  GPU       ",
+        },
+        {
+            "type": "display",
+            "key": "{$6}├ 󰍹  Display   ",
+        },
+        {
+            "type": "sound",
+            //"format": "{platform-api}/{2} ({3})",
+            "key": "{$7}├   Sound     ",
+        },
+        {
+            "type": "battery",
+            "key": "{$8}├ 󰢟  Battery   ",
+            "format": "{manufacturer} {model-name} ({capacity})",
+        },
+        {
+            "type": "memory",
+            "key": "{$9}├   Memory    ",
+            "percent": {
+                "type": 3, // 3 = show number + bar + percentage
+                "green": 30, // <30% is green
+                "yellow": 70 // 30-70% is yellow, >70% is red
+            }
+        },
+                {
+            "type": "swap",
+            "key": "{$10}├ 󰯍  Swap      ",
+            "percent": {
+                "type": 3, // 3 = show number + bar + percentage
+                "green": 30, // <30% is green
+                "yellow": 70 // 30-70% is yellow, >70% is red
+            }
+        },
+        {
+            "type": "disk",
+            "key": "{$11}└   Root      ",
+            "folders": ["/"],
+            "percent": {
+                "type": 3, // 3 = show number + bar + percentage
+                "green": 30, // <30% is green
+                "yellow": 70 // 30-70% is yellow, >70% is red
+            }
+        },
+        // {
+        //     "type": "disk",
+        //     "key": "{$12}└   Disk      ",
+        //     "percent": {
+        //         "type": 3, // 3 = show number + bar + percentage
+        //         "green": 30, // <30% is green
+        //         "yellow": 70 // 30-70% is yellow, >70% is red
+        //     }
+        // },
+        {
+            "type": "custom",
+            "format": "{$13}{$37}{$15}{$38}{$16}{$38}{$18}{$38}{$19}{$38}{$21}{$38}{$22}{$38}{$24}{$38}{$25}{$38}{$27}{$39} Software "
+        },
+        {
+            "type": "os",
+            "key": "{$13}├   Distro    ",
+            "format": "{name} {build-id} ({codename}) {arch}"
+        },
+        {
+            "type": "kernel",
+            "key": "{$14}├   Kernel    ",
+        },
+        {
+            "type": "bios",
+            "key": "{$15}├ 󰚗  BIOS      ",
+        },
+        {
+            "type": "packages",
+            "key": "{$16}├ 󰏖  Packages  ",
+        },
+        {
+            "type": "Processes",
+            "key": "{$17}├ 󰑮  Processes ",
+        },
+        {
+            "type": "shell",
+            "key": "{$18}├   Shell     ",
+        },
+        {
+            "type": "terminal",
+            "key": "{$19}├   Terminal  ",
+        },
+        {
+            "type": "icons",
+            "key": "{$20}├   Icons     ",
+        },
+        {
+            "type": "theme",
+            "key": "{$21}├ 󰌁  Theme     ",
+        },
+        {
+            "type": "cursor",
+            "key": "{$22}├ 󰆿  Cursor    ",
+        },
+        {
+            "type": "font",
+            "key": "{$23}├ 󰛖  Font      ",
+        },
+        {
+            "type": "terminalfont",
+            "key": "{$24}├ 󰛖  Term Font ",
+        },
+        {
+            "type": "de",
+            "key": "{$25}├   DE        ",
+        },
+        {
+            "type": "lm",
+            "key": "{$26}├ 󰧨  Login     ",
+        },
+        {
+            "type": "wm",
+            "key": "{$27}├   Windows   ",
+        },
+        // {
+        //     "type": "bar",
+        //     "key": "{$24}├   Windows   ",
+        // },
+        {
+            "type": "wmtheme",
+            "key": "{$28}├ 󰉼  Theme     ",
+        },
+                {
+            "type": "opengl",
+            "key": "{$29}├ 󰆧  OpenGL    ",
+        },
+        {
+            "type": "vulkan",
+            "key": "{$30}└ 󰈸  Vulkan    ",
+        },
+        // {
+        //     "type": "custom",
+        //     "format": "{$28}{$37}{$29}{$38}{$29}{$38}{$30}{$38}{$30}{$38}{$31}{$38}{$31}{$38}{$32}{$38}{$32}{$38}{$33}{$39} Connectivity"
+        // },
+        // {
+        //     "type": "bluetooth",
+        //     "key": "{$28}├ 󰂱  Bluetooth ",
+        //     "format": "{1} - {4}"
+        // },
+        // {
+        //     "type": "bluetoothradio",
+        //     "key": "{$29}├ 󰂯  BT Radio  ",
+        //     "format": "{5}"
+        // },
+        // {
+        //     "type": "wifi",
+        //     "key": "{$30}├   WiFi      ",
+        //     "format": "{4} - {7} - {13} GHz - {10}",
+        //     "showErrors": "never"
+        // },
+        // {
+        //     "type": "dns",
+        //     "key": "{$31}├ 󱦂  DNS       ",
+        // },
+        // {
+        //     "type": "localip",
+        //     "key": "{$32}├ 󰩟  Local IP  ",
+        //     "format": "{1} - {3}",
+        //     "showMac": true
+        // },
+        // {
+        //     "type": "publicip",
+        //     "key": "{$33}└ 󰩠  Public IP ",
+        //     "format": "{1} - {2}"
+        // },
+        {
+            "type": "custom",
+            "format": "{$34}{$37}{$34}{$38}{$34}{$38}{$35}{$38}{$35}{$38}{$35}{$38}{$35}{$38}{$36}{$38}{$36}{$38}{$36}{$39} Time "
+        },
+        {
+            "type": "DateTime",
+            "key": "{$34}├ 󰥔  Date/Time ",
+        },
+        {
+            "key": "{$35}├   OS Age    ",
+            "type": "disk",
+            "folders": "/",
+            "format": "{create-time:10} ({days} days)"
+        },
+        {
+            "type": "uptime",
+            "key": "{$36}└   Uptime    ",
+        },
+        {
+            "type": "custom",
+            "format": "                {$1}󱄅 {$5}󱄅 {$9}󱄅 {$13}󱄅 {$17}󱄅 {$20}󱄅 {$24}󱄅 {$28}󱄅 {$32}󱄅 {$36}󱄅"
+        },
+    ]
+}
+

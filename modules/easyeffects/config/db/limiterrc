@@ -1,0 +1,9 @@
+[sie][Limiter#0]
+dithering=8
+mode=6
+oversampling=12
+sidechainInputDevice=alsa_output.usb-HP__Inc_HyperX_QuadCast_4111-00.analog-stereo
+sidechainType=1
+
+[soe][Limiter#0]
+lookahead=10

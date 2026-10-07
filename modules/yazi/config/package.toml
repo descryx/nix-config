@@ -1,0 +1,7 @@
+[plugin]
+deps = []
+
+[[flavor.deps]]
+use = "AdmiralBarbarossa/thinkpad-red-oled"
+rev = "c9bef90"
+hash = "ccc9b36e691bc14218179d8bbf5ae106"

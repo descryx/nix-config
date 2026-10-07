@@ -1,0 +1,121 @@
+local M = {}
+
+M.setup = function(colors)
+	local hl = vim.api.nvim_set_hl
+
+	-- Clear previous colors
+	vim.cmd.hi("clear")
+	if vim.fn.exists("syntax_on") then
+		vim.cmd("syntax reset")
+	end
+	vim.g.colors_name = "mycolorscheme"
+
+	-- ==================== Core / Legacy ====================
+	hl(0, "Normal", { fg = colors.fg, bg = colors.bg })
+	hl(0, "NormalFloat", { fg = colors.fg, bg = colors.bg })
+	hl(0, "Comment", { fg = colors.comment, italic = true })
+	hl(0, "String", { fg = colors.string })
+	hl(0, "Character", { fg = colors.string })
+	hl(0, "Number", { fg = colors.number })
+	hl(0, "Boolean", { fg = colors.boolean })
+	hl(0, "Float", { fg = colors.number })
+
+	hl(0, "Keyword", { fg = colors.keyword })
+	hl(0, "Operator", { fg = colors.operator })
+	hl(0, "Identifier", { fg = colors.variable })
+	hl(0, "Function", { fg = colors.func })
+	hl(0, "Type", { fg = colors.type })
+	hl(0, "Constant", { fg = colors.constant })
+	hl(0, "PreProc", { fg = colors.preproc })
+	hl(0, "Statement", { fg = colors.keyword })
+
+	-- ==================== Treesitter + C++ ====================
+	hl(0, "@comment", { fg = colors.comment, italic = true })
+	hl(0, "@string", { fg = colors.string })
+	hl(0, "@string.special", { fg = colors.string })
+
+	hl(0, "@number", { fg = colors.number })
+	hl(0, "@boolean", { fg = colors.boolean })
+
+	hl(0, "@keyword", { fg = colors.keyword })
+	hl(0, "@keyword.type", { fg = colors.type_keyword })
+	hl(0, "@keyword.operator", { fg = colors.operator })
+	hl(0, "@keyword.exception", { fg = colors.keyword })
+	hl(0, "@keyword.modifier", { fg = colors.modifier })
+
+	hl(0, "@type", { fg = colors.type })
+	hl(0, "@type.builtin", { fg = colors.type })
+	hl(0, "@type.definition", { fg = colors.type })
+	hl(0, "@module", { fg = colors.namespace })
+	hl(0, "@namespace", { fg = colors.namespace })
+
+	hl(0, "@variable", { fg = colors.variable })
+	hl(0, "@variable.builtin", { fg = colors.variable })
+	hl(0, "@variable.member", { fg = colors.property })
+	hl(0, "@variable.parameter", { fg = colors.parameter })
+	hl(0, "@parameter", { fg = colors.parameter })
+	-- hl(0, "@variable.cpp", { fg = colors.stream }) -- colors.stream missing from palette.lua
+
+	hl(0, "@property", { fg = colors.property })
+	hl(0, "@field", { fg = colors.property })
+
+	hl(0, "@function", { fg = colors.func })
+	-- hl(0, "@function.call", { fg = colors.func_call }) -- colors.func_call missing from palette.lua
+	hl(0, "@function.method", { fg = colors.func })
+	-- hl(0, "@function.method.call", { fg = colors.method_call }) -- colors.method_call missing from palette.lua
+	hl(0, "@constructor", { fg = colors.constructor })
+
+	hl(0, "@operator", { fg = colors.operator })
+	hl(0, "@punctuation", { fg = colors.punctuation })
+	hl(0, "@punctuation.bracket", { fg = colors.bracket })
+	hl(0, "@punctuation.delimiter", { fg = colors.delimiter })
+
+	hl(0, "@constant", { fg = colors.constant })
+	hl(0, "@constant.builtin", { fg = colors.constant })
+
+	-- LSP Semantic Tokens (C++)
+	hl(0, "@lsp.type.macro.cpp", { fg = colors.macro })
+	hl(0, "@lsp.typemod.variable.globalScope.cpp", { fg = colors.global })
+
+	-- ==================== Diagnostics & UI ====================
+	hl(0, "DiagnosticError", { fg = colors.error })
+	hl(0, "DiagnosticWarn", { fg = colors.warn })
+	hl(0, "DiagnosticInfo", { fg = colors.info })
+	hl(0, "DiagnosticHint", { fg = colors.hint })
+
+	hl(0, "CursorLine", { bg = colors.cursorline })
+	hl(0, "Visual", { bg = colors.visual })
+	hl(0, "Search", { bg = colors.search, fg = colors.bg })
+	hl(0, "IncSearch", { bg = colors.search, fg = colors.bg })
+
+	hl(0, "LineNr", { fg = colors.linenr })
+	hl(0, "CursorLineNr", { fg = colors.fg, bold = true })
+	hl(0, "StatusLine", { fg = colors.fg, bg = colors.statusline })
+	hl(0, "WinSeparator", { fg = colors.split })
+
+	-- Snacks Dashboard Highlight Definitions
+	vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = colors.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "SnacksDashboardFile", { fg = colors.func })
+	vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = colors.fg })
+	vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = colors.fg })
+	vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = colors.keyword, bold = true })
+	vim.api.nvim_set_hl(0, "SnacksDashboardFooter", { fg = colors.keyword, italic = true })
+	vim.api.nvim_set_hl(0, "ErrorMsg", { fg = colors.fg, bold = true })
+
+	-- git
+	-- Force the system to use your distinct palette variables
+	vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = colors.git_add, bg = "NONE" })
+	vim.api.nvim_set_hl(0, "GitSignsChange", { fg = colors.git_change, bg = "NONE" })
+	vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = colors.git_delete, bg = "NONE" })
+
+	-- Clean up older visual fragments that might blend together
+	vim.api.nvim_set_hl(0, "GitSignsAddLn", { bg = "NONE" })
+	vim.api.nvim_set_hl(0, "GitSignsChangeLn", { bg = "NONE" })
+	vim.api.nvim_set_hl(0, "GitSignsDeleteLn", { bg = "NONE" })
+
+	-- ==================== snacks.indentscope ====================
+	hl(0, "SnacksIndent", { fg = colors.indent_context })
+	hl(0, "SnacksIndentScope", { fg = colors.indent })
+end
+
+return M

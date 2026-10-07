@@ -1,0 +1,120 @@
+[mgr]
+cwd = { fg = "#ff0000", bold = true }
+find_keyword = { fg = "#ff0000", italic = true, bold = true }
+find_position = { fg = "#ff0000", bg = "reset", italic = true }
+marker_copied = { fg = "#dcdcdc", bg = "#222222" }
+marker_cut = { fg = "#ff0000", bg = "#ff0000" }
+marker_selected = { fg = "#ff0000", bg = "#ff0000" }
+border_symbol = "│"
+border_style = { fg = "#222222" }
+
+[tabs]
+active = { fg = "#000000", bg = "#ff0000", bold = true }
+inactive = { fg = "#dcdcdc", bg = "#222222" }
+sep_inner = { open = "", close = "" }
+sep_outer = { open = "", close = "" }
+
+[indicator]
+padding = { open = " ", close = " " }
+
+[mode]
+normal_main = { fg = "#000000", bg = "#ff0000", bold = true }
+normal_alt = { fg = "#ff0000", bg = "#222222" }
+select_main = { fg = "#000000", bg = "#dcdcdc", bold = true }
+select_alt = { fg = "#dcdcdc", bg = "#222222" }
+unset_main = { fg = "#dcdcdc", bg = "#222222", bold = true }
+unset_alt = { fg = "#222222", bg = "#000000" }
+
+[status]
+sep_left  = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+perm_type = { fg = "#ff0000" }
+perm_read = { fg = "#dcdcdc" }
+perm_write = { fg = "#ff0000" }
+perm_exec = { fg = "#dcdcdc" }
+progress_label = { fg = "#ffffff", bold = true }
+progress_normal = { fg = "#ff0000", bg = "#222222" }
+progress_error = { fg = "#ff0000", bg = "#222222" }
+
+[input]
+border = { fg = "#222222" }
+title = { fg = "#ff0000" }
+value = { fg = "#dcdcdc" }
+selected = { bg = "#222222", fg = "#ffffff" }
+
+[confirm]
+border = { fg = "#222222" }
+title = { fg = "#ff0000" }
+body = { fg = "#dcdcdc" }
+btn_yes = { fg = "#000000", bg = "#ff0000", bold = true }
+btn_no = { fg = "#dcdcdc", bg = "#222222" }
+
+[tasks]
+border = { fg = "#222222" }
+title = { fg = "#ff0000" }
+hovered = { fg = "#ffffff", bg = "#222222", bold = true }
+
+[which]
+mask = { bg = "#000000" }
+cand = { fg = "#dcdcdc", bold = true }
+rest = { fg = "#222222" }
+desc = { fg = "#ff0000", italic = true }
+separator = "  "
+separator_style = { fg = "#222222" }
+
+[help]
+on = { fg = "#ff0000" }
+run = { fg = "#dcdcdc" }
+desc = { fg = "#222222" }
+hovered = { bg = "#222222", bold = true }
+footer = { fg = "#000000", bg = "#dcdcdc" }
+
+[filetype]
+rules = [
+    { mime = "image/*", fg = "#8d8d8d" },
+    { mime = "{audio,video}/*", fg = "#8d8d8d" },
+    { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#ff0000" },
+    { mime = "application/{pdf,doc,rtf,epub,eml,msg}", fg = "#dcdcdc" },
+    { mime = "vfs/{absent,stale}", fg = "#8d8d8d" },
+    { url = "*", is = "orphan", bg = "#ff0000", fg = "#000000" },
+    { url = "*", is = "exec", fg = "#ff0000", bold = true },
+    { url = "*", is = "link", fg = "#8d8d8d", italic = true },
+    { url = "*", is = "dummy", bg = "#ff0000", fg = "#000000" },
+    { url = "*/", is = "dummy", bg = "#ff0000", fg = "#000000" },
+    { url = "*", fg = "#dcdcdc" },
+    { url = "*/", fg = "#dcdcdc", bold = true },
+]
+
+[icon]
+dirs = [
+    { name = ".config", text = "", fg = "#ff0000" },
+    { name = ".git", text = "", fg = "#8d8d8d" },
+    { name = ".github", text = "", fg = "#dcdcdc" },
+    { name = ".npm", text = "", fg = "#dcdcdc" },
+    { name = "Desktop", text = "", fg = "#8d8d8d" },
+    { name = "Development", text = "", fg = "#ff0000" },
+    { name = "Documents", text = "", fg = "#8d8d8d" },
+    { name = "Downloads", text = "", fg = "#ff0000" },
+    { name = "Library", text = "", fg = "#8d8d8d" },
+    { name = "Movies", text = "", fg = "#8d8d8d" },
+    { name = "Music", text = "", fg = "#8d8d8d" },
+    { name = "Pictures", text = "", fg = "#8d8d8d" },
+    { name = "Public", text = "", fg = "#8d8d8d" },
+    { name = "Videos", text = "", fg = "#8d8d8d" },
+]
+conds = [
+    # Special files
+    { if = "orphan", text = "", fg = "#8d8d8d" },
+    { if = "link", text = "", fg = "#8d8d8d" },
+    { if = "block", text = "", fg = "#8d8d8d" },
+    { if = "char", text = "", fg = "#8d8d8d" },
+    { if = "fifo", text = "", fg = "#8d8d8d" },
+    { if = "sock", text = "", fg = "#8d8d8d" },
+    { if = "sticky", text = "", fg = "#8d8d8d" },
+    { if = "dummy", text = "", fg = "#ff0000" },
+    # Fallback
+    { if = "dir & hovered", text = "", fg = "#ff0000" },
+    { if = "dir", text = "", fg = "#8d8d8d" },
+    { if = "exec", text = "", fg = "#ff0000" },
+    { if = "!dir", text = "", fg = "#dcdcdc" },
+]

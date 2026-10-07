@@ -1,0 +1,1268 @@
+[accessibility]
+ui_scale = 0.95000000670552254
+
+[audio]
+enable_overdrive = true
+enable_sounds = false
+notification_sound = "/home/descryx/nix-config/sounds/mixkit-message-pop-alert-2354.wav"
+
+[backdrop]
+blur_intensity = 0.0
+tint_intensity = 0.0
+
+[bar]
+order = [ "default" ]
+
+    [bar.default]
+    background_opacity = 0.74999998323619366
+    border = "#4C4C4C"
+    border_width = 0.5
+    capsule_radius = "auto"
+    capsule_thickness = 0.99999998137354851
+    center = [ "clock", "notifications", "privacy" ]
+    concave_edge_corners = false
+    end = [
+        "media_2",
+        "tray",
+        "group:g1",
+        "group:g2",
+        "group:g5",
+        "group:g4",
+        "brightness",
+        "input_volume",
+        "volume",
+        "battery",
+        "group:g3"
+    ]
+    font_family = "Cascadia Code"
+    font_weight = 400
+    hover_highlight = false
+    margin_edge = 0
+    margin_ends = 0
+    padding = 6
+    panel_overlap = 0
+    radius = 0
+    scale = 0.7500000037252903
+    shadow = false
+    start = [ "workspaces", "ribbon", "active_window" ]
+    thickness = 18
+
+        [bar.default.monitor.DP-2]
+        auto_hide = true
+        reserve_space = false
+
+        [[bar.default.capsule_group]]
+        accordion = true
+        accordion_direction = "start"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_variant"
+        id = "g2"
+        members = [ "bluetooth", "seperator", "bar_10", "status_3", "mirror_2", "bar_2" ]
+        opacity = 0.0
+        padding = 0.0
+
+        [[bar.default.capsule_group]]
+        accordion = true
+        accordion_direction = "start"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_variant"
+        id = "g3"
+        members = [ "session", "seperator", "nix-monitor" ]
+        opacity = 0.0
+        padding = 0.0
+
+        [[bar.default.capsule_group]]
+        accordion = true
+        accordion_direction = "start"
+        border = ""
+        border_width = 1.0
+        enabled = true
+        fill = "surface_variant"
+        id = "g4"
+        members = [ "temp", "seperator", "ram", "visual-seperator", "sysmon", "visual-seperator", "cpu", "visual-seperator" ]
+        opacity = 0.0
+        padding = 0.0
+        radius = 2.0
+
+        [[bar.default.capsule_group]]
+        accordion = true
+        accordion_direction = "start"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_variant"
+        id = "g5"
+        members = [ "network", "seperator", "network_tx", "visual-seperator", "network_rx", "visual-seperator", "toggle_3" ]
+        opacity = 0.0
+        padding = 0.0
+
+        [[bar.default.capsule_group]]
+        accordion = true
+        accordion_direction = "start"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_variant"
+        id = "g1"
+        members = [ "status_5", "seperator", "bar_8", "bar_6", "bar_9", "Crashes", "status_4", "github" ]
+        opacity = 0.0
+        padding = 0.0
+
+[battery.device."/org/freedesktop/UPower/devices/battery_hidpp_battery_0"]
+warning_threshold = 10
+
+[brightness]
+minimum_brightness = 0.099999997764825821
+
+[calendar]
+enabled = true
+event_date_format = "%e %B [%A]"
+
+    [calendar.account.personal_google]
+    name = "Personal Calendar"
+    type = "google"
+
+    [calendar.account.personal_google1]
+    type = "google"
+
+[control_center]
+hidden_tabs = []
+sidebar_section = "compact"
+width = 800
+
+    [control_center.calendar]
+    show_week_numbers = true
+
+    [[control_center.shortcuts]]
+    type = "bluetooth"
+
+    [[control_center.shortcuts]]
+    type = "caffeine"
+
+    [[control_center.shortcuts]]
+    type = "power_profile"
+
+    [[control_center.shortcuts]]
+    type = "icefish/phone-operate:tile"
+
+[desktop_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "desktop-widget-0000000000000002", "desktop-widget-0000000000000003" ]
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget.desktop-widget-0000000000000001]
+    box_height = 976.0
+    box_width = 1920.0
+    cx = 960.0
+    cy = 592.0
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = -0.0
+    type = "audio_visualizer"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000001.settings]
+        background = false
+        bands = 128
+        centered = false
+        color_1 = "outline"
+        color_2 = "secondary"
+        command = "noctalia msg panel-toggle gustav0ar/drive-health:drives"
+        glyph = "storage"
+        label = "Drives"
+        mirrored = false
+        reversed = false
+        show_when_idle = false
+        variant = "default"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000002]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 238.64999389648438
+    cy = 165.0
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "media_player"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000002.settings]
+        background = false
+        bands = 128
+        centered = false
+        hide_when_no_media = true
+        layout = "horizontal"
+        mirrored = true
+        show_when_idle = false
+
+    [desktop_widgets.widget.desktop-widget-0000000000000003]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 960.0
+    cy = 540.0
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "fel/agent-glow:glow"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000003.settings]
+        background = false
+        hide_when_no_media = true
+        layout = "horizontal"
+        shadow = false
+
+    [desktop_widgets.widget.desktop-widget-0000000000000004]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 1859.0999755859375
+    cy = 78.050003051757812
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "button"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000004.settings]
+        background = false
+        command = "noctalia msg panel-toggle avivbintangaringga/nextboot-selector:panel"
+        glyph = "reboot"
+        label = "Boot"
+        variant = "default"
+
+[dock]
+active_scale = 1.2000000178813934
+auto_hide = true
+background_opacity = 0.29999999329447746
+enabled = false
+icon_size = 24
+magnification_scale = 2.0
+radius = 24
+reserve_space = false
+shadow = false
+
+[hooks]
+battery_charging = "noctalia msg power-set performance"
+battery_discharging = "noctalia msg power-set balanced"
+battery_plugged = "noctalia msg power-set performance"
+started = "noctalia msg bluetooth-disable & noctalia msg caffeine-enable & noctalia msg desktop-widgets-hide"
+
+[hot_corners.top_left]
+action = "window_switcher"
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+pre_action_fade_seconds = 0
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 600.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = true
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 660.0
+
+[keybinds]
+down = [ "Down", "Ctrl+j" ]
+left = [ "Left", "Ctrl+h" ]
+right = [ "Right", "Ctrl+l" ]
+tab_next = [ "Tab", "Ctrl+u" ]
+tab_previous = [ "Shift+ISO_Left_Tab", "Ctrl+d" ]
+up = [ "Up", "Ctrl+k" ]
+
+[location]
+auto_locate = true
+
+[lockscreen]
+blurred_desktop = true
+edge_smoothness = 0.0
+transition = [ "wipe" ]
+transition_duration = 300
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [
+    "lockscreen-login-box@DP-1",
+    "lockscreen-login-box@DP-3",
+    "lockscreen-login-box@DP-2",
+    "lockscreen-widget-0000000000000005"
+]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 82.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 905.5
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.0
+        background_radius = 0.0
+        center_password_text = true
+        input_opacity = 0.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = false
+        show_media = false
+        show_session_buttons = false
+        show_unlock_hint = true
+        show_weather = false
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 961.0
+    output = "DP-2"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.0
+        background_radius = 6.0
+        center_password_text = true
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = false
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
+    box_height = 196.0
+    box_width = 720.0
+    cx = 960.0
+    cy = 961.0
+    output = "DP-3"
+    placement_height = 0.0
+    placement_width = 0.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 96.0
+    box_width = 160.0
+    cx = 704.0
+    cy = 1032.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "sysmon"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        background = false
+        display = "graph"
+        gauge_layout = "horizontal"
+        shadow = false
+        show_label = true
+        stat = "cpu_usage"
+        stat2 = "cpu_temp"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+    box_height = 96.0
+    box_width = 160.0
+    cx = 1216.0
+    cy = 1032.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "sysmon"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
+        background = false
+        display = "graph"
+        network_speed_compact = false
+        shadow = false
+        stat = "net_rx"
+        stat2 = "net_tx"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
+    box_height = 96.0
+    box_width = 160.0
+    cx = 960.0
+    cy = 1032.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "sysmon"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
+        background = false
+        display = "graph"
+        shadow = false
+        stat = "ram_pct"
+        stat2 = ""
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
+    box_height = 64.0
+    box_width = 160.0
+    cx = 96.0
+    cy = 1032.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "weather"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000004.settings]
+        background = false
+        shadow = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 960.0
+    cy = 492.0
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000005.settings]
+        background = false
+        center_text = false
+        clock_style = "digital"
+        format = "[{:%H-%M-%S}]"
+        shadow = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000006]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 106.5
+    cy = 1030.199951171875
+    output = "DP-1"
+    rotation = 0.0
+    type = "sysmon"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000006.settings]
+        background = false
+        display = "graph"
+        shadow = false
+        show_label = true
+        stat = "gpu_usage"
+        stat2 = "gpu_temp"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000007]
+    box_height = 96.0
+    box_width = 176.0
+    cx = 109.0
+    cy = 932.39996337890625
+    output = "DP-1"
+    rotation = 0.0
+    type = "sysmon"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000007.settings]
+        background = false
+        display = "graph"
+        shadow = false
+        show_label = true
+        stat = "gpu_vram"
+        stat2 = ""
+
+[nightlight]
+temperature_day = 7500
+temperature_night = 3500
+
+[notification]
+background_opacity = 0.69999998435378075
+offset_x = 10
+offset_y = 10
+scale = 0.70000000298023224
+
+[osd]
+background_opacity = 0.29999999329447746
+offset_x = 10
+offset_y = 10
+orientation = "vertical"
+position = "top_right"
+position_vertical = "center_right"
+scale = 0.80000000447034836
+
+    [osd.kinds]
+    media = false
+
+[plugin_settings."ahmedhossamdev/reading-list"]
+panel_placement = "floating"
+save_path = "~/Documents/ReadingList"
+
+[plugin_settings."ahmedhossamdev/sticky-notes"]
+default_color = "red"
+panel_placement = "floating"
+
+[plugin_settings."alexander/mimir"]
+default_model = "deepseek-V4.1-flash"
+
+[plugin_settings."alexander/screen-toolkit"]
+panel-legacy_position = "top_right"
+panel-mode = "legacy"
+panel_position = "top_right"
+record-audio-out = true
+record-copy-to-clipboard = true
+record-fps = 60
+record-skip-confirmation = true
+result_position = "top_right"
+
+[plugin_settings."alexmnrs/github-activity"]
+calendar_placement = "floating"
+calendar_position = "top_right"
+refresh_interval_minutes = "60"
+
+[plugin_settings."arrifat346afs/systempulse"]
+panel_placement = "floating"
+panel_position = "bottom_left"
+
+[plugin_settings."ashur-d/wallpaper-widget"]
+wallpaper_dir = "/home/descryx/Pictures"
+
+[plugin_settings."autumn/network-toolkit"]
+widget_display_mode = "network_bluetooth"
+
+[plugin_settings."avivbintangaringga/nextboot-selector"]
+panel_placement = "floating"
+privilege_command = "sudo"
+
+[plugin_settings."avivbintangaringga/nix-monitor"]
+clean_command = "nix-collect-garbage -d"
+panel_open_near_click = true
+panel_placement = "floating"
+panel_position = "top_right"
+update_check_interval = 100
+update_command = "cd ~/nix-config && nix flake update"
+
+[plugin_settings."baizhu/paged-todo"]
+panel_open_near_click = true
+panel_placement = "floating"
+panel_position = "auto"
+priority_high_color = "#FF1100"
+use_custom_colors = true
+
+[plugin_settings."blackbartblues/keymap"]
+keyboard_layout = "80"
+
+[plugin_settings."cleboost/hotspot"]
+panel_placement = "floating"
+
+[plugin_settings."davemhammer/obsidian"]
+vault_path = "/home/descryx/Projects/Main-vault"
+
+[plugin_settings."decksters-lab/palette-creator"]
+creator_position = "top_right"
+
+[plugin_settings."elijaharch/wl-screen-mirror"]
+controls_placement = "floating"
+controls_position = "top_right"
+
+[plugin_settings."eternalself-2328/undershell"]
+panel_open_near_click = true
+panel_placement = "floating"
+
+[plugin_settings."fel/quill"]
+ai_model = "deepseek-v4.1-flash"
+notes_dir = "/home/descryx/Projects/notes"
+panel_open_near_click = true
+panel_placement = "floating"
+
+[plugin_settings."gustav0ar/drive-health"]
+alert_hdd = false
+alerts_enabled = false
+notify_recovery = false
+show_hdd = false
+system_collector_enabled = true
+
+[plugin_settings."h-jangra/keyviz"]
+badge_style = "solid"
+enabled_by_default = false
+font_size = "small"
+max_keys = 8
+
+[plugin_settings."icefish/phone-connect"]
+details_placement = "floating"
+show_device_name = true
+
+[plugin_settings."icefish/phone-operate"]
+main_placement = "floating"
+panel_placement = "widget"
+
+[plugin_settings."imjustdoingmypart/niri-animations"]
+docked_open_near_click = true
+presets_dir = "~/.config/niri/niri-animation-collection/animations"
+
+[plugin_settings."marccvictoria/llamanager"]
+modelfile_path = "/home/descryx/nix-config/ollama"
+panel_position = "top_right"
+
+[plugin_settings."mindnbytes/nix-status"]
+details_placement = "floating"
+flake_dir = "/home/descryx/nix-config"
+
+[plugin_settings."nightwatch75/todo"]
+panel_placement = "floating"
+panel_position = "center_right"
+
+[plugin_settings."noctalia/mpvpaper"]
+picker_placement = "floating"
+picker_position = "bottom_left"
+run_as_systemd = true
+video_directory = "~/Videos"
+
+[plugin_settings."noctalia/notes"]
+extension = "md"
+notes_dir = "~/Projects/notes"
+
+[plugin_settings."noctalia/timer"]
+panel_placement = "floating"
+panel_position = "top_right"
+
+[plugin_settings."noctalia/translator"]
+target_lang = "ru"
+
+[plugin_settings."noctalia/wallhaven"]
+browser_placement = "floating"
+browser_position = "bottom_left"
+download_dir = "~/Pictures/Walheaven/"
+
+[plugin_settings."noctalia/wallpaper_depth"]
+manager_open_near_click = true
+manager_placement = "floating"
+
+[plugin_settings."raycursive/niri-displays"]
+panel_placement = "floating"
+panel_position = "top_right"
+
+[plugin_settings."remo/noctes"]
+paper_opacity = 0.80000000000000004
+
+[plugin_settings."rylos/syncthing"]
+panel_placement = "floating"
+panel_position = "top_right"
+url = "http://localhost:8384/"
+
+[plugin_settings."samuelskovbakke/calculator-plus"]
+panel_placement = "floating"
+
+[plugin_settings."shangshui0302/github-kanban"]
+appearance_avatar_shape = "rounded"
+appearance_density = "compact"
+kanban_placement = "floating"
+repositories_layout = "grid"
+
+[plugin_settings."tadomika_ari/w-engine"]
+sync_colors = false
+w-engine-panel_position = "center"
+
+[plugin_settings."tordex/nvtop"]
+delay = 1
+panel_placement = "floating"
+panel_position = "bottom_left"
+
+[plugin_settings."tordex/processes"]
+panel_placement = "floating"
+
+[plugin_settings."umedbazarov/crashes"]
+agent_order = "opencode"
+extra_prompt = "important! act as in plan mode if not already."
+notify = false
+terminal_cmd = "ghostty -e"
+
+[plugin_settings."weinguyen/opencode-companion"]
+default_agent = "plan"
+default_model = "opencode-go/deepseek-v4.1-flash"
+show_reasoning = true
+
+[plugin_settings."weinguyen/procmon"]
+panel_position = "bottom_left"
+
+[plugin_settings."zumik3-del/opencode-go-usage"]
+panel_placement = "floating"
+
+[plugins]
+auto_update = "all"
+enabled = [
+    "noctalia/wallhaven",
+    "noctalia/translator",
+    "noctalia/kaomoji",
+    "alexander/screen-toolkit",
+    "elijaharch/wl-screen-mirror",
+    "raycursive/niri-displays",
+    "rylos/syncthing",
+    "luochen1990/niri-ribbon",
+    "avivbintangaringga/nix-monitor",
+    "shangshui0302/github-kanban",
+    "kenn/keybind-cheatsheet",
+    "baizhu/paged-todo",
+    "umedbazarov/crashes",
+    "srounce/systemd",
+    "knyrps/nix-search",
+    "icefish/phone-operate",
+    "aristides/udiskie",
+    "zumik3-del/opencode-go-usage",
+    "fel/quill",
+    "alexander/mimir",
+    "yocraft/qrcode",
+    "pulser/hover-widgets",
+    "eternalself-2328/undershell"
+]
+
+    [[plugins.source]]
+    kind = "git"
+    location = "https://github.com/noctalia-dev/official-plugins"
+    name = "official"
+
+    [[plugins.source]]
+    kind = "git"
+    location = "https://github.com/noctalia-dev/community-plugins"
+    name = "community"
+
+[shell]
+app_icon_color = "#FFFFFF"
+app_icon_colorize = true
+avatar_path = "/home/descryx/Pictures/telegram/photo_2026-05-16_13-53-22.jpg"
+clipboard_auto_paste = "off"
+clipboard_history_max_entries = 200
+clipboard_image_action_command = "imv - {path}"
+corner_radius_scale = 0.7500000111758709
+font_family = "Cascadia Code"
+launch_apps_as_systemd_services = true
+niri_overview_type_to_launch_enabled = false
+password_style = "default"
+polkit_agent = true
+popup_shadows = false
+screen_time_enabled = true
+settings_window_translucent = true
+show_location = false
+telemetry_enabled = false
+time_format = "[{:%H:%M:%S}]"
+ui_scale = 0.95000000670552254
+
+    [shell.animation]
+    speed = 4.0
+
+    [shell.greeter_sync]
+    auto_sync = false
+
+    [shell.launcher]
+    app_grid = true
+    categories = false
+    compact = true
+
+    [shell.mpris]
+    blacklist = []
+
+    [shell.panel]
+    clipboard_position = "bottom_left"
+    control_center_placement = "floating"
+    control_center_position = "auto"
+    open_near_click_control_center = true
+    session_placement = "floating"
+    session_position = "top_center"
+    shadow = false
+    transparency_mode = "soft"
+    wallpaper_placement = "floating"
+    wallpaper_position = "bottom_left"
+
+    [shell.screenshot]
+    annotate = true
+    confirm_region = false
+    directory = "/home/descryx/Pictures/Screenshots"
+    pipe_command = ""
+
+    [shell.session]
+    grid_columns = 1
+
+        [[shell.session.actions]]
+        action = "lock"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "1"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "logout"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "2"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "lock_and_suspend"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "3"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "reboot"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "4"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "shutdown"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "5"
+        variant = "destructive"
+
+        [[shell.session.actions]]
+        action = "command"
+        command = "notify-send 'Noctalia' 'Custom session entry'"
+        countdown_seconds = 0.0
+        enabled = false
+        variant = "default"
+
+    [shell.shadow]
+    alpha = 0.0
+    direction = "center"
+
+[system.monitor]
+gpu_poll_seconds = 5
+
+[theme]
+builtin = "Ayu"
+community_palette = "ADW"
+custom_palette = "redhc"
+mode = "dark"
+source = "custom"
+wallpaper_scheme = "m3-content"
+
+    [theme.templates]
+    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "kcolorscheme", "kitty", "niri", "qt" ]
+    community_ids = [ "gimp", "libreoffice", "obs" ]
+
+        [theme.templates.user.palette_creator_live]
+        input_path = "/home/descryx/.local/state/noctalia/plugins/materialized/community/palette-creator/templates/live-snapshot.tpl"
+        output_path = "/home/descryx/.local/state/noctalia/plugin-data/kyle-palette-creator/live-snapshot.json"
+
+[wallpaper]
+directory = "/home/descryx/Pictures"
+edge_smoothness = 0.0
+fill_mode = "crop"
+transition = [ "wipe" ]
+transition_duration = 300
+transition_on_startup = true
+
+    [wallpaper.default]
+    path = "/home/descryx/Pictures/lol/image_1.png"
+
+    [wallpaper.last]
+    path = "/home/descryx/Pictures/lol/image_1.png"
+
+    [wallpaper.monitors.DP-1]
+    path = "/home/descryx/Pictures/lol/image_1.png"
+
+    [wallpaper.monitors.DP-2]
+    path = "/home/descryx/Pictures/lol/image_1.png"
+
+    [wallpaper.monitors.DP-3]
+    path = "/home/descryx/Pictures/20260625_144419.png"
+
+    [[wallpaper.favorite]]
+    custom_palette = "red"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/wallpapers_good/screenshot_20260710_132456.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/wallpapers_good/screenshot_20260712_231824.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "monlc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/Walheaven/wallhaven-o59z35.jpg"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/Walheaven/wallhaven-p9kdlp.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/wallpapers/nix-wallpaper-nineish-dark-gray.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/wallpapers_good/o0aq46bb2w111.jpg"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    custom_palette = "red"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/Walheaven/wallhaven-wepm7p.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "red"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/phiotos/sfsdfdsf.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "red"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/phiotos/sasaaaa.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "red"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/Walheaven/wallhaven-zxkwlo.jpg"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/Walheaven/wallhaven-9o9398.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/Walheaven/wallhaven-z8vqry.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/wallpapers_good/shadowl.jpg"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "red"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/bruhidk/11fmbftfgsdfgsmqt3e1.jpeg"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/lol/photo_2026-09-13_02-13-16.jpg"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/lol/sharp.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/wallpapers/wallhaven_2kogpg.jpg"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/wallpapers/wallhaven_yjpqdg.jpg"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/lol/gryscalewowoow.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "red"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/lol/hz46zt2.jpg"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/lol/LH2yKVV-dusky.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/lol/photo_2026-09-25_16-26-11.jpg"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/lol/image_1.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/wallpapers/photo_2026-05-18_20-27-21.jpg"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/lol/omfg.png"
+    theme_mode = "dark"
+
+[widget.Crashes]
+enabled = false
+glyph = "mood-crazy-happy"
+tooltip = "RMB to refresh"
+type = "custom_button"
+
+    [widget.Crashes.actions]
+    left = "exec noctalia msg panel-toggle umedbazarov/crashes:panel"
+    right = "exec noctalia msg plugin umedbazarov/crashes:service all refresh"
+
+[widget.active_window]
+icon_size = 18
+max_length = 140
+min_length = 1
+title_scroll = "none"
+
+[widget.activity]
+type = "alexmnrs/github-activity:activity"
+
+[widget.audio_visualizer]
+bands = 64
+centered = false
+color_1 = "secondary"
+color_2 = "secondary"
+mirrored = false
+reversed = true
+width = 160
+
+[widget.bar]
+show_idle_on_horizontal = false
+type = "noctalia/timer:bar"
+
+[widget.bar_10]
+type = "eternalself-2328/undershell:bar"
+
+[widget.bar_2]
+show_resolution = false
+type = "raycursive/niri-displays:bar"
+
+[widget.bar_3]
+type = "rylos/syncthing:bar"
+
+[widget.bar_4]
+type = "ahmedhossamdev/sticky-notes:bar"
+
+[widget.bar_5]
+type = "ahmedhossamdev/reading-list:bar"
+
+[widget.bar_6]
+type = "rylos/syncthing:bar"
+
+[widget.bar_7]
+show_mouse_events = false
+type = "baizhu/input-echo-bar:bar"
+
+[widget.bar_8]
+type = "baizhu/paged-todo:bar"
+
+[widget.bar_9]
+type = "zumik3-del/opencode-go-usage:bar"
+
+[widget.clock]
+anchor = true
+tooltip_format = "[{:%d-%m-%y / %H:%M:%S}]"
+
+    [widget.clock.actions]
+    left = "panel-toggle control-center"
+
+[widget.cpu]
+visualization = "graph"
+
+[widget.github]
+type = "shangshui0302/github-kanban:github"
+
+[widget.media]
+artist_first = false
+enabled = false
+hide_when_no_media = true
+rotate_album_art = true
+show_progress = true
+
+[widget.media_2]
+audio_spectrum = false
+audio_spectrum_bands = 128
+background_darkening = 60
+background_expand_width = 220
+background_width = 220
+corner_rounding = 100
+type = "pulser/hover-widgets:media"
+visualiser_color = "secondary"
+
+[widget.mirror]
+enabled = false
+type = "elijaharch/wl-screen-mirror:mirror"
+
+[widget.mirror_2]
+type = "elijaharch/wl-screen-mirror:mirror"
+
+[widget.network]
+enabled = true
+show_label = false
+
+[widget.network_rx]
+enabled = true
+visualization = "graph"
+
+[widget.network_tx]
+capsule_fill = "primary"
+enabled = true
+visualization = "graph"
+
+[widget.nix-monitor]
+show_text = false
+type = "avivbintangaringga/nix-monitor:nix-monitor"
+
+[widget.notifications]
+enabled = true
+hide_when_no_unread = true
+
+[widget.preview]
+enabled = false
+type = "teagar/niri-workspace-preview:preview"
+
+[widget.privacy]
+hide_inactive = true
+
+[widget.ram]
+visualization = "graph"
+
+[widget.ribbon]
+animation_speed = 3.0
+gaps = 4.0
+scale = 0.80000000000000004
+show_active_window = true
+type = "luochen1990/niri-ribbon:ribbon"
+
+[widget.seperator]
+color = "#FF0000"
+glyph = ""
+label = "┊"
+type = "custom_button"
+
+[widget.session]
+custom_image = "/home/descryx/Pictures/telegram/nix-snowflake-white.svg"
+
+[widget.status]
+type = "aristides/udiskie:status"
+
+[widget.status_2]
+type = "mindnbytes/nix-status:status"
+
+[widget.status_3]
+type = "aristides/udiskie:status"
+
+[widget.status_4]
+glyph = "message-chatbot"
+type = "alexander/mimir:status"
+
+[widget.status_5]
+type = "fel/quill:status"
+
+[widget.sysmon]
+show_value = true
+stat = "disk_used"
+visualization = "gauge"
+
+[widget.toggle]
+type = "decksters-lab/palette-creator:toggle"
+
+[widget.toggle_3]
+type = "cleboost/hotspot:toggle"
+
+[widget.tray]
+detached_panel = true
+drawer = true
+hide_passive = false
+match_adjacent_spacing = true
+
+[widget.visual-seperator]
+color = "#FFFFFF"
+glyph = ""
+label = "︲"
+type = "custom_button"
+
+[widget.w-engine-widget]
+enabled = false
+type = "tadomika_ari/w-engine:w-engine-widget"
+
+[widget.wallhaven]
+type = "noctalia/wallhaven:wallhaven"
+
+[widget.widget]
+enabled = false
+type = "blackbartblues/keymap:widget"
+
+[widget.widget_2]
+type = "alexander/screen-toolkit:widget"
+
+[widget.widget_3]
+icon_only = true
+type = "weinguyen/procmon:widget"
+
+[widget.widget_4]
+type = "marccvictoria/llamanager:widget"
+
+[widget.widget_5]
+type = "h-jangra/keyviz:widget"
+
+[widget.workspaces]
+active_pill_size = 2.0
+capsule_radius = 8
+focused_output_only = true
+hide_when_empty = true
+minimal = true
+style = "minimal"

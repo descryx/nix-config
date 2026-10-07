@@ -1,0 +1,116 @@
+/*
+Title: <name>
+Authors: <author name(s)>
+Desc: <Description>
+Demo: ./demos/<name>.gif
+*/
+
+
+animations {
+   window-resize {
+    // spring damping-ratio=0.1 stiffness=350 epsilon=0.0001
+    spring damping-ratio=0.8 stiffness=3000 epsilon=0.0001
+    custom-shader r"
+        // --- helpers ---
+        float hash(vec2 p) {
+            return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+        }
+        float noise(vec2 p) {
+            vec2 i = floor(p);
+            vec2 f = fract(p);
+            float a = hash(i);
+            float b = hash(i + vec2(1.0, 0.0));
+            float c = hash(i + vec2(0.0, 1.0));
+            float d = hash(i + vec2(1.0, 1.0));
+            vec2 u = f * f * (3.0 - 2.0 * f);
+            return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.y * u.x;
+        }
+
+        // Exponential Easing
+        float easeInExpo(float t) {
+            return t == 0.0 ? 0.0 : pow(2.0, 10.0 * (t - 1.0));
+        }
+        float easeOutExpo(float t) {
+            return t == 1.0 ? 1.0 : 1.0 - pow(2.0, -10.0 * t);
+        }
+        float easeInOutExpo(float t) {
+            if (t == 0.0) return 0.0;
+            if (t == 1.0) return 1.0;
+            return t < 0.5 ? 0.5 * pow(2.0, 20.0 * t - 10.0) : 1.0 - 0.5 * pow(2.0, -20.0 * t + 10.0);
+        }
+        // Sine Easing
+        float easeInSine(float t) {
+            return 1.0 - cos((t * 3.141592653589793) / 2.0);
+        }
+        float easeOutSine(float t) {
+            return sin((t * 3.141592653589793) / 2.0);
+        }
+        float easeInOutSine(float t) {
+            return -0.5 * (cos(3.141592653589793 * t) - 1.0);
+        }
+        // Quartic Easing
+        float easeInQuart(float t) {
+            return t * t * t * t;
+        }
+        float easeOutQuart(float t) {
+            float f = t - 1.0;
+            return 1.0 - f * f * f * f;
+        }
+        float easeInOutQuart(float t) {
+            return t < 0.5 ? 8.0 * t * t * t * t : 1.0 - 8.0 * (t - 1.0) * (t - 1.0) * (t - 1.0) * (t - 1.0);
+        }
+
+        vec4 resize_color(vec3 coords_curr_geo, vec3 size_curr_geo) {
+            if (coords_curr_geo.x < 0.0 || coords_curr_geo.x > 1.0 ||
+                coords_curr_geo.y < 0.0 || coords_curr_geo.y > 1.0) {
+                return vec4(0.0);
+            }
+
+            float p = niri_clamped_progress;
+            vec2 uv = coords_curr_geo.xy;
+
+            vec3 coords_tex = niri_geo_to_tex_next * coords_curr_geo;
+            vec2 tex_uv = coords_tex.st;
+
+            // === Weaker per-band tearing ===
+            float line_id = floor(uv.y * 70.0);               // slightly coarser bands
+            float band_noise = noise(vec2(line_id, floor(p * 18.0)));
+            float band_mask = step(0.92, band_noise);         // rarer bands
+            float tear = (noise(vec2(line_id * 1.7, floor(p * 30.0))) - 0.5)
+                       * 0.055 * band_mask;                   // much smaller offset
+            float micro = (noise(vec2(floor(uv.y * 160.0), floor(p * 50.0))) - 0.5)
+                        * 0.0012;                              // very subtle micro-tear
+            tex_uv.x += tear + micro;
+
+            // === Chromatic aberration (kept similar strength) ===
+            float distance = 0.0065;
+            vec2 rXY = mix(vec2(-distance), vec2(0.0), easeInQuart(p));
+            vec2 gXY = mix(vec2(0.0),      vec2(0.0), easeInQuart(p));
+            vec2 bXY = mix(vec2( distance), vec2(0.0), easeInSine(p));
+
+            float r = texture2D(niri_tex_next, tex_uv + rXY).r;
+            float g = texture2D(niri_tex_next, tex_uv + gXY).g;
+            float b = texture2D(niri_tex_next, tex_uv + bXY).b;
+            float a = texture2D(niri_tex_next, tex_uv).a;
+            vec4 color = vec4(r, g, b, a);
+
+            // Much weaker streaks
+            float streak = step(0.88, noise(vec2(line_id * 2.3, floor(p * 40.0))));
+            color.rgb += streak * band_mask * 0.07;
+
+            // === Softer red tint ===
+            float gray = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
+            float fringe = abs(color.r - color.b);
+            float red_amt = clamp(
+                band_mask * 0.22 +                    // weaker tear contribution
+                streak * band_mask * 0.12 +           // weaker streak contribution
+                fringe * 1.2 * (1.0 - p),             // slightly gentler fringe
+                0.0, 0.65                             // hard cap so it never goes full red
+            );
+            color.rgb = mix(vec3(gray), vec3(1.0, 0.0, 0.0), red_amt);
+
+            return color;
+        }
+    "
+}
+}

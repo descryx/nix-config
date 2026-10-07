@@ -1,0 +1,16 @@
+[sie][Gate#0]
+attack=40
+curveThreshold=-57
+hpfFrequency=100
+hpfMode=2
+hysteresis=true
+hysteresisThreshold=-14
+hysteresisZone=-16
+linkToInput=-80
+lpfFrequency=1000
+lpfMode=2
+reduction=-72
+release=800
+sidechainInputDevice=alsa_output.usb-HP__Inc_HyperX_QuadCast_4111-00.analog-stereo
+sidechainLookahead=8
+sidechainMode=1

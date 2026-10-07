@@ -1,0 +1,89 @@
+window-rule {
+    match app-id=r#"zen$"# title="^Picture-in-Picture$"
+    open-floating true
+    default-column-width { fixed 1280; }
+    default-window-height { fixed 720; }
+    max-width 1280
+    max-height 720
+
+}
+
+// Fix VRR flickering when running games through gamescope.
+// Forces fixed-sync (no VRR) inside the gamescope compositor window.
+window-rule {
+    match app-id="gamescope"
+    variable-refresh-rate false
+}
+
+window-rule{
+    match app-id=".scrcpy-wrapped"
+    open-floating true
+    default-floating-position x=8 y=8 relative-to="bottom-right"
+  default-column-width { fixed 270; }
+  default-window-height { fixed 480; }
+ 
+}
+
+
+window-rule {
+    geometry-corner-radius 2
+    clip-to-geometry true
+    draw-border-with-background false
+    default-column-width {proportion 0.5;}
+}
+
+window-rule {
+    match app-id="ghostty"
+    match app-id="kitty"
+    match app-id="chrome"
+    default-column-width {proportion 0.5;}
+    opacity 1.0
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
+window-rule {
+  match app-id="dev.noctalia.Noctalia"
+  open-floating true
+  opacity 1.0
+  default-column-width { fixed 1080; }
+  default-window-height { fixed 920; }
+  background-effect {
+    blur true
+    xray false
+  }
+}
+
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
+}
+
+window-rule {
+    match app-id="^steam$"
+    exclude title="^Steam$"
+    default-column-width {proportion 0.75;}
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"zen$"#
+    match app-id=r"org.telegram.desktop"
+    opacity 1.0
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
+
+window-rule {
+    match app-id="imv"
+    open-floating true
+    default-column-width { fixed 1280; }
+    default-window-height { fixed 720; }
+    max-width 1280
+    max-height 720
+}

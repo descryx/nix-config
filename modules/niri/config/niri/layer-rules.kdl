@@ -1,0 +1,26 @@
+// Place the regular wallpaper on the backdrop.
+layer-rule {
+  match namespace="^noctalia-wallpaper"
+  place-within-backdrop true
+}
+
+// Set transparent workspace background color so the backdrop is visible at all times.
+layout {
+  background-color "transparent"
+}
+
+// Optionally, disable workspace shadows in the overview.
+overview {
+  workspace-shadow {
+    off
+  }
+}
+
+
+layer-rule {
+  match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
+  background-effect {
+    xray false
+    // blur false
+  }
+}

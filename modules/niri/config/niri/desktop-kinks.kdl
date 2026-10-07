@@ -1,0 +1,18 @@
+
+output "DP-1" {
+    // Uncomment this line to disable this output.
+    // off
+    focus-at-startup
+    mode "1920x1080@239.989"
+    scale 1
+
+    // Transform allows to rotate the output counter-clockwise, valid values are:
+    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+    transform "normal"
+    position x=0 y=0
+}
+output "DP-2" {
+    mode "1920x1080@100.087"
+    scale 1
+    position x=-1920 y=0
+}

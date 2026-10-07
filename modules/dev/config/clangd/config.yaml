@@ -1,0 +1,14 @@
+CompileFlags:
+  Add:
+    - "-std=c++20"
+    - "-Wall"
+    - "-Wextra"
+    - "-O3"
+
+Format:
+  Style: file
+
+QueryDriver:
+  - "/nix/store/*/*/bin/*g++*"
+  - "/nix/store/*/*/bin/*clang*"
+bin/*clang*"

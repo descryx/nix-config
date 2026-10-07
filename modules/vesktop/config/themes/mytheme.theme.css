@@ -1,0 +1,158 @@
+
+/**
+ * @name midnight
+ * @description a dark, customizable discord theme.
+ * @author refact0r
+ * @version 2.1.1
+ * @invite nz87hXyvcy
+ * @website https://github.com/refact0r/midnight-discord
+ * @source https://github.com/refact0r/midnight-discord/blob/master/themes/midnight.theme.css
+ * @authorId 508863359777505290
+ * @authorLink https://www.refact0r.dev
+*/
+
+/* import theme modules */
+@import url('https://refact0r.github.io/midnight-discord/build/midnight.css');
+
+body {
+    /* font options */
+    --font: 'Cascadia Code'; /* change to '' for default discord font */
+    --code-font: 'Cascadia Code'; /* change to '' for default discord font */
+    font-weight: 400; /* normal text font weight. DOES NOT AFFECT BOLD TEXT */
+
+    /* sizes */
+    --gap: 5px; /* spacing between panels */
+    --divider-thickness: 4px; /* thickness of unread messages divider and highlighted message borders */
+    --border-thickness: 1px; /* thickness of borders around main panels. DOES NOT AFFECT OTHER BORDERS */
+
+    /* animation/transition options */
+    --animations: on; /* off: disable animations/transitions, on: enable animations/transitions */
+    --list-item-transition: 0.2s ease; /* transition for list items */
+    --dms-icon-svg-transition: 0.4s ease; /* transition for the dms icon */
+    --border-hover-transition: 0.2s ease; /* transition for borders when hovered */
+
+    /* top bar options */
+    --top-bar-height: var(--gap); /* height of the top bar (discord default is 36px, old discord style is 24px, var(--gap) recommended if button position is set to titlebar) */
+    --top-bar-button-position: titlebar; /* off: default position, hide: hide buttons completely, serverlist: move inbox button to server list, titlebar: move inbox button to channel titlebar (will hide title) */
+    --top-bar-title-position: off; /* off: default centered position, hide: hide title completely, left: left align title (like old discord) */
+    --subtle-top-bar-title: off; /* off: default, on: hide the icon and use subtle text color (like old discord) */
+
+    /* window controls */
+    --custom-window-controls: on; /* off: default window controls, on: custom window controls */
+    --window-control-size: 14px; /* size of custom window controls */
+
+    /* dms button options */
+    --custom-dms-icon: custom; /* off: use default discord icon, hide: remove icon entirely, custom: use custom icon */
+    --dms-icon-svg-url: url('https://refact0r.github.io/midnight-discord/assets/Font_Awesome_5_solid_moon.svg'); /* icon svg url. MUST BE A SVG. */
+    --dms-icon-svg-size: 90%; /* size of the svg (css mask-size property) */
+    --dms-icon-color-before: var(--icon-subtle); /* normal icon color */
+    --dms-icon-color-after: var(--white); /* icon color when button is hovered/selected */
+    --custom-dms-background: off; /* off to disable, image to use a background image (must set url variable below), color to use a custom color/gradient */
+    --dms-background-image-url: url(''); /* url of the background image */
+    --dms-background-image-size: cover; /* size of the background image (css background-size property) */
+    --dms-background-color: linear-gradient(70deg, var(--blue-2), var(--purple-2), var(--red-2)); /* fixed color/gradient (css background property) */
+
+    /* background image options */
+    --background-image: off; /* off: no background image, on: enable background image (must set url variable below) */
+    --background-image-url: url(''); /* url of the background image */
+
+    /* transparency/blur options */
+    /* NOTE: TO USE TRANSPARENCY/BLUR, YOU MUST HAVE TRANSPARENT BG COLORS. FOR EXAMPLE: --bg-4: hsla(220, 15%, 10%, 0.7); */
+    --transparency-tweaks: on; /* off: no changes, on: remove some elements for better transparency */
+    --remove-bg-layer: on; /* off: no changes, on: remove the base --bg-3 layer for use with window transparency (WILL OVERRIDE BACKGROUND IMAGE) */
+    --panel-blur: on; /* off: no changes, on: blur the background of panels */
+    --blur-amount: 10px; /* amount of blur */
+    --bg-floating: var(--bg-3); /* set this to a more opaque color if floating panels look too transparent. only applies if panel blur is on  */
+    --bg-floating: hsla(0, 0%, 0%, 0.9);
+
+    /* chatbar options */
+    --custom-chatbar: off; /* off: default chatbar, separated: chatbar separated from chat */
+    --chatbar-height: 47px; /* height of the chatbar (56px by default, 47px to align with user panel, 56px recommended for separated) */
+
+    /* other options */
+    --small-user-panel: on; /* off: default user panel, on: smaller user panel like in old discord */
+}
+
+:root {
+    --colors: on;
+
+    --text-0: var(--bg-4);
+    --text-1: hsl(0, 0%, 100%); /* pure white */
+    --text-2: hsl(0, 0%, 78%);
+    --text-3: hsl(0, 0%, 58%);
+    --text-4: hsl(0, 0%, 38%);
+    --text-5: hsl(0, 0%, 18%);
+
+    --bg-1: hsla(0, 0%, 4%, 0.65);
+    --bg-2: hsla(0, 0%, 2%, 0.6);
+    --bg-3: hsla(0, 0%, 1%, 0.55);
+    --bg-4: hsla(0, 0%, 0%, 0.70); /* pure black core */
+    --hover: hsla(0, 0%, 100%, 0.08);
+    --active: hsla(0, 0%, 100%, 0.12);
+    --active-2: hsla(0, 0%, 100%, 0.16);
+    --message-hover: hsla(0, 0%, 100%, 0.05);
+
+    /* accents now pull from the red ramp instead of grayscale —
+       this is your "rare but present" spot, same role as boolean/macro in nvim */
+    /* --accent-1: var(--red-1); */
+    /* --accent-2: var(--red-2); */
+    /* --accent-3: var(--red-3); */
+    /* --accent-4: var(--red-4); */
+    /* --accent-5: var(--red-5); */
+    --accent-1: var(--text-1);
+    --accent-2: var(--text-2);
+    --accent-3: var(--text-3);
+    --accent-4: var(--text-4);
+    --accent-5: var(--text-5);
+    --accent-new: var(--accent-3);
+    --mention: linear-gradient(to right, color-mix(in hsl, var(--red-3), transparent 88%) 40%, transparent);
+    --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--red-3), transparent 93%) 40%, transparent);
+    --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent);
+    --reply-hover: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 95%) 40%, transparent);
+
+    /* status dots: online brightest (most important), dnd is your one pure-red anchor,
+       everything else grayscale — mirrors error vs keyword logic from the nvim theme */
+
+    --online: hsl(221, 83%, 53%);
+    --dnd: hsl(0, 100%, 50%);
+    --idle: hsl(0, 0%, 50%);
+    --streaming: hsl(0, 0%, 60%);
+    --offline: hsl(0, 0%, 20%);  
+
+    --border-light: hsla(0, 0%, 100%, 0.06);
+    --border: hsla(0, 0%, 100%, 0.1);
+    --border-hover: hsla(0, 0%, 100%, 0.15);
+    --button-border: hsla(0, 0%, 100%, 0.1);
+
+    /* the actual fix: chroma restored, hue locked to ~29 (pure red) */
+    --red-1: oklch(70% 0.20 29);
+    --red-2: oklch(64% 0.23 29);
+    --red-3: oklch(58% 0.257 29); /* ≈ #ff0000 in oklch */
+    --red-4: oklch(50% 0.22 29);  /* ≈ #bb0000 territory */
+    --red-5: oklch(40% 0.18 29);
+
+    /* left desaturated on purpose — everything else stays monochrome */
+    --green-1: oklch(75% 0 0);
+    --green-2: oklch(70% 0 0);
+    --green-3: oklch(65% 0 0);
+    --green-4: oklch(60% 0 0);
+    --green-5: oklch(55% 0 0);
+
+    --blue-1: oklch(75% 0 0);
+    --blue-2: oklch(70% 0 0);
+    --blue-3: oklch(65% 0 0);
+    --blue-4: oklch(60% 0 0);
+    --blue-5: oklch(55% 0 0);
+
+    --yellow-1: oklch(80% 0 0);
+    --yellow-2: oklch(75% 0 0);
+    --yellow-3: oklch(70% 0 0);
+    --yellow-4: oklch(65% 0 0);
+    --yellow-5: oklch(60% 0 0);
+
+    --purple-1: oklch(75% 0 0);
+    --purple-2: oklch(70% 0 0);
+    --purple-3: oklch(65% 0 0);
+    --purple-4: oklch(60% 0 0);
+    --purple-5: oklch(55% 0 0);
+}

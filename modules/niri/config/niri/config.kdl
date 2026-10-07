@@ -1,0 +1,67 @@
+// This config is in the KDL format: https://kdl.dev
+// "/-" comments out the following node.
+// Check the wiki for a full description of the configuration:
+// https://niri-wm.github.io/niri/Configuration:-Introduction
+
+// Find the full list of options on the wiki:
+// https://niri-wm.github.io/niri/Configuration:-Input
+
+// You can configure outputs by their name, which you can find
+// by running `niri msg outputs` while inside a niri instance.
+// The built-in laptop monitor is usually called "eDP-1".
+// Find more information on the wiki:
+// https://niri-wm.github.io/niri/Configuration:-Outputs
+// Remember to uncomment the node by removing "/-"!
+
+// Settings that influence how windows are positioned and sized.
+// Find more information on the wiki:
+// https://niri-wm.github.io/niri/Configuration:-Layout
+
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See the binds section below for more spawn examples.
+
+// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
+// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+// Uncomment this line to ask the clients to omit their client-side decorations if possible.
+// If the client will specifically ask for CSD, the request will be honored.
+// Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
+// This option will also fix border/focus ring drawing behind some semitransparent windows.
+// After enabling or disabling this, you need to restart the apps for this to take effect.
+
+prefer-no-csd
+
+include "desktop-kinks.kdl"
+include "laptop-kinks.kdl"
+
+
+include "autostart.kdl"
+include "input.kdl"
+include "layout.kdl"
+include "animations.kdl"
+include "window-rules.kdl"
+include "keybinds.kdl"
+include "layer-rules.kdl"
+
+cursor {
+    xcursor-theme "Bibata-Original-Classic"
+
+    xcursor-size 16
+
+    hide-when-typing
+}
+
+gestures {
+    hot-corners {
+        off
+    }
+}
+
+
+include "noctalia.kdl"

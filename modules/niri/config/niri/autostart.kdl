@@ -1,0 +1,4 @@
+spawn-at-startup "noctalia"
+spawn-at-startup "wayscriber" "--daemon"
+spawn-at-startup "oniri" "-T"
+

@@ -1,0 +1,81 @@
+layout {
+
+    // gaps 10
+    gaps 2
+
+    center-focused-column "never"
+    default-column-display "normal"
+
+    preset-column-widths {
+        proportion 0.25
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 0.75
+    }
+
+    tab-indicator {
+      place-within-column true
+      width 2
+    }
+
+    default-column-width { proportion 1.0; }
+
+    focus-ring{
+      on
+        width 1
+    }
+
+    border {
+        off
+        width 1
+        active-color "#bb0000"
+        inactive-color "#000000"
+        urgent-color "#9b0000"
+    }
+
+}
+
+overview {
+    zoom 0.35
+}
+
+
+blur {
+    // High values can impact GPU performance.
+    passes 1
+
+    // Higher offset = more spread out, stronger blur. Default is 3.0.
+    offset 1.5
+}
+
+recent-windows {
+    // off
+    debounce-ms 0
+
+    open-delay-ms 0
+
+    highlight {
+        // active-color "#999999ff"
+        // urgent-color "#ff9999ff"
+        padding 1
+        corner-radius 2
+    }
+
+    previews {
+        max-height 1080
+        max-scale 0.65
+    }
+
+    binds {
+        Alt+Tab         { next-window; }
+        Alt+Shift+Tab   { previous-window; }
+        Alt+grave       { next-window     filter="app-id"; }
+        Alt+Shift+grave { previous-window filter="app-id"; }
+
+        Mod+Tab         { next-window; }
+        Mod+Shift+Tab   { previous-window; }
+        Mod+grave       { next-window     filter="app-id"; }
+        Mod+Shift+grave { previous-window filter="app-id"; }
+    }
+}

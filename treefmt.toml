@@ -1,0 +1,15 @@
+excludes = ["result", "result-*"]
+
+[formatter.deadnix]
+command = "deadnix"
+# -L is mandatory here: the callPackage'd derivations (e.g.
+#    modules/niri/niri-zoom.nix) have their lambda pattern names injected by
+#    callPackage, and deadnix would otherwise delete them.
+options = ["-e", "-L"]
+includes = ["*.nix"]
+priority = 2
+
+[formatter.nixfmt]
+command = "nixfmt"
+includes = ["*.nix"]
+priority = 1
