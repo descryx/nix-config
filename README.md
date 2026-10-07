@@ -72,7 +72,8 @@ manager for future system-level secrets is deferred to
   and a local Minecraft server (currently badly configured).
 - **Dev / tooling** — C++ toolchain (gcc/clang), [opencode](https://opencode.ai),
   and [git-hooks.nix](https://github.com/cachix/git-hooks.nix) pre-commit checks
-  (nixfmt, deadnix, statix, noctalia-scrub, ripsecrets).
+  (nixfmt, deadnix, statix, check-toml, detect-private-keys, noctalia-scrub,
+  ripsecrets).
 
 > `modules/noctalia/config/noctalia/noctalia-config.toml` is the tracked baseline
 > (wallpaper paths, layout, plugin settings); secret plugin keys live per-machine
@@ -136,7 +137,8 @@ instead of UUIDs too, so no disk identifiers live in the repo.
 ## Development / validation
 
 - `.envrc` (`use flake`) + direnv loads the devShell, whose `shellHook` installs
-  the git pre-commit hooks (nixfmt, deadnix, statix, noctalia-scrub, ripsecrets).
+  the git pre-commit hooks (nixfmt, deadnix, statix, check-toml,
+  detect-private-keys, noctalia-scrub, ripsecrets).
   `nix develop` does the same manually; `nix develop -c pre-commit run -a` runs
   them all.
 - `nix flake check` evaluates both hosts and builds the pre-commit check. It does

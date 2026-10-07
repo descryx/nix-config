@@ -11,9 +11,10 @@ whenever a new secret or identifying value is noticed.
   entered once in the Noctalia Settings UI.
 - Never commit private SSH keys, tokens, passwords or API keys. `~/.ssh` stays
   outside the repo.
-- `scripts/noctalia-scrub.sh` strips `api_key`/`password` lines from an exported
-  config and reports (without deleting) other sensitive fields; the `ripsecrets`
-  pre-commit hook is a catch-all scanner.
+- `scripts/noctalia-export.sh` regenerates the baseline: it exports, then
+  `scripts/noctalia-scrub.sh` strips credential lines and reports (without deleting)
+  other sensitive fields, and the write is refused if anything sensitive remains.
+  The `ripsecrets` pre-commit hook is a catch-all scanner.
 
 ## Identifiers (not credentials, but identifying)
 
@@ -38,9 +39,10 @@ the SSH tutor in `docs/NOTES.md`).
 
 ## Future secret handling
 
-- Noctalia plugin keys are handled **without** a manager: baseline scrubbed,
-  `scripts/noctalia-scrub.sh` + the `ripsecrets` pre-commit hook, keys per-machine
-  in `settings.toml`. See `docs/COMMANDS.md` -> "Noctalia config & secrets".
+- Noctalia plugin keys are handled **without** a manager: baseline regenerated via
+  `scripts/noctalia-export.sh` (scrub + refusal on leftovers), the `ripsecrets`
+  pre-commit hook, keys per-machine in `settings.toml`. See `docs/COMMANDS.md` ->
+  "Noctalia config & secrets".
 - agenix/sops is deferred until there is a **system-level** secret (or Noctalia's
   calendar / encrypted-clipboard credential files). Options and trade-offs are in
   `docs/NOTES.md` under "Secrets & keys (future plan)".

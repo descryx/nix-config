@@ -22,8 +22,8 @@ How this repository is put together and why. For the file tree see
   `inputs` and `local` through `specialArgs` and enables the home-manager NixOS
   module.
 - `checks.${system}.pre-commit-check` and `devShells.${system}.default` — from
-  [`git-hooks.nix`](../git-hooks.nix) (nixfmt, deadnix, statix, noctalia-scrub,
-  ripsecrets).
+  [`git-hooks.nix`](../git-hooks.nix) (nixfmt, deadnix, statix, check-toml,
+  detect-private-keys, noctalia-scrub, ripsecrets).
 - `formatter.${system}` — the treefmt wrapper used by `nix fmt`.
 
 Custom packages are exposed through an overlay that `callPackage`s the
@@ -74,8 +74,10 @@ the live hosts is deferred.
 Three identifiers are kept out of the tracked config by design:
 
 - **Noctalia plugin keys** — the tracked baseline
-  (`modules/noctalia/config/noctalia/noctalia-config.toml`) is scrubbed, and the
-  keys live per-machine in `~/.local/state/noctalia/settings.toml` (see
+  (`modules/noctalia/config/noctalia/noctalia-config.toml`) is regenerated with
+  `scripts/noctalia-export.sh`, which scrubs it and refuses to write a file that
+  still carries sensitive fields. The keys themselves live per-machine in
+  `~/.local/state/noctalia/settings.toml` (see
   [COMMANDS.md](COMMANDS.md) → "Noctalia config & secrets").
 - **Syncthing device IDs** — paired at runtime in
   `~/.config/syncthing/config.xml`, not declared in Nix.

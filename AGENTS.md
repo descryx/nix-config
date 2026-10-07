@@ -9,11 +9,12 @@
   the start of a task and check for anything relevant. `docs/COMMANDS.md` is the
   command cheat-sheet.
 - `git-hooks.nix` wires the pre-commit checks (nixfmt, deadnix, statix,
-  `noctalia-scrub`, `ripsecrets`) into `nix flake check` and a devShell; `.envrc`
-  loads that devShell via direnv.
+  `check-toml`, `detect-private-keys`, `noctalia-scrub`, `ripsecrets`) into
+  `nix flake check` and a devShell; `.envrc` loads that devShell via direnv.
 - Noctalia plugin API keys live per-machine in
   `~/.local/state/noctalia/settings.toml` (outside the repo). The tracked baseline
-  must stay secret-free; `scripts/noctalia-scrub.sh` + the hooks enforce that. See
+  must stay secret-free; regenerate it with `scripts/noctalia-export.sh`, which
+  scrubs it and refuses to write a file that still carries sensitive fields. See
   `docs/COMMANDS.md` -> "Noctalia config & secrets".
 
 ## Layout & conventions

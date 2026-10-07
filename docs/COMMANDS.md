@@ -71,8 +71,8 @@ nix build .#nixosConfigurations.t480.config.system.build.toplevel
 ## Dev shell / pre-commit hooks
 
 `.envrc` contains `use flake`, so `direnv` (with `nix-direnv`) loads the devShell
-and its `shellHook` installs the git hooks (nixfmt, deadnix, statix,
-noctalia-scrub, ripsecrets).
+and its `shellHook` installs the git hooks (nixfmt, deadnix, statix, check-toml,
+detect-private-keys, noctalia-scrub, ripsecrets).
 
 ```sh
 direnv allow                              # once per repo per machine, then auto-loads
@@ -211,28 +211,35 @@ app-managed `~/.local/state/noctalia/settings.toml` (GUI overrides, per machine)
 **Plugin API keys live in `settings.toml`** — outside the repo — and are entered
 once per machine in the Settings UI.
 
-After changing Noctalia in the GUI, share the non-secret settings like this:
+After changing Noctalia in the GUI, regenerate the tracked baseline with the
+wrapper — do **not** redirect `export merged` into the file by hand:
 
 ```sh
-# 1. Export the merged config into the tracked baseline or via the Noctalia GUI
-noctalia config export merged > modules/noctalia/config/noctalia/noctalia-config.toml
+./scripts/noctalia-export.sh             # export -> scrub -> check -> write
+./scripts/noctalia-export.sh --dry-run   # show the diff only
 
-# 2. Strip secret fields (the export pulls plugin api_key values from settings.toml)
-./scripts/noctalia-scrub.sh
-
-# 3. Review + commit
+# review + commit
 git diff -- modules/noctalia/config/noctalia/noctalia-config.toml
 git add modules/noctalia/config/noctalia/noctalia-config.toml && git commit
 ```
 
-- `scripts/noctalia-scrub.sh` removes credential fields (`api_key`, `password`)
-  from the exported config. It never removes anything else.
+`noctalia-export.sh` exports to a temp file, runs the scrub, and refuses to
+overwrite the baseline if anything sensitive remains (the tracked file is left
+untouched on failure).
+
+- `scripts/noctalia-scrub.sh` removes credential fields (`api_key`, `password`,
+  `token`, `secret`, `refresh_token`, `client_secret`). It never removes anything
+  else.
 - `scripts/noctalia-scrub.sh --check` (what the pre-commit hook runs) exits
   non-zero if a non-empty credential is present, or if another sensitive field the
   script only *reports* (never deletes) is found. No file is edited.
-- Add other credential names to the script's `secret_fields` array if the config
-  ever carries them.
-- `ripsecrets` also runs as a catch-all secret scanner.
+- **Tuning / false positives:** the field lists are a denylist, so a `--check` hit
+  means "review this", not "definitely a leak". Matches are anchored to an exact key
+  name (`^<name> =`), so functional keys like `password_style` or `secret_store`
+  don't match. If a genuine value is ever flagged, adjust the lists; report-only
+  fields never block a commit.
+- `check-toml` validates the TOML syntax and `detect-private-keys` catches PEM
+  private keys; `ripsecrets` is a catch-all secret scanner.
 
 ---
 

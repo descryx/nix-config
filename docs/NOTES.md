@@ -221,10 +221,11 @@ Noctalia v5 layers config: the tracked baseline
 (`modules/noctalia/config/noctalia/noctalia-config.toml`) is secret-free, while plugin
 API keys live in the per-machine `~/.local/state/noctalia/settings.toml`
 (outside the repo) and are entered once per machine in the Settings UI.
-`scripts/noctalia-scrub.sh` (run after `noctalia config export merged`) plus the
-`ripsecrets` pre-commit hook keep the baseline clean. **No agenix/sops needed for
-these.** agenix is reserved for future system-level secrets, or Noctalia's
-calendar / encrypted-clipboard credential files.
+`scripts/noctalia-export.sh` (runs the export then the scrub, and refuses to write
+a file that still carries sensitive fields) plus the `ripsecrets` pre-commit hook
+keep the baseline clean. **No agenix/sops needed for these.** agenix is reserved
+for future system-level secrets, or Noctalia's calendar / encrypted-clipboard
+credential files.
 
 ### Options, simplest -> strongest
 1. **Scrub-and-track**: keep `noctalia-config.toml` tracked but with the secret

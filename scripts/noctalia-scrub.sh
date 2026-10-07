@@ -27,8 +27,10 @@ set -euo pipefail
 secret_fields=(
   api_key
   password
-  # token
-  # secret
+  token
+  secret
+  refresh_token
+  client_secret
 )
 
 location_fields=(

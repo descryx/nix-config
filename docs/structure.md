@@ -9,7 +9,7 @@ nix-config/
 ├── LICENSE
 ├── AGENTS.md                           #   Instructions for AI agents / contributors
 ├── treefmt.toml                        #   nixfmt + deadnix via `nix fmt`
-├── git-hooks.nix                       #   pre-commit checks (nixfmt/deadnix/statix/noctalia-scrub/ripsecrets) + devShell
+├── git-hooks.nix                       #   pre-commit checks (nixfmt/deadnix/statix/check-toml/detect-private-keys/noctalia-scrub/ripsecrets) + devShell
 ├── .envrc                              #   `use flake` -> direnv loads the devShell
 │
 ├── docs/
@@ -22,7 +22,8 @@ nix-config/
 │
 ├── scripts/
 │   ├── provision.sh                    #   disko-install wrapper for new hosts (untested draft)
-│   └── noctalia-scrub.sh               #   strip secret fields from the Noctalia baseline
+│   ├── noctalia-export.sh              #   safe Noctalia export -> scrub -> check -> write
+│   └── noctalia-scrub.sh               #   strip credential fields from the Noctalia baseline
 │
 ├── hosts/
 │   ├── _template/                      #   Scaffold for a new host (copy to hosts/<new>/)

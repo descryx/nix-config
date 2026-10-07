@@ -39,6 +39,10 @@ let
       };
       # Catch-all secret scanner: catches any secret, not just the known fields.
       ripsecrets.enable = true;
+      # Validate TOML syntax (the exported Noctalia baseline among others).
+      check-toml.enable = true;
+      # Catch PEM private-key headers ("-----BEGIN ... PRIVATE KEY-----").
+      detect-private-keys.enable = true;
     };
   };
 in
