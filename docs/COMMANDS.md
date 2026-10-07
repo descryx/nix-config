@@ -225,11 +225,13 @@ git diff -- modules/noctalia/config/noctalia/noctalia-config.toml
 git add modules/noctalia/config/noctalia/noctalia-config.toml && git commit
 ```
 
-- `scripts/noctalia-scrub.sh --check` exits non-zero if a **non-empty** secret
-  field is present (no edit). The pre-commit hook runs exactly this, so a leaked
-  key blocks the commit.
-- Add other secret field names (e.g. `password`, `token`) to the script's
-  `secret_fields` array if the config ever carries them.
+- `scripts/noctalia-scrub.sh` removes credential fields (`api_key`, `password`)
+  from the exported config. It never removes anything else.
+- `scripts/noctalia-scrub.sh --check` (what the pre-commit hook runs) exits
+  non-zero if a non-empty credential is present, or if another sensitive field the
+  script only *reports* (never deletes) is found. No file is edited.
+- Add other credential names to the script's `secret_fields` array if the config
+  ever carries them.
 - `ripsecrets` also runs as a catch-all secret scanner.
 
 ---

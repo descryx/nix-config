@@ -12,7 +12,8 @@ whenever a new secret or identifying value is noticed.
 - Never commit private SSH keys, tokens, passwords or API keys. `~/.ssh` stays
   outside the repo.
 - `scripts/noctalia-scrub.sh` strips `api_key`/`password` lines from an exported
-  config, and the `ripsecrets` pre-commit hook is a catch-all scanner.
+  config and reports (without deleting) other sensitive fields; the `ripsecrets`
+  pre-commit hook is a catch-all scanner.
 
 ## Identifiers (not credentials, but identifying)
 
