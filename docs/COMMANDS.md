@@ -87,7 +87,7 @@ On the other machine: `git pull`, then `nh os switch`.
 ### Commit messages
 
 Format: `type(scope): summary`, lowercase imperative summary with no trailing
-period. `scope` is where the change is (`modules/<name>`, `flake`, `hosts`,
+period. `scope` is where the change is (`modules/<category>/<name>`, `flake`, `hosts`,
 `docs`). Add a body when the why isn't obvious.
 
 Common types: `feat`, `fix`, `chore`, `refactor`, `docs`, plus `perf`, `style`,
@@ -150,7 +150,7 @@ noctalia msg panel-toggle <panel>     # toggle a Noctalia panel
 ## Noctalia config & secrets
 
 Noctalia layers config: the tracked baseline
-`modules/noctalia/config/noctalia/noctalia-config.toml` sits under the app-managed
+`modules/desktop/noctalia/config/noctalia/noctalia-config.toml` sits under the app-managed
 `~/.local/state/noctalia/settings.toml` (per-machine GUI overrides, and the plugin
 API keys). The keys stay in `settings.toml`, outside the repo.
 

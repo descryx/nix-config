@@ -18,25 +18,38 @@
   `docs/COMMANDS.md` -> "Noctalia config & secrets".
 
 ## Layout & conventions
-- The repo is feature-first: one folder per app/concern under `modules/<feature>/`,
-  holding any of `system.nix` (NixOS, imported by `configuration.nix`), `home.nix`
-  (home-manager, imported by `home.nix`) and `config/` (the feature's dotfiles).
-  The machine foundation (boot, networking, users, nix settings, `nh`, power,
-  audio, tools) lives together in `modules/system/`. Host-specific deltas live in
-  `hosts/<host>/`, including the desk-only OBS override.
-- Not-daily-driver pieces live under `modules/optional/` and are imported by the
-  host that wants them.
+- The repo is feature-first, grouped by domain: each feature lives in its own
+  `modules/<category>/<feature>/` folder, holding any of `system.nix` (NixOS,
+  imported by `configuration.nix`), `home.nix` (home-manager, imported by
+  `home.nix`) and `config/` (the feature's dotfiles). Categories:
+  - `system/` - machine foundation: boot, networking, users, nix settings, `nh`,
+    power, audio, tools.
+  - `desktop/` - the session and how it looks: niri, noctalia, appearance, sddm.
+  - `apps/` - one app/concern per folder.
+  - `services/` - background daemons and device glue: syncthing, kdeconnect,
+    storage.
+  - `bundles/` - grouped package lists / default choices, no per-app folders:
+    default-apps, desktop-apps.
+  - `optional/` - not installed by default; imported by the host that wants them.
+  Host-specific deltas live in `hosts/<host>/`, including the desk-only OBS
+  override.
+- A feature keeps its `system.nix`, `home.nix` and `config/` together in one
+  folder; never split a feature across categories by system/home.
 - User config is split between declarative Nix (each feature's `home.nix`) and
   symlinked dotfiles (each feature's `config/`, via out-of-store symlinks, for live
   editing). Rule of thumb: if the app has a good home-manager module, use Nix;
   huge or frequently hand-edited configs go in the feature's `config/`. Note which
   and why when adding one.
 - Custom derivations live next to the feature that uses them (e.g.
-  `modules/niri/niri-zoom.nix`); non-code assets likewise (e.g.
+  `modules/desktop/niri/niri-zoom.nix`); non-code assets likewise (e.g.
   `modules/optional/ollama/assets/`).
-- New apps: create `modules/<name>/` with the relevant `system.nix`/`home.nix` +
-  `config/`, then add it to the matching import list in `configuration.nix` /
-  `home.nix` (or a host's `default.nix` for `optional/` items).
+- New apps: create `modules/<category>/<feature>/` with the relevant
+  `system.nix`/`home.nix` + `config/`, then add it to the matching import list in
+  `configuration.nix` / `home.nix` (or a host's `default.nix` for `optional/`
+  items). To disable a feature, comment out its import line(s): features with both
+  halves need one line in `configuration.nix` and one in `home.nix`, and the import
+  lists point at the other half in a comment. See "Toggles" in
+  `docs/ARCHITECTURE.md`.
 
 ## Documentation
 - Any change to code/config must come with the matching doc update in the same task

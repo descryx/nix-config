@@ -6,7 +6,7 @@ whenever a new potential place for a secret or identifying value is noticed.
 ## Credentials / keys
 
 - No secret values live in
-  `modules/noctalia/config/noctalia/noctalia-config.toml`. The real plugin keys live
+  `modules/desktop/noctalia/config/noctalia/noctalia-config.toml`. The real plugin keys live
   per-machine in `~/.local/state/noctalia/settings.toml` (outside the repo) and are
   entered once in the Noctalia Settings UI.
 - Never commit private SSH keys, tokens, passwords or API keys. `~/.ssh` stays

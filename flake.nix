@@ -77,9 +77,9 @@
               nixpkgs.overlays = [
                 inputs.mac-style-plymouth.overlays.default
                 (final: _prev: {
-                  niri-zoom = final.callPackage ./modules/niri/niri-zoom.nix { };
-                  yamis-icon-theme = final.callPackage ./modules/appearance/yamis-icon-theme.nix { };
-                  undershell = final.callPackage ./modules/noctalia/undershell.nix { };
+                  niri-zoom = final.callPackage ./modules/desktop/niri/niri-zoom.nix { };
+                  yamis-icon-theme = final.callPackage ./modules/desktop/appearance/yamis-icon-theme.nix { };
+                  undershell = final.callPackage ./modules/desktop/noctalia/undershell.nix { };
                 })
               ];
 

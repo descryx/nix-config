@@ -19,7 +19,7 @@ let
       nixfmt.enable = true;
       # -L / noLambdaPatternNames: keep lambda pattern names, otherwise deadnix
       # would delete the args that `callPackage` injects into the derivations
-      # (e.g. modules/niri/niri-zoom.nix).
+      # (e.g. modules/desktop/niri/niri-zoom.nix).
       deadnix = {
         enable = true;
         settings.noLambdaPatternNames = true;

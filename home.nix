@@ -6,23 +6,34 @@
   };
 
   imports = [
-    ./modules/terminals/home.nix
-    ./modules/misc-apps/home.nix
-    ./modules/yazi/home.nix
-    ./modules/nvim/home.nix
-    ./modules/easyeffects/home.nix
-    ./modules/dev/home.nix
-    ./modules/opencode/home.nix
-    ./modules/vesktop/home.nix
-    ./modules/zen/home.nix
-    ./modules/zsh/home.nix
-    ./modules/default-apps/home.nix
-    ./modules/desktop-apps/home.nix
-    ./modules/appearance/home.nix
-    ./modules/storage/home.nix
-    ./modules/niri/home.nix
-    ./modules/noctalia/home.nix
-    ./modules/gaming/home.nix
+    # Desktop session (modules/desktop).
+    ./modules/desktop/appearance/home.nix # + system half: modules/desktop/appearance/system.nix
+    ./modules/desktop/niri/home.nix # + system half: modules/desktop/niri/system.nix
+    ./modules/desktop/noctalia/home.nix
+
+    # Apps (modules/apps).
+    ./modules/apps/btop/home.nix
+    ./modules/apps/cava/home.nix
+    ./modules/apps/dev/home.nix
+    ./modules/apps/easyeffects/home.nix
+    ./modules/apps/fastfetch/home.nix
+    ./modules/apps/gaming/home.nix # + system half: modules/apps/gaming/system.nix
+    ./modules/apps/nvim/home.nix
+    ./modules/apps/opencode/home.nix
+    ./modules/apps/terminals/home.nix
+    ./modules/apps/vesktop/home.nix
+    ./modules/apps/wayscriber/home.nix
+    ./modules/apps/yazi/home.nix
+    ./modules/apps/zen/home.nix
+    ./modules/apps/zsh/home.nix
+
+    # Services (modules/services).
+    ./modules/services/storage/home.nix # + system half: modules/services/storage/system.nix
+
+    # Bundles (modules/bundles).
+    ./modules/bundles/default-apps/home.nix
+    ./modules/bundles/desktop-apps/home.nix
+
     # ./modules/optional/tmux/home.nix
   ];
 

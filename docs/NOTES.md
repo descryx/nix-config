@@ -58,7 +58,7 @@ Entered once per machine in the Noctalia Settings UI and stored in
    git config --global user.email "85964170+descryx@users.noreply.github.com"
    ```
 
-   home-manager writes this too (`modules/dev/home.nix`), so a bootstrapped
+   home-manager writes this too (`modules/apps/dev/home.nix`), so a bootstrapped
    machine already has it.
 
 5. GitHub privacy settings (one-time, web): Settings -> Emails -> keep my email
@@ -175,7 +175,7 @@ before running.
 ## Syncthing
 
 Syncthing pairs at runtime: its device IDs and folder config live in
-`~/.config/syncthing/config.xml`, outside the repo. `modules/syncthing/system.nix`
+`~/.config/syncthing/config.xml`, outside the repo. `modules/services/syncthing/system.nix`
 installs the service (starts at boot); pair each machine once in the UI, or copy
 that file between hosts. Only `Pictures` is shared, both ways.
 

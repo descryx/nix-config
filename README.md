@@ -20,24 +20,26 @@ symlinked out of the store so they stay editable.
 Pick the path that matches what you want.
 
 **If you just want the dotfiles.**
-Every feature that ships config keeps it in `modules/<name>/config/`. The path
-after `config/` usually mirrors where the files go: `modules/<name>/config/<app>/`
-ends up in `~/.config/<app>/`. A few single-app features link `config/` straight
-to the app directory instead, so if you're unsure, the feature's `home.nix` has
-the exact `home.file` target. Browse `modules/*/config/` and copy what you need.
+Every feature that ships config keeps it in `modules/<category>/<feature>/config/`.
+The path after `config/` usually mirrors where the files go:
+`modules/<category>/<feature>/config/<app>/` ends up in `~/.config/<app>/`. A few
+single-app features link `config/` straight to the app directory instead, so if
+you're unsure, the feature's `home.nix` has the exact `home.file` target. Browse
+`modules/*/*/config/` and copy what you need.
 Two things to know: most of it assumes [Niri](https://github.com/YaLTeR/niri)
 plus [Noctalia](https://github.com/noctalia-dev/noctalia), and several files
 hardcode `/home/descryx` paths. `noctalia-config.toml` is generated, so set that
 one up in Noctalia rather than copying it.
 
 **If you want one piece of the config.**
-Each folder under `modules/` is one app or concern and can hold `system.nix`
-(NixOS), `home.nix` (home-manager) and `config/` (dotfiles). Copy the folder and
-import the file(s) you need.
+`modules/` is grouped by category (`system/`, `desktop/`, `apps/`, `services/`,
+`bundles/`, `optional/`); each feature inside is one app or concern and can hold
+`system.nix` (NixOS), `home.nix` (home-manager) and `config/` (dotfiles). Copy the
+folder and import the file(s) you need.
 
 **If you want the whole config.**
-Set your values in [`local.nix`](local.nix) also change coresponding files
-like hardware-configuraton.nix, then rebuild. See
+Set your values in [`local.nix`](local.nix) also change corresponding files
+like hardware-configuration.nix, then rebuild. See
 [Using this config](#using-this-config). To set up a new machine, follow the
 tutors in [docs/NOTES.md](docs/NOTES.md).
 
@@ -53,7 +55,7 @@ Screenshots above; the full file tree is in [docs/structure.md](docs/structure.m
 
 Most things are declared in Nix: packages, services, the compositor, and most app
 configs. A few large or frequently edited configs stay as plain dotfiles in
-`modules/<name>/config/`, symlinked with `mkOutOfStoreSymlink` so editing them
+`modules/<category>/<feature>/config/`, symlinked with `mkOutOfStoreSymlink` so editing them
 doesn't need a rebuild. How it all fits together is in
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md); again, the file tree is in
 [docs/structure.md](docs/structure.md).
@@ -67,11 +69,10 @@ Main pieces:
   (LazyVim base with a custom colorscheme).
 - Apps: [Zen Browser](https://github.com/zen-browser/desktop),
   [Obsidian](https://obsidian.md), [Vesktop](https://github.com/Vencord/Vesktop),
-  GIMP, LibreOffice.
+  [EasyEffects](https://github.com/wwmm/easyeffects), GIMP, LibreOffice.
 - Services: [Syncthing](https://syncthing.net) (syncs `Pictures` between the
-  hosts), [EasyEffects](https://github.com/wwmm/easyeffects),
-  [undershell](https://github.com/EternalSelf-2328/undershell) widgets, and an
-  optional local Minecraft server.
+  hosts), [undershell](https://github.com/EternalSelf-2328/undershell) widgets,
+  and an optional local Minecraft server.
 - Dev: C++ toolchain (gcc/clang), [opencode](https://opencode.ai), and
   [git-hooks.nix](https://github.com/cachix/git-hooks.nix) pre-commit checks.
 
@@ -88,7 +89,7 @@ Change these for your own setup:
 | Timezone | [`modules/system/users.nix`](modules/system/users.nix) |
 | Boot / Plymouth | [`modules/system/boot.nix`](modules/system/boot.nix) |
 | Minecraft UUIDs / MOTD | [`modules/optional/minecraft/system.nix`](modules/optional/minecraft/system.nix) |
-| Noctalia | [`modules/noctalia/config/noctalia/noctalia-config.toml`](modules/noctalia/config/noctalia/noctalia-config.toml) |
+| Noctalia | [`modules/desktop/noctalia/config/noctalia/noctalia-config.toml`](modules/desktop/noctalia/config/noctalia/noctalia-config.toml) |
 
 To use it on your own hardware, drop `hosts/desk/` and `hosts/t480/`, add your
 host (copy `hosts/_template/`), then rebuild with `nh os switch`. The new-machine

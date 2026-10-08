@@ -22,7 +22,7 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(dirname "$script_dir")"
 scrub="$repo_root/scripts/noctalia-scrub.sh"
-default_baseline="$repo_root/modules/noctalia/config/noctalia/noctalia-config.toml"
+default_baseline="$repo_root/modules/desktop/noctalia/config/noctalia/noctalia-config.toml"
 
 dry_run=0
 baseline=""

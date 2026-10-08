@@ -4,8 +4,8 @@ result-*
 *.gguf
 .direnv/
 /.pre-commit-config.yaml
-modules/easyeffects/config/db/easyeffectsrc
-modules/noctalia/config/undershell/profiles
+modules/apps/easyeffects/config/db/easyeffectsrc
+modules/desktop/noctalia/config/undershell/profiles
 .ua/
 
 # Ignore (potential) Syncthing private keys

@@ -3,7 +3,7 @@
 # noctalia-scrub — keep secrets and leaked identifiers out of the tracked
 # Noctalia config.
 #
-# The tracked baseline (modules/noctalia/config/noctalia/noctalia-config.toml)
+# The tracked baseline (modules/desktop/noctalia/config/noctalia/noctalia-config.toml)
 # must not contain secrets. `noctalia config export merged` pulls in the runtime
 # settings.toml (which holds plugin API keys), so run this after every export.
 #
@@ -13,7 +13,7 @@
 #                                              # credential value or a sensitive
 #                                              # field is present
 #
-# Default FILE: modules/noctalia/config/noctalia/noctalia-config.toml
+# Default FILE: modules/desktop/noctalia/config/noctalia/noctalia-config.toml
 #
 # Two field lists:
 #   - secret_fields   are DELETED, because they are never functional config.
@@ -50,7 +50,7 @@ for arg in "$@"; do
     *) file="$arg" ;;
   esac
 done
-file="${file:-modules/noctalia/config/noctalia/noctalia-config.toml}"
+file="${file:-modules/desktop/noctalia/config/noctalia/noctalia-config.toml}"
 
 [ -f "$file" ] || { echo "noctalia-scrub: no such file: $file" >&2; exit 2; }
 [ -n "$secrets" ] || { echo "noctalia-scrub: no secret_fields configured" >&2; exit 2; }
