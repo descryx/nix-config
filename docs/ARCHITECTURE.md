@@ -87,7 +87,8 @@ dotfiles in `modules/<category>/<feature>/config/`, and `home.nix` links them in
 `~/.config` with `mkOutOfStoreSymlink`, which points at the live repo instead of a
 copy in the Nix store, so edits apply immediately. Examples: `niri`, `noctalia`,
 `nvim`, `yazi` and `ghostty` are dotfiles; `git`, `zsh`, `mpv`, GTK, the mime
-associations and `btop`/`cava` (`programs.btop`/`programs.cava`) are Nix.
+associations, `btop`/`cava` (`programs.btop`/`programs.cava`) and the clangd user
+config are Nix.
 
 Generated files stay live even when their feature is Nix: Noctalia writes the
 `btop`/`cava`/`yazi` themes into the real `~/.config/<app>/themes/` (or
