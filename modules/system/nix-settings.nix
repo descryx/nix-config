@@ -5,6 +5,8 @@
 {
   nix.settings = {
     auto-optimise-store = true;
+    # Build parallelism (`max-jobs`/`cores`) is set per host in
+    # hosts/<host>/nix-settings.nix, since it depends on the machine's cores/RAM.
     trusted-users = [
       "root"
       local.username

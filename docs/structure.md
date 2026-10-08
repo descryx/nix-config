@@ -33,10 +33,12 @@ nix-config/
 │   │   ├── default.nix
 │   │   ├── graphics.nix                #   NVIDIA drivers
 │   │   ├── hardware-configuration.nix
+│   │   ├── nix-settings.nix            #   build parallelism cap (max-jobs/cores)
 │   │   └── obs.nix                     #   OBS override (CUDA/NVENC)
 │   └── t480/
 │       ├── default.nix
 │       ├── graphics.nix                #   Intel VA-API / compute-runtime
+│       ├── nix-settings.nix            #   build parallelism cap (max-jobs/cores)
 │       ├── batt-tresh.nix
 │       └── hardware-configuration.nix
 │

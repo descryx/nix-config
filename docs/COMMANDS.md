@@ -24,6 +24,10 @@ directory.
 | `nh os rollback` | roll back to the previous generation |
 | `nh os info` | list system generations |
 
+Build parallelism is capped per host in `hosts/<host>/nix-settings.nix`
+(`max-jobs`/`cores`) so a build can't exhaust RAM; it takes effect after the next
+`nh os switch`. Raise it if local builds feel slow.
+
 For filesystem/mount changes (`fileSystems` devices), use `nh os boot` then
 reboot. Do not use `nh os switch`: it tries to remount `/home` and `/` live and
 fails with `failed to restart home.mount`.

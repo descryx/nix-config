@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     ./graphics.nix
+    ./nix-settings.nix
     ./batt-tresh.nix
 
     # ../../modules/optional/minecraft/system.nix
