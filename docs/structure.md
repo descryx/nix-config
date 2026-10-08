@@ -21,6 +21,7 @@ nix-config/
 │   └── things-to-remove.md             #   Values to scrub before going public
 │
 ├── scripts/
+│   ├── check-systems.sh                #   instantiate both hosts' systems (catches derivation errors)
 │   ├── provision.sh                    #   disko-install wrapper for new hosts (untested draft)
 │   ├── noctalia-export.sh              #   safe Noctalia export -> scrub -> check -> write
 │   └── noctalia-scrub.sh               #   strip credential fields from the Noctalia baseline

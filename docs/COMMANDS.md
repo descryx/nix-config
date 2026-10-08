@@ -50,6 +50,14 @@ nix build .#nixosConfigurations.t480.config.system.build.toplevel
 | `nix flake update <input>` | update one input (desk only) |
 | `nix flake metadata` | show the locked inputs/revs |
 
+`nix flake check` does not instantiate the system derivations, so errors that only
+surface at derivation time (e.g. a missing path literal) need a separate check:
+
+```sh
+./scripts/check-systems.sh   # both hosts, one nix eval each
+nix eval .#nixosConfigurations.desk.config.system.build.toplevel.drvPath  # one host
+```
+
 ## Dev shell / pre-commit hooks
 
 `.envrc` contains `use flake`, so direnv loads the dev shell and its `shellHook`

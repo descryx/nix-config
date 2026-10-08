@@ -25,6 +25,13 @@ commands in [COMMANDS.md](COMMANDS.md).
   [`git-hooks.nix`](../git-hooks.nix).
 - `formatter.${system}`, the treefmt wrapper used by `nix fmt`.
 
+Plain `nix flake check` evaluates the module graph but never instantiates the
+toplevel, so errors that only appear at derivation time (a missing path literal
+from a moved file, a bad derivation) slip through. `scripts/check-systems.sh`
+forces instantiation of each host's system in its own short-lived `nix eval`
+process; it stays a script rather than a flake check so the heaviest command
+stays light.
+
 Custom packages come from an overlay that `callPackage`s the derivations kept next
 to the feature that uses them (`modules/desktop/niri/niri-zoom.nix`,
 `modules/desktop/appearance/yamis-icon-theme.nix`,

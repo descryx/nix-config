@@ -72,7 +72,10 @@
 - Commit messages follow `docs/COMMANDS.md` → "Commit messages".
 - Validate with a build or `nix flake check` where possible, and tell me what was and
   wasn't actually tested. `nix flake check` evaluates both hosts and builds the
-  pre-commit check (but not the systems).
+  pre-commit check, but does not instantiate or build the systems. For path-level
+  refactors, run `scripts/check-systems.sh` (or force one host directly with
+  `nix eval .#nixosConfigurations.<host>.config.system.build.toplevel.drvPath`),
+  since that is what catches missing path literals and bad derivations.
 
 ## Teaching and accuracy
 - Explain Nix module changes from the core up: what the option does, how the module system

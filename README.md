@@ -109,7 +109,9 @@ the plan in [docs/NOTES.md](docs/NOTES.md).
 ripsecrets).
 
 - `nix flake check` evaluates both hosts and builds the pre-commit check. It does
-  not build the systems.
+  not instantiate or build the systems.
+- `scripts/check-systems.sh` instantiates both hosts' system derivations without
+  building, which catches missing-path/derivation errors `nix flake check` misses.
 - `nix fmt` formats Nix files (treefmt: nixfmt + deadnix).
 - `nix develop -c pre-commit run --all-files` runs every hook by hand.
 
