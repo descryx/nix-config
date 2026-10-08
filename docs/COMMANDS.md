@@ -154,6 +154,12 @@ Noctalia layers config: the tracked baseline
 `~/.local/state/noctalia/settings.toml` (per-machine GUI overrides, and the plugin
 API keys). The keys stay in `settings.toml`, outside the repo.
 
+Noctalia also generates app themes from the palette and writes them into the real
+`~/.config` dirs at runtime, so palette changes apply without a rebuild:
+`~/.config/btop/themes/noctalia.theme`, `~/.config/cava/themes/noctalia`, and
+`~/.config/yazi/flavors/noctalia.yazi`. Those files are runtime output, not repo
+content.
+
 After changing Noctalia in the GUI, regenerate the baseline with the wrapper.
 Don't redirect `export merged` into the file by hand:
 

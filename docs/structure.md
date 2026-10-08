@@ -71,8 +71,8 @@ nix-config/
 │   │   ├── easyeffects/                # home.nix + config/
 │   │   ├── obs/                        # system.nix (shared); hosts/desk/obs.nix overrides
 │   │   ├── gaming/                     # system.nix (steam, gamemode) + home.nix (gamescope)
-│   │   ├── btop/                       # home.nix + config/
-│   │   ├── cava/                       # home.nix + config/
+│   │   ├── btop/                       # home.nix (programs.btop; theme via Noctalia)
+│   │   ├── cava/                       # home.nix (programs.cava; theme via Noctalia)
 │   │   ├── fastfetch/                  # home.nix + config/
 │   │   └── wayscriber/                 # home.nix + config/
 │   ├── services/                       # Background daemons and device glue
