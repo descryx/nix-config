@@ -12,6 +12,7 @@ symlinked out of the store so they stay editable.
   <p align="center">
     <img src="screenshots/desktop-screen-3.png" width="49%" alt="desktop screenshot 3">
     <img src="screenshots/niri-anim-1.gif" width="49%" alt="niri animation">
+    <img src="screenshots/nvim.png " width="49%" alt="nvim screenshot">
   </p>
 </details>
 
