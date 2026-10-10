@@ -42,6 +42,15 @@ in
 
     playerctl
     wlrctl
+
+    gobject-introspection
+    gtk4
+    (python3.withPackages (
+      ps: with ps; [
+        pygobject3
+      ]
+    ))
+    # -------------------------------------------
   ];
 
   home.file = {

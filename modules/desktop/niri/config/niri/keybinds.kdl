@@ -13,6 +13,7 @@ binds {
     Mod+Shift+B hotkey-overlay-title="Browser Zen" { spawn "zen"; }
     Mod+F3 hotkey-overlay-title="Witgets" { spawn-sh "noctalia msg desktop-widgets-toggle"; }
     Mod+Tab hotkey-overlay-title="Session" { spawn-sh "noctalia msg panel-toggle session"; }
+    Mod+Shift+D { spawn-sh "noctalia msg plugin alok-debnath/shelf:service all toggle"; }
 
     Mod+WheelScrollUp    cooldown-ms=0 { spawn "/etc/profiles/per-user/descryx/bin/niri-zoomctl" "in"; }
     Mod+WheelScrollDown  cooldown-ms=0 { spawn "/etc/profiles/per-user/descryx/bin/niri-zoomctl" "out"; }

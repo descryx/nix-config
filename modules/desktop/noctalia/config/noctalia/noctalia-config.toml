@@ -104,7 +104,7 @@ order = [ "default" ]
         enabled = true
         fill = "surface_variant"
         id = "g1"
-        members = [ "status_5", "seperator", "bar_8", "bar_6", "bar_9", "Crashes", "status_4", "github" ]
+        members = [ "status_5", "seperator", "bar_6", "bar_9", "Crashes", "status_4", "github", "shelf" ]
         opacity = 0.0
         padding = 0.0
 
@@ -238,13 +238,18 @@ widget_order = [ "desktop-widget-0000000000000002", "desktop-widget-000000000000
 [dock]
 active_scale = 1.2000000178813934
 auto_hide = true
-background_opacity = 0.29999999329447746
+background_opacity = 0.4999999888241291
+border_width = 0.5
+concave_edge_corners = false
 enabled = false
 icon_size = 24
-magnification_scale = 2.0
-radius = 24
+launcher_position = "start"
+magnification_scale = 1.5000000074505806
+radius = 12
 reserve_space = false
 shadow = false
+show_dots = true
+show_instance_count = false
 
 [hooks]
 battery_charging = "noctalia msg power-set performance"
@@ -551,6 +556,9 @@ calendar_placement = "floating"
 calendar_position = "top_right"
 refresh_interval_minutes = "60"
 
+[plugin_settings."alok-debnath/shelf"]
+panel_placement = "floating"
+
 [plugin_settings."arrifat346afs/systempulse"]
 panel_placement = "floating"
 panel_position = "bottom_left"
@@ -733,7 +741,6 @@ enabled = [
     "avivbintangaringga/nix-monitor",
     "shangshui0302/github-kanban",
     "kenn/keybind-cheatsheet",
-    "baizhu/paged-todo",
     "umedbazarov/crashes",
     "srounce/systemd",
     "knyrps/nix-search",
@@ -744,7 +751,8 @@ enabled = [
     "alexander/mimir",
     "yocraft/qrcode",
     "pulser/hover-widgets",
-    "eternalself-2328/undershell"
+    "eternalself-2328/undershell",
+    "alok-debnath/shelf"
 ]
 
     [[plugins.source]]
@@ -779,7 +787,7 @@ time_format = "[{:%H:%M:%S}]"
 ui_scale = 0.95000000670552254
 
     [shell.animation]
-    speed = 4.0
+    speed = 2.0000000298023224
 
     [shell.greeter_sync]
     auto_sync = false
@@ -1084,6 +1092,7 @@ show_idle_on_horizontal = false
 type = "noctalia/timer:bar"
 
 [widget.bar_10]
+enabled = false
 type = "eternalself-2328/undershell:bar"
 
 [widget.bar_2]
@@ -1147,6 +1156,7 @@ enabled = false
 type = "elijaharch/wl-screen-mirror:mirror"
 
 [widget.mirror_2]
+enabled = false
 type = "elijaharch/wl-screen-mirror:mirror"
 
 [widget.network]
@@ -1195,6 +1205,9 @@ type = "custom_button"
 
 [widget.session]
 custom_image = "/home/descryx/Pictures/telegram/nix-snowflake-white.svg"
+
+[widget.shelf]
+type = "alok-debnath/shelf:shelf"
 
 [widget.status]
 type = "aristides/udiskie:status"
