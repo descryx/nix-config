@@ -52,13 +52,23 @@ case "$color" in
     ;;
 esac
 
-# --- 4. Render: drop the fences, color dirs, dim the descriptions --------------
-awk -v color="$use_color" '
+# --- 4. Render: drop the fences, color names, dim the descriptions --------------
+# Truecolor (24-bit) on purpose: the standard 16 ANSI colors get remapped by the
+# terminal palette, so a monochrome theme (e.g. Ghostty `noctalia`) turns everything
+# grey. Truecolor bypasses the palette.
+# LC_ALL=C so the multibyte tree glyphs are split by byte offset reliably.
+LC_ALL=C awk -v color="$use_color" '
 BEGIN {
-  reset = "\033[0m"
-  dir   = "\033[1;36m"   # bold cyan   (directories)
-  file  = "\033[0;36m"   # cyan        (files + tree glyphs)
-  cmt   = "\033[2;37m"   # dim grey    (descriptions)
+  esc   = "\033["
+  reset = esc "0m"
+  glyph = esc "38;2;102;102;102m"    # #666666 tree branches
+  cat   = esc "1;38;2;187;0;0m"      # #bb0000 section dirs
+  dir   = esc "1;38;2;255;102;204m"  # #ff66cc feature dirs
+  file  = esc "38;2;255;255;255m"    # #ffffff files
+  cmt   = esc "38;2;102;102;102m"    # #666666 descriptions
+
+  n = split("nix-config docs scripts hosts screenshots wallpapers system desktop apps services bundles optional", tmp, " ")
+  for (i = 1; i <= n; i++) cats[tmp[i]] = 1
 }
 /^```/ { next }
 {
@@ -68,11 +78,23 @@ BEGIN {
 
   if (!color) { print $0; next }
 
-  trimmed = pre
-  sub(/[ \t]+$/, "", trimmed)
-  if (trimmed ~ /\/$/) printf "%s%s%s", dir, pre, reset
-  else                 printf "%s%s%s", file, pre, reset
+  # Split the tree glyphs from the entry name ("── " is the separator).
+  g = index(pre, "── ")
+  if (g > 0) { branches = substr(pre, 1, g + 6); body = substr(pre, g + 7) }
+  else       { branches = ""; body = pre }
 
+  name = body
+  sub(/[ \t]+$/, "", name)
+  base = name
+  sub(/\/$/, "", base)
+
+  if (base in cats)                 kind = cat
+  else if (name ~ /\/$/)            kind = dir
+  else if (name ~ /[[:alnum:].]/)   kind = file
+  else                              kind = glyph
+
+  if (branches != "") printf "%s%s%s", glyph, branches, reset
+  printf "%s%s%s", kind, body, reset
   if (desc != "") printf "%s%s%s", cmt, desc, reset
   printf "\n"
 }
