@@ -41,6 +41,7 @@ location_fields=(
 secrets="${secret_fields[*]}"
 locations="${location_fields[*]}"
 
+# --- 1. Parse options: --check (report only) and optional FILE -----------------
 check_only=0
 file=""
 for arg in "$@"; do
@@ -52,6 +53,7 @@ for arg in "$@"; do
 done
 file="${file:-modules/desktop/noctalia/config/noctalia/noctalia-config.toml}"
 
+# --- 2. Verify inputs ----------------------------------------------------------
 [ -f "$file" ] || { echo "noctalia-scrub: no such file: $file" >&2; exit 2; }
 [ -n "$secrets" ] || { echo "noctalia-scrub: no secret_fields configured" >&2; exit 2; }
 
@@ -69,6 +71,7 @@ report_locations() {
   ' "$file"
 }
 
+# --- 3a. --check: report only, edit nothing, exit non-zero if anything matched -
 if [ "$check_only" -eq 1 ]; then
   status=0
 
@@ -98,6 +101,7 @@ if [ "$check_only" -eq 1 ]; then
   exit "$status"
 fi
 
+# --- 3b. Default: delete credential lines in place, then report the rest -------
 # Strip every line that sets a credential field, empty or not. Sensitive fields
 # outside `secret_fields` are intentionally left untouched.
 tmp="$(mktemp)"

@@ -16,10 +16,12 @@
 #   scripts/check-systems.sh
 set -euo pipefail
 
+# --- 1. Work from the repo root -----------------------------------------------
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(dirname "$script_dir")"
 cd "$repo_root"
 
+# --- 2. Force instantiation of every host -------------------------------------
 # Keep in sync with nixosConfigurations in flake.nix when hosts are added/removed.
 hosts=(desk t480)
 failed=0
@@ -37,4 +39,5 @@ for host in "${hosts[@]}"; do
   fi
 done
 
+# --- 3. Any host that failed makes the whole run fail -------------------------
 exit "$failed"

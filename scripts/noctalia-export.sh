@@ -19,11 +19,13 @@
 # Run this instead of `noctalia config export merged > <baseline>`.
 set -euo pipefail
 
+# --- 1. Locate the repo, the scrub helper and the default baseline -------------
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(dirname "$script_dir")"
 scrub="$repo_root/scripts/noctalia-scrub.sh"
 default_baseline="$repo_root/modules/desktop/noctalia/config/noctalia/noctalia-config.toml"
 
+# --- 2. Parse options: --dry-run, -h/--help, optional output FILE --------------
 dry_run=0
 baseline=""
 for arg in "$@"; do
@@ -39,9 +41,11 @@ for arg in "$@"; do
 done
 baseline="${baseline:-$default_baseline}"
 
+# --- 3. Fail early if tools are missing ----------------------------------------
 command -v noctalia >/dev/null 2>&1 || { echo "noctalia-export: 'noctalia' not found on PATH" >&2; exit 2; }
 [ -x "$scrub" ] || { echo "noctalia-export: scrub script not executable: $scrub" >&2; exit 2; }
 
+# --- 4. Export to a temp file; the tracked baseline stays untouched on failure --
 tmp="$(mktemp)"
 trap 'rm -f "$tmp"' EXIT
 
@@ -50,6 +54,7 @@ noctalia config export merged > "$tmp"
 
 [ -s "$tmp" ] || { echo "noctalia-export: export produced an empty file, aborting" >&2; exit 1; }
 
+# --- 5. Strip credential fields, then refuse if any sensitive field remains ----
 echo "noctalia-export: stripping credential fields..."
 "$scrub" "$tmp"
 
@@ -60,6 +65,7 @@ if ! "$scrub" --check "$tmp"; then
   exit 1
 fi
 
+# --- 6. Either show the diff (dry run) or install the scrubbed file ------------
 if [ "$dry_run" -eq 1 ]; then
   echo "noctalia-export: dry run, diff against $baseline:"
   diff -u "$baseline" "$tmp" || true

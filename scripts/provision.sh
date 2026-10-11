@@ -17,6 +17,7 @@
 
 set -euo pipefail
 
+# --- 1. Parse arguments -------------------------------------------------------
 usage() {
   echo "usage: $0 <host> <disk-device> [--yes]" >&2
   exit 1
@@ -28,9 +29,11 @@ assume_yes="${3:-}"
 
 [[ -n "$host" && -n "$disk" ]] || usage
 
+# --- 2. Work from the repo root so relative paths (hosts/, flake.nix) resolve --
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$repo"
 
+# --- 3. Validate the target host before touching any disk ----------------------
 hostdir="hosts/${host}"
 [[ -d "$hostdir" ]] || {
   echo "error: '$hostdir' does not exist. Copy hosts/_template first." >&2
@@ -46,6 +49,7 @@ if ! grep -q "\"${host}\"" flake.nix; then
   exit 1
 fi
 
+# --- 4. Generate hardware-configuration.nix if missing -------------------------
 # Disko owns fileSystems, so hardware-configuration.nix must be generated with
 # --no-filesystems to avoid conflicting definitions.
 if [[ ! -f "$hostdir/hardware-configuration.nix" ]]; then
@@ -56,6 +60,7 @@ if [[ ! -f "$hostdir/hardware-configuration.nix" ]]; then
   rm -rf "$tmp"
 fi
 
+# --- 5. Confirm the exact device (destructive step) ---------------------------
 echo
 echo "This will ERASE and install NixOS on: ${disk}"
 echo "host: ${host}"
@@ -70,6 +75,7 @@ if [[ "$assume_yes" != "--yes" ]]; then
   }
 fi
 
+# --- 6. Partition, format and install with disko-install ----------------------
 exec sudo nix --experimental-features "nix-command flakes" run \
   github:nix-community/disko/latest#disko-install -- \
   --write-efi-boot-entries \
