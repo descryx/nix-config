@@ -22,6 +22,7 @@ nix-config/
 │
 ├── scripts/
 │   ├── check-systems.sh                #   instantiate both hosts' systems (catches derivation errors)
+│   ├── map.sh                          #   colorized tree of structure.md (the `desmap` command)
 │   ├── provision.sh                    #   disko-install wrapper for new hosts (untested draft)
 │   ├── noctalia-export.sh              #   safe Noctalia export -> scrub -> check -> write
 │   └── noctalia-scrub.sh               #   strip credential fields from the Noctalia baseline

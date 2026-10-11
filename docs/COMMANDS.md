@@ -58,6 +58,22 @@ surface at derivation time (e.g. a missing path literal) need a separate check:
 nix eval .#nixosConfigurations.desk.config.system.build.toplevel.drvPath  # one host
 ```
 
+## Repo map & navigation
+
+`desmap` renders [structure.md](structure.md) as a color-coded table of contents.
+The doc is the source of truth; the command only styles it (the same script is
+runnable as `scripts/map.sh`).
+
+```sh
+desmap                  # colorized tree
+desmap --no-color       # plain (automatic when piped)
+desmap --color | less -R
+tree -C -L 2 modules    # raw fallback, uncolored
+```
+
+`desmod` fuzzy-picks a `modules/<category>/<feature>/` (fd + fzf, previewed with
+`tree -C`) and `cd`s there. `desmodv` opens the pick in nvim, `desmody` in yazi.
+
 ## Dev shell / pre-commit hooks
 
 `.envrc` contains `use flake`, so direnv loads the dev shell and its `shellHook`

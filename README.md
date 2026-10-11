@@ -114,6 +114,8 @@ ripsecrets).
   not instantiate or build the systems.
 - `scripts/check-systems.sh` instantiates both hosts' system derivations without
   building, which catches missing-path/derivation errors `nix flake check` misses.
+- `desmap` prints `docs/structure.md` as a color-coded table of contents; `desmod`
+  fuzzy-jumps to any module folder (`desmodv`/`desmody` open it in nvim/yazi).
 - `nix fmt` formats Nix files (treefmt: nixfmt + deadnix).
 - `nix develop -c pre-commit run --all-files` runs every hook by hand.
 
