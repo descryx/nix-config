@@ -13,7 +13,6 @@
     fd
     clang-tools
     nodejs
-    # python3 #currently replaced with python3 noctalia plugin dependency
     unzip
     cargo
     fzf

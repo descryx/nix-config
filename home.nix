@@ -15,6 +15,7 @@
     ./modules/apps/btop/home.nix
     ./modules/apps/cava/home.nix
     ./modules/apps/dev/home.nix
+    ./modules/apps/dev/python/home.nix # python interpreter owner; features add local.python.extensions
     ./modules/apps/easyeffects/home.nix
     ./modules/apps/fastfetch/home.nix
     ./modules/apps/gaming/home.nix # + system half: modules/apps/gaming/system.nix

@@ -74,7 +74,8 @@ Main pieces:
 - Services: [Syncthing](https://syncthing.net) (syncs `Pictures` between the
   hosts), [undershell](https://github.com/EternalSelf-2328/undershell) widgets,
   and an optional local Minecraft server.
-- Dev: C++ toolchain (gcc/clang), [opencode](https://opencode.ai), and
+- Dev: C++ toolchain (gcc/clang), Python (one interpreter; features extend it via
+  `local.python.extensions`), [opencode](https://opencode.ai), and
   [git-hooks.nix](https://github.com/cachix/git-hooks.nix) pre-commit checks.
 
 ## Using this config

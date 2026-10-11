@@ -69,7 +69,7 @@ nix-config/
 │   │   ├── zen/                        # home.nix
 │   │   ├── vesktop/                    # home.nix + config/
 │   │   ├── opencode/                   # home.nix + skills.nix + config/ + data/
-│   │   ├── dev/                        # home.nix (git, direnv, CLI tools, clangd config)
+│   │   ├── dev/                        # home.nix (git, direnv, CLI tools, clangd config) + python/ (python3 interpreter)
 │   │   ├── zsh/                        # home.nix
 │   │   ├── easyeffects/                # home.nix + config/
 │   │   ├── obs/                        # system.nix (shared); hosts/desk/obs.nix overrides

@@ -75,7 +75,7 @@ imported (or not) per host in `hosts/<host>/default.nix`.
 | syncthing, kdeconnect, sddm | `configuration.nix` |
 | obs | `configuration.nix` + `hosts/desk/obs.nix` (desk override) |
 | niri, gaming, appearance, storage | `configuration.nix` + `home.nix` |
-| noctalia, nvim, yazi, terminals, vesktop, zen, opencode, easyeffects, dev, zsh, btop, cava, fastfetch, wayscriber | `home.nix` |
+| noctalia, nvim, yazi, terminals, vesktop, zen, opencode, easyeffects, dev, dev/python, zsh, btop, cava, fastfetch, wayscriber | `home.nix` |
 | default-apps, desktop-apps | `home.nix` |
 | optional/* (flatpak, minecraft, ollama, openrgb, tmux) | `hosts/<host>/default.nix` |
 
@@ -85,6 +85,13 @@ Watch the soft couplings: `default-apps` points at `zen.desktop`, `nvim.desktop`
 defaults (harmless, but tidy them up). The desk-only OBS override
 (`hosts/desk/obs.nix`) is meaningless once `modules/apps/obs/system.nix` is not
 imported.
+
+One deliberate coupling is inverted: `modules/apps/dev/python` owns the single
+`python3` interpreter and exposes `local.python.extensions`, a list any feature
+contributes to (Noctalia adds `pygobject3` for the shelf plugin). This exists
+because two `python3` derivations in the same profile collide, so only one module
+may build the interpreter. Disabling `python` while a contributor is enabled is
+an evaluation error, not silent breakage.
 
 ## Nix vs dotfiles
 
