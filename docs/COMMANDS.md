@@ -114,13 +114,12 @@ On the other machine: `git pull`, then `nh os switch`.
 
 ### Commit messages
 
-Format: `type(scope): summary`, lowercase imperative summary with no trailing
-period. `scope` is where the change is (`modules/<category>/<name>`, `flake`, `hosts`,
-`docs`). Add a body when the why isn't obvious.
+Format: `type(scope): summary`, lowercase imperative summary with no trailing period.
+`scope` is where the change is (`modules/<category>/<name>`, `flake`, `hosts`, `docs`).
+Add a body when the why isn't obvious.
 
-Common types: `feat`, `fix`, `chore`, `refactor`, `docs`, plus `perf`, `style`,
-`test`, `build`, `ci`, `revert`. If a user can tell something changed, use
-`feat`/`fix`; if only repo internals changed, use `chore`/`refactor`/`build`.
+Common types: `feat`, `fix`, `chore`, `refactor`, `docs`, plus `perf`, `style`, `test`, `build`, `ci`, `revert`.
+If a user can tell something changed, use `feat`/`fix`; if only repo internals changed, use `chore`/`refactor`/`build`.
 
 The full list is printed by the `commitConvention` shell function.
 
