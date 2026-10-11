@@ -8,8 +8,11 @@
     };
   };
 
+  # The CLI already ships in the service package (cfg.package, set above).
+  # Listing `ollama` here too would put a second bin/ollama (cpu build vs the
+  # cuda build) in the system profile; system-path's buildEnv ignores collisions,
+  # so the two would silently shadow each other.
   environment.systemPackages = with pkgs; [
-    ollama # The CLI tool
     oterm
   ];
 
