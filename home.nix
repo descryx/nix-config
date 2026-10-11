@@ -9,7 +9,7 @@
     # Desktop session (modules/desktop).
     ./modules/desktop/appearance/home.nix # + system half: modules/desktop/appearance/system.nix
     ./modules/desktop/niri/home.nix # + system half: modules/desktop/niri/system.nix
-    ./modules/desktop/noctalia/home.nix
+    ./modules/desktop/noctalia/home.nix # + system half: modules/desktop/noctalia/system.nix
 
     # Apps (modules/apps).
     ./modules/apps/btop/home.nix

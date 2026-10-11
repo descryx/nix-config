@@ -60,7 +60,7 @@ nix-config/
 │   │   └── tools.nix                   #   wshowkeys, nix-index, nix-ld, base system pkgs
 │   ├── desktop/                        # The session and how it looks
 │   │   ├── niri/                       # system.nix + home.nix + niri-zoom.nix + config/niri/
-│   │   ├── noctalia/                   # home.nix + undershell.nix + config/{noctalia,undershell}/
+│   │   ├── noctalia/                   # system.nix + home.nix + undershell.nix + config/{noctalia,undershell}/
 │   │   ├── appearance/                 # fonts (system) + gtk/cursor (home) + yamis-icon-theme.nix
 │   │   └── sddm/                       # system.nix (SDDM + theme)
 │   ├── apps/                           # One app / concern per folder

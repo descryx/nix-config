@@ -74,8 +74,8 @@ imported (or not) per host in `hosts/<host>/default.nix`.
 |---|---|
 | syncthing, kdeconnect, sddm | `configuration.nix` |
 | obs | `configuration.nix` + `hosts/desk/obs.nix` (desk override) |
-| niri, gaming, appearance, storage | `configuration.nix` + `home.nix` |
-| noctalia, nvim, yazi, terminals, vesktop, zen, opencode, easyeffects, dev, dev/python, zsh, btop, cava, fastfetch, wayscriber | `home.nix` |
+| niri, noctalia, gaming, appearance, storage | `configuration.nix` + `home.nix` |
+| nvim, yazi, terminals, vesktop, zen, opencode, easyeffects, dev, dev/python, zsh, btop, cava, fastfetch, wayscriber | `home.nix` |
 | default-apps, desktop-apps | `home.nix` |
 | optional/* (flatpak, minecraft, ollama, openrgb, tmux) | `hosts/<host>/default.nix` |
 

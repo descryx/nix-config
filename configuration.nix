@@ -14,6 +14,7 @@
     ./modules/desktop/appearance/system.nix # + home half: modules/desktop/appearance/home.nix
     ./modules/desktop/sddm/system.nix
     ./modules/desktop/niri/system.nix # + home half: modules/desktop/niri/home.nix
+    ./modules/desktop/noctalia/system.nix # + home half: modules/desktop/noctalia/home.nix
 
     # Apps and services (modules/apps, modules/services).
     ./modules/apps/gaming/system.nix # + home half: modules/apps/gaming/home.nix
