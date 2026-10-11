@@ -33,6 +33,7 @@ nix-config/
 │   │   └── disk-config.nix
 │   ├── desk/
 │   │   ├── default.nix
+│   │   ├── boot.nix                    #   desk-only kernel modules/params
 │   │   ├── graphics.nix                #   NVIDIA drivers
 │   │   ├── hardware-configuration.nix
 │   │   ├── nix-settings.nix            #   build parallelism cap (max-jobs/cores)

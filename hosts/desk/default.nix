@@ -4,6 +4,7 @@
     ./graphics.nix
     ./nix-settings.nix
     ./obs.nix
+    ./boot.nix
 
     # ../../modules/optional/ollama/system.nix
     ../../modules/optional/openrgb/system.nix

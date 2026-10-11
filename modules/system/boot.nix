@@ -11,11 +11,9 @@
     # No local tool needs it relaxed (perf isn't installed; mangohud doesn't use it).
     kernel.sysctl."kernel.perf_event_paranoid" = 2;
     kernelPackages = pkgs.linuxPackages_zen;
-    kernelModules = [ "nct6775" ];
 
     kernelParams = [
       "quiet"
-      "nvidia_drm.fbdev=1"
     ];
 
     plymouth = {
