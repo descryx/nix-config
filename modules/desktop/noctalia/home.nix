@@ -66,7 +66,10 @@ in
       # systemd must not start it before the compositor has put the Wayland
       # display into the user manager's environment.
       ConditionEnvironment = "WAYLAND_DISPLAY";
-      # Installed on both hosts, but only started on the desktop.
+      # Deliberate host coupling, kept here on purpose: the unit is installed on
+      # both hosts but only starts on the desktop (the t480 doesn't run the
+      # widget stack). A host-specific home import would be cleaner but the repo
+      # has no mechanism for one yet.
       ConditionHost = "desk";
     };
     Service = {
