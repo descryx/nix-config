@@ -1,4 +1,7 @@
 # Disko layout for a new host.
+#
+# !!! NOT PRACTICALLY TESTED YET. Treat as a draft and read it before use. !!!
+#
 # scripts/provision.sh overrides `device` via `--disk main <device>`, so the
 # value below is only a placeholder. Prefer /dev/disk/by-id/... names.
 {

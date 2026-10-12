@@ -1,4 +1,7 @@
 # New-host template.
+#
+# !!! NOT PRACTICALLY TESTED YET. Treat as a draft and read it before use. !!!
+#
 # Copy this directory to hosts/<new>/ and replace <new> with the real
 # hostname (here and in flake.nix nixosConfigurations), then run
 # scripts/provision.sh <new> <disk> from the NixOS installer.

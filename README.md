@@ -42,7 +42,7 @@ folder and import the file(s) you need.
 Set your values in [`local.nix`](local.nix) also change corresponding files
 like hardware-configuration.nix, then rebuild. See
 [Using this config](#using-this-config). To set up a new machine, start from
-[`hosts/_template/`](hosts/_template/).
+[`hosts/_template/`](hosts/_template/); the new-machine flow is an untested draft.
 
 **Just looking.**
 Screenshots above; how it all fits together is in
