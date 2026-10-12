@@ -57,9 +57,8 @@
 ## Documentation
 - Any change to code/config must come with the matching doc update in the same task
   (and the same commit): `README.md`, `docs/ARCHITECTURE.md`, `docs/COMMANDS.md`,
-  `docs/NOTES.md`, `docs/CREDITS.md`,
-  `docs/things-to-remove.md`, and this file - whichever the change touches. Never
-  leave docs describing old behaviour.
+  `docs/NOTES.md`, `docs/CREDITS.md`, and this file - whichever the change touches.
+  Never leave docs describing old behaviour.
 - When I say to "update the docs" (fully), audit every doc against the current
   repo: read the real tree and files plus each doc, compare, and fix anything that
   no longer matches (paths, filenames, commands, options, structure, links). Then
@@ -92,14 +91,13 @@
   explain the trade-offs, and let me decide whether it's worth integrating.
 
 ## Secrets
-- Goal: this repo must be safe if made public. No secrets in it should remain.
+- Rule: never put a secret value in the repo. See `docs/ARCHITECTURE.md` -> "Secrets"
+  for what is kept out and why.
 - Don't open (open only if necesarry or asked for) or print plain files that look secret (keys, tokens, `.env`, password files)
   unless I ask.
 - If you notice a secret or anything private (tokens, passwords, API keys, private hostnames/IPs,
-  emails, SSH keys, Wi-Fi credentials), add it to `docs/things-to-remove.md` with the **file path
-  and kind only, never the value**, and tell me. If a secret has already been committed,
-  mention that git history keeps it and it would need rotating, not just deleting.
+  emails, SSH keys, Wi-Fi credentials), report the **file path and kind only, never
+  the value**, and tell me. If it was already committed, mention that git history
+  keeps it and it needs rotating, not just deleting.
 - When a secret is needed, suggest options for keeping it out of the repo
   (e.g. sops-nix or agenix) and explain the trade-offs. Don't pick one for me.
-- Current inventory: `docs/things-to-remove.md`. Current thinking on secret tooling
-  (incl. YubiKey): `docs/NOTES.md` -> "Secrets & keys (plan)".

@@ -124,13 +124,26 @@ Generated files stay live even when their feature is Nix: Noctalia writes the
 `btop`/`cava`/`yazi` themes into the real `~/.config/<app>/themes/` (or
 `flavors/`) at runtime, so palette changes apply without a rebuild.
 
-## Hosts, secrets, deploy
+## Hosts & deploy
 
-The detail lives in [NOTES.md](NOTES.md) (filesystem labels, disko) and
-[COMMANDS.md](COMMANDS.md) (mounts, rebuilds). What matters here:
+- Filesystems are mounted by label, not UUID (the labels are in
+  [NOTES.md](NOTES.md)), so no disk IDs are in the repo.
+- Rebuilds go through `nh`; see [COMMANDS.md](COMMANDS.md). Never update
+  `flake.lock` on the laptop. For filesystem/mount changes, use `nh os boot` and
+  reboot, not `nh os switch`.
 
-- Filesystems are mounted by label, not UUID, so no disk IDs are in the repo.
-- Noctalia plugin keys, Syncthing device IDs and disk identifiers are kept out of
-  the tracked config. See [Noctalia config & secrets](COMMANDS.md#noctalia-config--secrets).
-- Rebuilds go through `nh`; never update `flake.lock` on the laptop.
-- For filesystem/mount changes, use `nh os boot` and reboot, not `nh os switch`.
+## Secrets
+
+Rule: never put a secret value in the repo. What is kept out, and why:
+
+- Noctalia plugin API keys are entered per machine in the Settings UI and stored
+  in `~/.local/state/noctalia/settings.toml`, never the repo: `rylos/syncthing`,
+  `zumik3-del/opencode-go-usage`, `Wallhaven`. Regenerate the tracked (secret-free)
+  baseline with `scripts/noctalia-export.sh`, see
+  [COMMANDS.md](COMMANDS.md#noctalia-config--secrets).
+- Syncthing pairs at runtime (`~/.config/syncthing/config.xml`), so no device IDs
+  live here; filesystems are mounted by label, so no disk UUIDs live here.
+- The git identity uses the GitHub noreply address (`local.nix`).
+- Hooks guard it: `noctalia-scrub` strips credential fields and refuses a write
+  that still has one, `detect-private-keys` catches PEM keys, and `ripsecrets` is
+  the catch-all scanner.

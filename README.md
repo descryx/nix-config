@@ -41,8 +41,8 @@ folder and import the file(s) you need.
 **If you want the whole config.**
 Set your values in [`local.nix`](local.nix) also change corresponding files
 like hardware-configuration.nix, then rebuild. See
-[Using this config](#using-this-config). To set up a new machine, follow the
-tutors in [docs/NOTES.md](docs/NOTES.md).
+[Using this config](#using-this-config). To set up a new machine, start from
+[`hosts/_template/`](hosts/_template/).
 
 **Just looking.**
 Screenshots above; how it all fits together is in
@@ -95,14 +95,14 @@ Change these for your own setup:
 
 To use it on your own hardware, drop `hosts/desk/` and `hosts/t480/`, add your
 host (copy `hosts/_template/`), then rebuild with `nh os switch`. The new-machine
-flow is untested, so read the tutors in [docs/NOTES.md](docs/NOTES.md) before you
+flow is untested, so read `scripts/provision.sh` and `hosts/_template/` before you
 trust it.
 
 Secrets stay out of the repo: `local.nix` holds only your username, paths and
 noreply git email; Noctalia plugin keys live per machine in
 `~/.local/state/noctalia/settings.toml`; Syncthing pairs at runtime. There is no
-secrets manager yet, just the checks in [docs/COMMANDS.md](docs/COMMANDS.md) and
-the plan in [docs/NOTES.md](docs/NOTES.md).
+secrets manager yet - see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) -> "Secrets"
+and the checks in [docs/COMMANDS.md](docs/COMMANDS.md).
 
 ## Development
 

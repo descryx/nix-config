@@ -19,12 +19,6 @@ sudo ntfslabel /dev/disk/by-uuid/<UUID>     old-ssd-2
 A mount's `device` change takes effect at boot: `nh os boot` then reboot, not
 `nh os switch` (it remounts `/home` live and fails).
 
-## Noctalia plugin keys
-
-Entered once per machine in the Noctalia Settings UI and stored in
-`~/.local/state/noctalia/settings.toml` (never the repo): `rylos/syncthing`,
-`zumik3-del/opencode-go-usage`, `Wallhaven`.
-
 ## New machine: SSH and git identity
 
 ```sh
