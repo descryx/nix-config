@@ -16,126 +16,39 @@ symlinked out of the store so they stay editable.
   </p>
 </details>
 
-## Start here
-
-Pick the path that matches what you want.
-
-**If you just want the dotfiles.**
-Every feature that ships config keeps it in `modules/<category>/<feature>/config/`.
-The path after `config/` usually mirrors where the files go:
-`modules/<category>/<feature>/config/<app>/` ends up in `~/.config/<app>/`. A few
-single-app features link `config/` straight to the app directory instead, so if
-you're unsure, the feature's `home.nix` has the exact `home.file` target. Browse
-`modules/*/*/config/` and copy what you need.
-Two things to know: most of it assumes [Niri](https://github.com/YaLTeR/niri)
-plus [Noctalia](https://github.com/noctalia-dev/noctalia), and several files
-hardcode `/home/descryx` paths. `noctalia-config.toml` is generated, so set that
-one up in Noctalia rather than copying it.
-
-**If you want one piece of the config.**
-`modules/` is grouped by category (`system/`, `desktop/`, `apps/`, `services/`,
-`bundles/`, `optional/`); each feature inside is one app or concern and can hold
-`system.nix` (NixOS), `home.nix` (home-manager) and `config/` (dotfiles). Copy the
-folder and import the file(s) you need.
-
-**If you want the whole config.**
-Set your values in [`local.nix`](local.nix) also change corresponding files
-like hardware-configuration.nix, then rebuild. See
-[Using this config](#using-this-config). To set up a new machine, start from
-[`hosts/_template/`](hosts/_template/); the new-machine flow is an untested draft.
-
-**Just looking.**
-Screenshots above; how it all fits together is in
-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-
-## What's in here
-
 | Device | Hostname | Hardware | Config |
 |--------|----------|----------|--------|
 | Desktop | `desk` | NVIDIA + Intel | [`hosts/desk/`](hosts/desk/) |
 | Laptop  | `t480` | ThinkPad T480 (Intel) | [`hosts/t480/`](hosts/t480/) |
 
-Most things are declared in Nix: packages, services, the compositor, and most app
-configs. A few large or frequently edited configs stay as plain dotfiles in
-`modules/<category>/<feature>/config/`, symlinked with `mkOutOfStoreSymlink` so editing them
-doesn't need a rebuild. How it all fits together is in
-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-
-Main pieces:
-
-- Desktop: [Niri](https://github.com/YaLTeR/niri) with
-  [Noctalia](https://github.com/noctalia-dev/noctalia) as the shell.
-- CLI: [zsh](https://www.zsh.org), [Ghostty](https://github.com/ghostty-org/ghostty),
-  [Yazi](https://github.com/sxyazi/yazi), [Neovim](https://github.com/neovim/neovim)
-  (LazyVim base with a custom colorscheme).
-- Apps: [Zen Browser](https://github.com/zen-browser/desktop),
-  [Obsidian](https://obsidian.md), [Vesktop](https://github.com/Vencord/Vesktop),
-  [EasyEffects](https://github.com/wwmm/easyeffects), GIMP, LibreOffice.
-- Services: [Syncthing](https://syncthing.net) (syncs `Pictures` between the
-  hosts), [undershell](https://github.com/EternalSelf-2328/undershell) widgets,
-  and an optional local Minecraft server.
-- Dev: C++ toolchain (gcc/clang), Python (one interpreter; features extend it via
-  `local.python.extensions`), [opencode](https://opencode.ai), and
-  [git-hooks.nix](https://github.com/cachix/git-hooks.nix) pre-commit checks.
-
-## Using this config
+## How to use
 
 Prerequisites: NixOS unstable with flakes enabled, plus
-[direnv](https://direnv.net) and nix-direnv for the dev shell.
+[direnv](https://direnv.net) and nix-direnv.
 
-Change these for your own setup:
+**Dotfiles only.** Every feature keeps its config in
+`modules/<category>/<feature>/config/`; browse `modules/*/*/config/` and copy what
+you need. Most of it assumes [Niri](https://github.com/YaLTeR/niri) with
+[Noctalia](https://github.com/noctalia-dev/noctalia), and several files hardcode
+`/home/descryx` paths.
 
-| What | Where |
-|---|---|
-| Username / paths | [`local.nix`](local.nix) |
-| Timezone | [`modules/system/users.nix`](modules/system/users.nix) |
-| Boot / Plymouth | [`modules/system/boot.nix`](modules/system/boot.nix) |
-| Minecraft UUIDs / MOTD | [`modules/optional/minecraft/system.nix`](modules/optional/minecraft/system.nix) |
-| Noctalia | [`modules/desktop/noctalia/config/noctalia/noctalia-config.toml`](modules/desktop/noctalia/config/noctalia/noctalia-config.toml) |
+**One piece.** `modules/` is grouped by category, one folder per feature, holding
+any of `system.nix`, `home.nix` and `config/`. Copy the folder and import the
+file(s) you need.
 
-To use it on your own hardware, drop `hosts/desk/` and `hosts/t480/`, add your
-host (copy `hosts/_template/`), then rebuild with `nh os switch`. The new-machine
-flow is untested, so read `scripts/provision.sh` and `hosts/_template/` before you
-trust it.
+**Whole config.** Set your values in [`local.nix`](local.nix), adjust
+`hardware-configuration.nix`, then rebuild with `nh os switch`. For a new machine,
+start from [`hosts/_template/`](hosts/_template/) - an untested draft.
 
-Secrets stay out of the repo: `local.nix` holds only your username, paths and
-noreply git email; Noctalia plugin keys live per machine in
-`~/.local/state/noctalia/settings.toml`; Syncthing pairs at runtime. There is no
-secrets manager yet - see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) -> "Secrets"
-and the checks in [docs/COMMANDS.md](docs/COMMANDS.md).
-
-## Development
-
-`.envrc` loads the dev shell through direnv, which installs the pre-commit hooks
-(nixfmt, deadnix, statix, check-toml, detect-private-keys, noctalia-scrub,
-ripsecrets).
-
-- `nix flake check` evaluates both hosts and builds the pre-commit check. It does
-  not instantiate or build the systems.
-- `scripts/check-systems.sh` instantiates both hosts' system derivations without
-  building, which catches missing-path/derivation errors `nix flake check` misses.
-- `tree -C -L 2 modules` prints the module tree; `desmod`
-  fuzzy-jumps to any module folder (`desmodv`/`desmody` open it in nvim/yazi).
-- `nix fmt` formats Nix files (treefmt: nixfmt + deadnix).
-- `nix develop -c pre-commit run --all-files` runs every hook by hand.
-
-More commands in [docs/COMMANDS.md](docs/COMMANDS.md).
+**Just looking.** How it all fits together is in
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), commands in
+[docs/COMMANDS.md](docs/COMMANDS.md), credits in [docs/CREDITS.md](docs/CREDITS.md).
 
 ## AI assistance & scope
 
-Parts of this were written with an AI assistant ([opencode](https://opencode.ai)).
-AI is mostly used for learning purposes and tedious refactoring,
-i am relatively new to Nix and NixOS (~ since start of july).
-It is a personal project tuned to specific hardware and shared as is: no warranty,
-and you will need to adapt it.
-
-## Credits
-
-Full credits, third-party notices and licenses are in
-[docs/CREDITS.md](docs/CREDITS.md). This config builds on
-[Niri](https://github.com/YaLTeR/niri) and
-[Noctalia](https://github.com/noctalia-dev/noctalia) and bundles a few third-party
-configs.
+Parts of this were written with an AI assistant ([opencode](https://opencode.ai)),
+mostly for learning and tedious refactoring. It is a personal project tuned to
+specific hardware and shared as is: no warranty, and you will need to adapt it.
 
 ## License
 

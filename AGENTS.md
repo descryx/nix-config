@@ -1,103 +1,66 @@
-# nix-config (NixOS + home-manager, flake-based)
+# nix-config (NixOS + home-manager flake, hosts: desk, t480)
 
-## Context
-- Flake-based NixOS config with home-manager, multiple hosts: `desk` (desktop) and a ThinkPad T480.
-- Rebuilds go through `nh` (`nh os switch`), not raw `nixos-rebuild`.
-- Verify the folder structure against the real tree rather than trusting any doc;
-  docs may lag.
-- `docs/NOTES.md` holds things I want to try and my personal preferences. Read it at
-  the start of a task and check for anything relevant. `docs/COMMANDS.md` is the
-  command cheat-sheet.
-- `git-hooks.nix` wires the pre-commit checks (nixfmt, deadnix, statix,
-  `check-toml`, `detect-private-keys`, `noctalia-scrub`, `ripsecrets`) into
-  `nix flake check` and a devShell; `.envrc` loads that devShell via direnv.
-- Noctalia plugin API keys live per-machine in
-  `~/.local/state/noctalia/settings.toml` (outside the repo). The tracked baseline
-  must stay secret-free; regenerate it with `scripts/noctalia-export.sh`, which
-  scrubs it and refuses to write a file that still carries sensitive fields. See
-  `docs/COMMANDS.md` -> "Noctalia config & secrets".
-
-## Layout & conventions
-- The repo is feature-first, grouped by domain: each feature lives in its own
-  `modules/<category>/<feature>/` folder, holding any of `system.nix` (NixOS,
-  imported by `configuration.nix`), `home.nix` (home-manager, imported by
-  `home.nix`) and `config/` (the feature's dotfiles). Categories:
-  - `system/` - machine foundation: boot, networking, users, nix settings, `nh`,
-    power, audio, tools.
-  - `desktop/` - the session and how it looks: niri, noctalia, appearance, sddm.
-  - `apps/` - one app/concern per folder.
-  - `services/` - background daemons and device glue: syncthing, kdeconnect,
-    storage.
-  - `bundles/` - grouped package lists / default choices, no per-app folders:
-    default-apps, desktop-apps.
-  - `optional/` - off by default; imported always, a host opts in with
-    `opt.<feature>.enable`.
-  Host-specific deltas live in `hosts/<host>/`, including the desk-only OBS
-  override.
-- A feature keeps its `system.nix`, `home.nix` and `config/` together in one
-  folder; never split a feature across categories by system/home.
-- User config is split between declarative Nix (each feature's `home.nix`) and
-  symlinked dotfiles (each feature's `config/`, via out-of-store symlinks, for live
-  editing). Rule of thumb: if the app has a good home-manager module, use Nix;
-  huge or frequently hand-edited configs go in the feature's `config/`. Note which
-  and why when adding one.
-- Custom derivations live next to the feature that uses them (e.g.
-  `modules/desktop/niri/niri-zoom.nix`); non-code assets likewise (e.g.
-  `modules/optional/ollama/assets/`).
-- New apps: create `modules/<category>/<feature>/` with the relevant
-  `system.nix`/`home.nix` + `config/`, add the `system.nix` to `configuration.nix`
-  and the `home.nix` to `home.nix`, and declare `options.my.<feature>.enable` (or
-  `opt.<feature>.enable` under `optional/`). Features are toggled by option only,
-  never by removing imports: list the option once in `configuration.nix`
-  (`lib.mkDefault true`/`false`) so there is a single lookup table, and set per-host
-  deltas in `hosts/<host>/default.nix`. A feature with both halves uses one switch -
-  `home.nix` reads the system option via `osConfig`. See "Toggles" in
-  `docs/ARCHITECTURE.md`.
-
-## Documentation
-- Any change to code/config must come with the matching doc update in the same task
-  (and the same commit): `README.md`, `docs/ARCHITECTURE.md`, `docs/COMMANDS.md`,
-  `docs/NOTES.md`, `docs/CREDITS.md`, and this file - whichever the change touches.
-  Never leave docs describing old behaviour.
-- When I say to "update the docs" (fully), audit every doc against the current
-  repo: read the real tree and files plus each doc, compare, and fix anything that
-  no longer matches (paths, filenames, commands, options, structure, links). Then
-  report what changed and what you verified.
-- Docs prose: use `-` (hyphen), not an em dash, for dashes.
-
-## Workflow rules
-- Show me a diff and explain it before applying any change. Never rebuild/switch,
+## Hard rules
+- Show a diff and explain it before applying changes. Never rebuild/switch,
   commit, or push without asking.
-- Never run `nix flake update` (or change `flake.lock`) on the laptop. Updates only
-  happen on desk, then get pushed and pulled.
-- New files must be `git add`ed before a flake build can see them. Remind me if relevant.
-- Commit messages follow `docs/COMMANDS.md` → "Commit messages".
-- Validate with a build or `nix flake check` where possible, and tell me what was and
-  wasn't actually tested. `nix flake check` evaluates both hosts and builds the
-  pre-commit check, but does not instantiate or build the systems. For path-level
-  refactors, run `scripts/check-systems.sh` (or force one host directly with
-  `nix eval .#nixosConfigurations.<host>.config.system.build.toplevel.drvPath`),
-  since that is what catches missing path literals and bad derivations.
-
-## Teaching and accuracy
-- Explain Nix module changes from the core up: what the option does, how the module system
-  merges it, and what ends up on the system (store path, symlink, systemd unit, etc.).
-- Label every suggestion as common practice / good practice / bad practice.
-  Say which one and why.
-- Never invent option names. Check the current NixOS / home-manager option docs or source
-  for the version this flake pins, and name that version. If you can't verify, mark it
-  "unverified".
-- If something here is odd, outdated, or has a better established way, say so,
-  explain the trade-offs, and let me decide whether it's worth integrating.
-
-## Secrets
-- Rule: never put a secret value in the repo. See `docs/ARCHITECTURE.md` -> "Secrets"
-  for what is kept out and why.
-- Don't open (open only if necesarry or asked for) or print plain files that look secret (keys, tokens, `.env`, password files)
-  unless I ask.
-- If you notice a secret or anything private (tokens, passwords, API keys, private hostnames/IPs,
-  emails, SSH keys, Wi-Fi credentials), report the **file path and kind only, never
-  the value**, and tell me. If it was already committed, mention that git history
-  keeps it and it needs rotating, not just deleting.
+- Never run `nix flake update` or change `flake.lock` on t480. Updates happen on
+  desk only.
+- Never put a secret value in the repo. Don't open or print files that look
+  secret (keys, tokens, .env). If you find one, tell me the file path and kind
+  only, never the value. See docs/ARCHITECTURE.md -> "Secrets".
 - When a secret is needed, suggest options for keeping it out of the repo
   (e.g. sops-nix or agenix) and explain the trade-offs. Don't pick one for me.
+- The tracked Noctalia baseline must stay secret-free. Regenerate it only with
+  scripts/noctalia-export.sh, never by redirecting a raw export into the file.
+  See docs/COMMANDS.md -> "Noctalia config & secrets".
+- Never invent option names. Verify against the NixOS / home-manager docs or
+  source for the version this flake pins, and name that version. If you can't
+  verify, say "unverified".
+- If unsure, ask. Don't guess.
+
+## Layout and conventions
+- Full rationale: docs/ARCHITECTURE.md. Verify against the real tree, not from
+  memory.
+- modules/ is grouped by category, one folder per feature:
+  system/ (machine foundation), desktop/ (session and look), apps/ (one app per
+  folder), services/ (daemons, device glue), bundles/ (package lists, defaults),
+  optional/ (off by default).
+- A feature lives in one folder, modules/<category>/<feature>/, holding any of
+  system.nix, home.nix, config/. Never split a feature across folders.
+- Togglable features declare my.<feature>.enable (opt.<feature>.enable under
+  optional/) in system.nix with mkEnableOption and wrap their config in lib.mkIf.
+  The manifest with defaults is in configuration.nix. Hosts set deltas. home.nix
+  reads the switch via osConfig. Declare each option once.
+- Use Nix (home-manager module) when the app has a good one. Large or often
+  hand-edited configs go in config/ as out-of-store symlinked dotfiles. State
+  which and why.
+- New files must be git added before a flake build can see them. Remind me.
+- Rebuild with nh, not nixos-rebuild. Use `nh os boot` (not switch) when
+  changing fileSystems.
+
+## Checks (run before saying a change is done)
+- nix fmt
+- nix flake check
+- ./scripts/check-systems.sh (catches missing paths and bad derivations that
+  flake check misses)
+- Report what was and was not actually tested. A switch defaulting to false can
+  make a program silently disappear, so confirm each host still enables what it
+  had (nix store diff-closures against the previous build).
+
+## Docs
+- Update docs/ARCHITECTURE.md when structure or conventions change. Update
+  README.md only for user-facing changes. Don't leave docs describing old
+  behaviour.
+- When I say "update the docs" (fully), audit every doc against the current
+  repo: read the real tree and files plus each doc, fix anything that no longer
+  matches (paths, commands, options, links), then report what changed and what
+  you verified.
+- Docs prose: use "-", not an em dash.
+- Commit messages: see docs/COMMANDS.md.
+
+## Explaining
+- Explain module changes from the core up: what the option does, how the module
+  system merges it, what ends up on the system.
+- Label suggestions as common practice / good practice / bad practice, and say
+  why. If something here is outdated or there's a better established way, say so
+  and let me decide.
