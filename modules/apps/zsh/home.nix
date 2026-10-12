@@ -52,13 +52,13 @@
               add-zle-hook-widget zle-line-init zle-line-init-cursor
 
               commitConvention() {
-                  # Render the "### Commit messages" section of docs/COMMANDS.md.
+                  # Render the "## Commit messages" section of docs/COMMANDS.md.
                   # ${local.flakeDir} is the repo path substituted by Nix; keep the
                   # awk marker below in sync with that heading text.
                   awk '
-                      /^### Commit messages/ { in_section = 1 }   # start at the heading
-                      in_section && (/^## / || /^---/) { exit }   # stop at the next section
-                      in_section                                  # default action prints the line
+                      /^## Commit messages/ { in_section = 1; print; next }   # start at the heading
+                      in_section && /^## / { exit }                           # stop at the next section
+                      in_section                                              # default action prints the line
                   ' ${local.flakeDir}/docs/COMMANDS.md | glow -
            }
 
