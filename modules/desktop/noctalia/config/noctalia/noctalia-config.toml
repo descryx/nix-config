@@ -104,7 +104,7 @@ order = [ "default" ]
         enabled = true
         fill = "surface_variant"
         id = "g1"
-        members = [ "status_5", "seperator", "bar_6", "bar_9", "Crashes", "status_4", "github", "shelf" ]
+        members = [ "status_5", "seperator", "bar_6", "bar_9", "Crashes", "status_4", "github" ]
         opacity = 0.0
         padding = 0.0
 
@@ -143,7 +143,7 @@ width = 800
     type = "power_profile"
 
     [[control_center.shortcuts]]
-    type = "icefish/phone-operate:tile"
+    type = "notification"
 
 [desktop_widgets]
 enabled = false
@@ -574,7 +574,7 @@ panel_placement = "floating"
 privilege_command = "sudo"
 
 [plugin_settings."avivbintangaringga/nix-monitor"]
-clean_command = "nix-collect-garbage -d"
+clean_command = "nh clean all --keep 10"
 panel_open_near_click = true
 panel_placement = "floating"
 panel_position = "top_right"
@@ -744,15 +744,13 @@ enabled = [
     "umedbazarov/crashes",
     "srounce/systemd",
     "knyrps/nix-search",
-    "icefish/phone-operate",
     "aristides/udiskie",
     "zumik3-del/opencode-go-usage",
     "fel/quill",
     "alexander/mimir",
     "yocraft/qrcode",
     "pulser/hover-widgets",
-    "eternalself-2328/undershell",
-    "alok-debnath/shelf"
+    "eternalself-2328/undershell"
 ]
 
     [[plugins.source]]

@@ -51,11 +51,6 @@ in
       # -------------------------------------------
     ];
 
-    # The shelf plugin's GTK 4 helper needs PyGObject, but this module must not own
-    # a second `python3` (two interpreters collide in the home-manager profile).
-    # It contributes the package to the shared interpreter in modules/apps/dev/python.
-    local.python.extensions = [ pkgs.python3Packages.pygobject3 ];
-
     home.file = {
       ".config/noctalia".source = link "noctalia";
       ".config/undershell".source = link "undershell";

@@ -19,14 +19,5 @@ in
         "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       ];
     };
-
-    # scrcpy (modules/desktop/noctalia/home.nix) connects over its default port
-    # range.
-    networking.firewall.allowedTCPPortRanges = [
-      {
-        from = 30000;
-        to = 65535;
-      }
-    ];
   };
 }
