@@ -1,7 +1,7 @@
 # Architecture
 
-How the repo fits together. File tree in [structure.md](structure.md), day-to-day
-commands in [COMMANDS.md](COMMANDS.md).
+How the repo fits together. Day-to-day commands are in
+[COMMANDS.md](COMMANDS.md); the layout is `modules/<category>/<feature>/`.
 
 ## Design
 

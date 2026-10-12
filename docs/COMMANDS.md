@@ -60,15 +60,8 @@ nix eval .#nixosConfigurations.desk.config.system.build.toplevel.drvPath  # one 
 
 ## Repo map & navigation
 
-`desmap` renders [structure.md](structure.md) as a color-coded table of contents.
-The doc is the source of truth; the command only styles it (the same script is
-runnable as `scripts/map.sh`).
-
 ```sh
-desmap                  # colorized tree
-desmap --no-color       # plain (automatic when piped)
-desmap --color | less -R
-tree -C -L 2 modules    # raw fallback, uncolored
+tree -C -L 2 modules    # the module tree
 ```
 
 `desmod` fuzzy-picks a `modules/<category>/<feature>/` (fd + fzf, previewed with

@@ -64,8 +64,6 @@
 
             # --- repo navigation helpers (des* prefix avoids clashing with common
             # commands like `map` / `mod`) ---
-            desmap() { "${local.flakeDir}/scripts/map.sh" "$@"; }
-
             _desmod_pick() {
                   fd . "${local.flakeDir}/modules" --type d --max-depth 2 \
                       | fzf --height 50% --reverse --preview 'tree -C -L 2 {}'

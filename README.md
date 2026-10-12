@@ -45,7 +45,8 @@ like hardware-configuration.nix, then rebuild. See
 tutors in [docs/NOTES.md](docs/NOTES.md).
 
 **Just looking.**
-Screenshots above; the full file tree is in [docs/structure.md](docs/structure.md).
+Screenshots above; how it all fits together is in
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## What's in here
 
@@ -58,8 +59,7 @@ Most things are declared in Nix: packages, services, the compositor, and most ap
 configs. A few large or frequently edited configs stay as plain dotfiles in
 `modules/<category>/<feature>/config/`, symlinked with `mkOutOfStoreSymlink` so editing them
 doesn't need a rebuild. How it all fits together is in
-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md); again, the file tree is in
-[docs/structure.md](docs/structure.md).
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 Main pieces:
 
@@ -114,7 +114,7 @@ ripsecrets).
   not instantiate or build the systems.
 - `scripts/check-systems.sh` instantiates both hosts' system derivations without
   building, which catches missing-path/derivation errors `nix flake check` misses.
-- `desmap` prints `docs/structure.md` as a color-coded table of contents; `desmod`
+- `tree -C -L 2 modules` prints the module tree; `desmod`
   fuzzy-jumps to any module folder (`desmodv`/`desmody` open it in nvim/yazi).
 - `nix fmt` formats Nix files (treefmt: nixfmt + deadnix).
 - `nix develop -c pre-commit run --all-files` runs every hook by hand.

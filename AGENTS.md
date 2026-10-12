@@ -3,8 +3,8 @@
 ## Context
 - Flake-based NixOS config with home-manager, multiple hosts: `desk` (desktop) and a ThinkPad T480.
 - Rebuilds go through `nh` (`nh os switch`), not raw `nixos-rebuild`.
-- `README.md` and `docs/structure.md` sketch the folder structure. `structure.md`
-  may lag; verify against the real tree before relying on it or editing it.
+- Verify the folder structure against the real tree rather than trusting any doc;
+  docs may lag.
 - `docs/NOTES.md` holds things I want to try and my personal preferences. Read it at
   the start of a task and check for anything relevant. `docs/COMMANDS.md` is the
   command cheat-sheet.
@@ -57,7 +57,7 @@
 ## Documentation
 - Any change to code/config must come with the matching doc update in the same task
   (and the same commit): `README.md`, `docs/ARCHITECTURE.md`, `docs/COMMANDS.md`,
-  `docs/structure.md`, `docs/NOTES.md`, `docs/CREDITS.md`,
+  `docs/NOTES.md`, `docs/CREDITS.md`,
   `docs/things-to-remove.md`, and this file - whichever the change touches. Never
   leave docs describing old behaviour.
 - When I say to "update the docs" (fully), audit every doc against the current
