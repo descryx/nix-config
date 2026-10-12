@@ -47,7 +47,7 @@ license; the MIT notice is reproduced at the bottom.
 | `modules/apps/opencode/config/skills/obsidian-skills/` | [kepano/obsidian-skills](https://github.com/kepano/obsidian-skills) | © 2026 Steph Ango (@kepano) | MIT |
 | `modules/apps/opencode/config/skills/daydream/` | [glebis/claude-skills](https://github.com/glebis/claude-skills) | © 2025–2026 Gleb Kalinin | MIT |
 
-## Fetched upstream (unmodified)
+## Fetched upstream (one build-time patch)
 
 Fetched and packaged at build time by the derivations next to each feature; the
 sources are not copied into this repo. Both are GPL:

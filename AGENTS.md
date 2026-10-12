@@ -37,6 +37,7 @@
 - New files must be git added before a flake build can see them. Remind me.
 - Rebuild with nh, not nixos-rebuild. Use `nh os boot` (not switch) when
   changing fileSystems.
+- option name = camelCase of the folder name
 
 ## Checks (run before saying a change is done)
 - nix fmt
