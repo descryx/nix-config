@@ -30,7 +30,8 @@
     storage.
   - `bundles/` - grouped package lists / default choices, no per-app folders:
     default-apps, desktop-apps.
-  - `optional/` - not installed by default; imported by the host that wants them.
+  - `optional/` - off by default; imported always, a host opts in with
+    `opt.<feature>.enable`.
   Host-specific deltas live in `hosts/<host>/`, including the desk-only OBS
   override.
 - A feature keeps its `system.nix`, `home.nix` and `config/` together in one
@@ -44,11 +45,13 @@
   `modules/desktop/niri/niri-zoom.nix`); non-code assets likewise (e.g.
   `modules/optional/ollama/assets/`).
 - New apps: create `modules/<category>/<feature>/` with the relevant
-  `system.nix`/`home.nix` + `config/`, then add it to the matching import list in
-  `configuration.nix` / `home.nix` (or a host's `default.nix` for `optional/`
-  items). To disable a feature, comment out its import line(s): features with both
-  halves need one line in `configuration.nix` and one in `home.nix`, and the import
-  lists point at the other half in a comment. See "Toggles" in
+  `system.nix`/`home.nix` + `config/`, add the `system.nix` to `configuration.nix`
+  and the `home.nix` to `home.nix`, and declare `options.my.<feature>.enable` (or
+  `opt.<feature>.enable` under `optional/`). Features are toggled by option only,
+  never by removing imports: list the option once in `configuration.nix`
+  (`lib.mkDefault true`/`false`) so there is a single lookup table, and set per-host
+  deltas in `hosts/<host>/default.nix`. A feature with both halves uses one switch -
+  `home.nix` reads the system option via `osConfig`. See "Toggles" in
   `docs/ARCHITECTURE.md`.
 
 ## Documentation

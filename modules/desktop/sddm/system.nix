@@ -1,5 +1,11 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
+  cfg = config.my.sddm;
   sddm-astronaut =
     (pkgs.sddm-astronaut.override {
       embeddedTheme = "pixel_sakura_static";
@@ -80,16 +86,20 @@ let
       });
 in
 {
-  environment.systemPackages = [
-    sddm-astronaut
-  ];
-  services.displayManager.sddm = {
-    enable = true;
-    package = pkgs.kdePackages.sddm;
-    theme = "sddm-astronaut-theme";
-    wayland.enable = true;
-    extraPackages = [
-      pkgs.kdePackages.qtmultimedia
+  options.my.sddm.enable = lib.mkEnableOption "sddm";
+
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = [
+      sddm-astronaut
     ];
+    services.displayManager.sddm = {
+      enable = true;
+      package = pkgs.kdePackages.sddm;
+      theme = "sddm-astronaut-theme";
+      wayland.enable = true;
+      extraPackages = [
+        pkgs.kdePackages.qtmultimedia
+      ];
+    };
   };
 }

@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   pkgs,
   lib,
   ...
@@ -62,33 +63,34 @@ let
   );
 in
 {
-  programs.opencode.commands = opencodeCommands;
+  config = lib.mkIf osConfig.my.opencode.enable {
+    programs.opencode.commands = opencodeCommands;
 
-  home = {
-    packages = [
-      pkgs.nodejs
-      pkgs.pnpm
-    ];
+    home = {
+      packages = [
+        pkgs.nodejs
+        pkgs.pnpm
+      ];
 
-    # Copy the pinned source to a writable place whenever the pinned rev changes
-    activation.understandAnything = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      dest="${dest}"
-      if [ "$(cat "$dest/.rev" 2>/dev/null)" != "${rev}" ]; then
-        rm -rf "$dest"
-        mkdir -p "$dest"
-        cp -r ${ua}/. "$dest"/
-        chmod -R u+w "$dest"
-        echo "${rev}" > "$dest/.rev"
-      fi
-    '';
+      # Copy the pinned source to a writable place whenever the pinned rev changes
+      activation.understandAnything = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        dest="${dest}"
+        if [ "$(cat "$dest/.rev" 2>/dev/null)" != "${rev}" ]; then
+          rm -rf "$dest"
+          mkdir -p "$dest"
+          cp -r ${ua}/. "$dest"/
+          chmod -R u+w "$dest"
+          echo "${rev}" > "$dest/.rev"
+        fi
+      '';
 
-    # Skills link to the writable copy, not the store
-    file = lib.listToAttrs (
-      map (name: {
-        name = ".agents/skills/${name}";
-        value.source = config.lib.file.mkOutOfStoreSymlink "${dest}/understand-anything-plugin/skills/${name}";
-      }) skills
-    );
+      # Skills link to the writable copy, not the store
+      file = lib.listToAttrs (
+        map (name: {
+          name = ".agents/skills/${name}";
+          value.source = config.lib.file.mkOutOfStoreSymlink "${dest}/understand-anything-plugin/skills/${name}";
+        }) skills
+      );
+    };
   };
-
 }

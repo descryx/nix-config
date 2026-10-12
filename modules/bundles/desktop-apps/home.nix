@@ -1,19 +1,26 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    google-chrome
-    gimp
-    obsidian
-    telegram-desktop
-    thunar
-    libreoffice
-    onlyoffice-desktopeditors
-    qbittorrent
-    imv
-    mpvpaper
-    pavucontrol
-    davinci-resolve
-  ];
+  osConfig,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  config = lib.mkIf osConfig.my.desktopApps.enable {
+    home.packages = with pkgs; [
+      google-chrome
+      gimp
+      obsidian
+      telegram-desktop
+      thunar
+      libreoffice
+      onlyoffice-desktopeditors
+      qbittorrent
+      imv
+      mpvpaper
+      pavucontrol
+      davinci-resolve
+    ];
 
-  programs.mpv.enable = true;
+    programs.mpv.enable = true;
+  };
 }

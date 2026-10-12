@@ -57,41 +57,57 @@ module), `home.nix` (home-manager module) and `config/` (its dotfiles).
   `storage`.
 - `bundles/` - grouped package lists and default choices, with no per-app folders:
   `default-apps`, `desktop-apps`.
-- `optional/` - not installed by default; imported by whichever host wants them.
+- `optional/` - off by default; imported always but a host opts in with
+  `opt.<feature>.enable`.
 
 A feature never splits across categories: its `system.nix`, `home.nix` and
 `config/` stay in one folder. Per-machine differences live in `hosts/<host>/`.
 
 ## Toggles
 
-Features are enabled by importing their file(s), so disabling one is commenting
-out its import line. Some features have both a `system.nix` and a `home.nix`
-half, which means one line in each of `configuration.nix` and `home.nix`; the
-import lists carry a comment pointing at the other half. `optional/` features are
-imported (or not) per host in `hosts/<host>/default.nix`.
+Every feature has an `enable` option, off by default. Modules are imported
+permanently - `configuration.nix` imports every `system.nix`, `home.nix` every
+`home.nix` - and a feature is turned on or off only through its option, never by
+removing an import. This is the whole point of the option approach: the shared
+import lists never change, so a host cannot silently drop a feature by editing
+them.
 
-| Feature | File(s) to edit |
-|---|---|
-| syncthing, kdeconnect, sddm | `configuration.nix` |
-| obs | `configuration.nix` + `hosts/desk/obs.nix` (desk override) |
-| niri, noctalia, gaming, appearance, storage | `configuration.nix` + `home.nix` |
-| nvim, yazi, terminals, vesktop, zen, opencode, easyeffects, dev, dev/python, zsh, btop, cava, fastfetch, wayscriber | `home.nix` |
-| default-apps, desktop-apps | `home.nix` |
-| optional/* (flatpak, minecraft, ollama, openrgb, tmux) | `hosts/<host>/default.nix` |
+- Core features use `my.<feature>.enable`; optional features use
+  `opt.<feature>.enable` (declared in `modules/optional/*/system.nix`).
+- `configuration.nix` lists every option once, as a by-hand lookup table. Shared
+  features use `lib.mkDefault true`, the rest `lib.mkDefault false`. `lib.mkDefault`
+  is essential: it makes the value only a *default*, so a host can still override
+  it; a plain `= true` there would conflict with a host's `= false`.
+- `hosts/<host>/default.nix` carries only the deltas, as plain `= true`/`= false`
+  (normal priority beats `lib.mkDefault`). Features wanted on both machines stay in
+  `configuration.nix`; only real per-machine differences live in the host file.
+- A feature with both halves is gated by one switch: `system.nix` uses
+  `lib.mkIf cfg.enable`; `home.nix` reads the same system option through `osConfig`
+  (`lib.mkIf osConfig.my.<feature>.enable`). Home-manager runs as a NixOS module, so
+  `osConfig` exposes the merged system option tree.
+
+Because the option default is off, a feature mentioned nowhere is off.
+`configuration.nix` is the one place to look an option up.
+
+| Group | Switch | Enabled in |
+|---|---|---|
+| core (niri, noctalia, zsh, nvim, gaming, ...) | `my.<feature>.enable` | `configuration.nix` (on), overridden per host |
+| kdeconnect | `my.kdeconnect.enable` | `hosts/desk/default.nix` |
+| optional (flatpak, minecraft, ollama, openrgb, tmux) | `opt.<feature>.enable` | `hosts/<host>/default.nix` |
 
 Watch the soft couplings: `default-apps` points at `zen.desktop`, `nvim.desktop`,
 `thunar.desktop`, `mpv.desktop`, `imv.desktop`, `libreoffice-*` and
 `org.qbittorrent.qBittorrent.desktop`, so disabling those leaves dangling mime
 defaults (harmless, but tidy them up). The desk-only OBS override
-(`hosts/desk/obs.nix`) is meaningless once `modules/apps/obs/system.nix` is not
-imported.
+(`hosts/desk/obs.nix`) is gated by `my.obs.enable`, so it is inert when OBS is off.
 
 One deliberate coupling is inverted: `modules/apps/dev/python` owns the single
 `python3` interpreter and exposes `local.python.extensions`, a list any feature
 contributes to (Noctalia adds `pygobject3` for the shelf plugin). This exists
 because two `python3` derivations in the same profile collide, so only one module
-may build the interpreter. Disabling `python` while a contributor is enabled is
-an evaluation error, not silent breakage.
+may build the interpreter. The option is declared unconditionally and only the
+interpreter package is gated by `my.dev.enable`, so a contributor staying enabled
+while `dev` is off is harmless (it just contributes an unused package).
 
 ## Nix vs dotfiles
 

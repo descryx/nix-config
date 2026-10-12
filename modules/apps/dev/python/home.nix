@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
@@ -21,7 +22,7 @@ in
     description = "Extra Python packages merged into the user's python3 interpreter.";
   };
 
-  config.home.packages = [
+  config.home.packages = lib.mkIf osConfig.my.dev.enable [
     # `_` ignores the package set argument: extensions are expected to come from
     # the matching `pkgs.python3Packages`, so they already belong to this Python.
     (pkgs.python3.withPackages (_: cfg.extensions))

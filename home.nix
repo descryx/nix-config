@@ -1,4 +1,4 @@
-{ inputs, local, ... }:
+{ local, ... }:
 {
   home = {
     inherit (local) username;
@@ -32,11 +32,12 @@
     # Services (modules/services).
     ./modules/services/storage/home.nix # + system half: modules/services/storage/system.nix
 
+    # Optional features (modules/optional). Imported always; gated by opt.*.
+    ./modules/optional/tmux/home.nix
+
     # Bundles (modules/bundles).
     ./modules/bundles/default-apps/home.nix
     ./modules/bundles/desktop-apps/home.nix
-
-    # ./modules/optional/tmux/home.nix
   ];
 
   xdg = {

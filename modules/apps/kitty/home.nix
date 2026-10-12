@@ -1,12 +1,16 @@
 {
   config,
   local,
+  osConfig,
   pkgs,
+  lib,
   ...
 }:
 {
-  home.packages = [ pkgs.kitty ];
+  config = lib.mkIf osConfig.my.kitty.enable {
+    home.packages = [ pkgs.kitty ];
 
-  home.file.".config/kitty".source =
-    config.lib.file.mkOutOfStoreSymlink "${local.flakeDir}/modules/apps/kitty/config/kitty";
+    home.file.".config/kitty".source =
+      config.lib.file.mkOutOfStoreSymlink "${local.flakeDir}/modules/apps/kitty/config/kitty";
+  };
 }

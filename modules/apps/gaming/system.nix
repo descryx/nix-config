@@ -1,12 +1,24 @@
 {
-  programs = {
-    steam.enable = true;
+  lib,
+  config,
+  ...
+}:
+let
+  cfg = config.my.gaming;
+in
+{
+  options.my.gaming.enable = lib.mkEnableOption "gaming (steam + gamemode)";
 
-    # gamemode: auto-tunes CPU governor & GPU for gaming performance.
-    # Use with launch option: gamemoderun %command%
-    gamemode = {
-      enable = true;
-      settings.general.renice = 10;
+  config = lib.mkIf cfg.enable {
+    programs = {
+      steam.enable = true;
+
+      # gamemode: auto-tunes CPU governor & GPU for gaming performance.
+      # Use with launch option: gamemoderun %command%
+      gamemode = {
+        enable = true;
+        settings.general.renice = 10;
+      };
     };
   };
 }
