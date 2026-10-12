@@ -46,8 +46,6 @@ in
       playerctl
       wlrctl
 
-      gobject-introspection
-      gtk4
       # -------------------------------------------
     ];
 
