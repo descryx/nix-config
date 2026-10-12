@@ -19,9 +19,10 @@
     ./modules/apps/easyeffects/home.nix
     ./modules/apps/fastfetch/home.nix
     ./modules/apps/gaming/home.nix # + system half: modules/apps/gaming/system.nix
+    ./modules/apps/ghostty/home.nix
+    ./modules/apps/kitty/home.nix
     ./modules/apps/nvim/home.nix
     ./modules/apps/opencode/home.nix
-    ./modules/apps/terminals/home.nix
     ./modules/apps/vesktop/home.nix
     ./modules/apps/wayscriber/home.nix
     ./modules/apps/yazi/home.nix
