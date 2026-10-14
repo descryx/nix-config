@@ -791,9 +791,10 @@ ui_scale = 0.95000000670552254
     auto_sync = false
 
     [shell.launcher]
-    app_grid = true
+    app_grid = false
     categories = false
     compact = true
+    width = 560
 
     [shell.mpris]
     blacklist = []
