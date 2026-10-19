@@ -21,7 +21,11 @@
     };
 
     zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
+      # Temporary: pin to last known-good rev (Zen 1.23.2b). youwen5's flake
+      # currently ships a stale hash for 1.23.3b (youwen5/zen-browser-flake#24).
+      # Uncomment the line below (and drop the pin) to resume updates.
+      # url = "github:youwen5/zen-browser-flake";
+      url = "github:youwen5/zen-browser-flake/458cd16116c362a5e92d5db6bdc3599e4e8b1f4a";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
