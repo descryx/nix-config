@@ -26,7 +26,12 @@
       imagemagick
       tree-sitter
       glow
+      godot_4
+      scons
     ];
+
+    xdg.dataFile."godot/export_templates".source =
+      "${pkgs.godot_4-export-templates-bin}/share/godot/export_templates";
 
     programs.git = {
       enable = true;
