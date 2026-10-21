@@ -44,7 +44,7 @@ order = [ "default" ]
     radius = 0
     scale = 0.7500000037252903
     shadow = false
-    start = [ "workspaces", "ribbon", "active_window" ]
+    start = [ "stack", "ribbon", "active_window" ]
     thickness = 18
 
         [bar.default.monitor.DP-2]
@@ -750,7 +750,9 @@ enabled = [
     "alexander/mimir",
     "yocraft/qrcode",
     "pulser/hover-widgets",
-    "eternalself-2328/undershell"
+    "eternalself-2328/undershell",
+    "johnnyp0t/niri-workspace-stack",
+    "miixz/audio-sticker"
 ]
 
     [[plugins.source]]
@@ -1208,6 +1210,14 @@ custom_image = "/home/descryx/Pictures/telegram/nix-snowflake-white.svg"
 [widget.shelf]
 type = "alok-debnath/shelf:shelf"
 
+[widget.stack]
+compact = true
+displayMode = "numbered_rail"
+show_empty = false
+show_windows = false
+type = "johnnyp0t/niri-workspace-stack:stack"
+visible_workspaces = 4
+
 [widget.status]
 type = "aristides/udiskie:status"
 
@@ -1274,6 +1284,7 @@ type = "h-jangra/keyviz:widget"
 [widget.workspaces]
 active_pill_size = 2.0
 capsule_radius = 8
+enabled = false
 focused_output_only = true
 hide_when_empty = true
 minimal = true
