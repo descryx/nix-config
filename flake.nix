@@ -42,6 +42,10 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-craftapps = {
+      url = "github:olafkfreund/nix-craftapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -51,6 +55,7 @@
       home-manager,
       mac-style-plymouth,
       nix-flatpak,
+      nix-craftapps,
       ...
     }@inputs:
     let
@@ -76,6 +81,7 @@
             ./hosts/${hostName}/default.nix
             home-manager.nixosModules.home-manager
             inputs.disko.nixosModules.disko
+            inputs.nix-craftapps.nixosModules.default
 
             {
               nixpkgs.overlays = [
