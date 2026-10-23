@@ -639,6 +639,9 @@ panel_placement = "widget"
 docked_open_near_click = true
 presets_dir = "~/.config/niri/niri-animation-collection/animations"
 
+[plugin_settings."johnnyp0t/niri-workspace-stack"]
+navigator_placement = "floating"
+
 [plugin_settings."marccvictoria/llamanager"]
 modelfile_path = "/home/descryx/nix-config/ollama"
 panel_position = "top_right"
@@ -751,8 +754,7 @@ enabled = [
     "yocraft/qrcode",
     "pulser/hover-widgets",
     "eternalself-2328/undershell",
-    "johnnyp0t/niri-workspace-stack",
-    "miixz/audio-sticker"
+    "johnnyp0t/niri-workspace-stack"
 ]
 
     [[plugins.source]]
@@ -1192,9 +1194,9 @@ hide_inactive = true
 visualization = "graph"
 
 [widget.ribbon]
-animation_speed = 3.0
+animation_speed = 2.0
 gaps = 4.0
-scale = 0.80000000000000004
+scale = 0.75
 show_active_window = true
 type = "luochen1990/niri-ribbon:ribbon"
 
@@ -1216,7 +1218,7 @@ displayMode = "numbered_rail"
 show_empty = false
 show_windows = false
 type = "johnnyp0t/niri-workspace-stack:stack"
-visible_workspaces = 4
+visible_workspaces = 3
 
 [widget.status]
 type = "aristides/udiskie:status"
