@@ -5,144 +5,135 @@
   lib,
   ...
 }:
+let
+  # v2 permissions are an ORDERED list and the LAST matching rule wins.
+  # Broad rules first, specific exceptions after, denies at the very end.
+  rule = effect: action: resource: { inherit effect action resource; };
+  allow = rule "allow";
+  ask = rule "ask";
+  deny = rule "deny";
+
+  readOnlyShell = [
+    (allow "shell" "git status*")
+    (allow "shell" "git diff*")
+    (allow "shell" "git log*")
+    (allow "shell" "git show*")
+    (allow "shell" "git branch --list*")
+    (allow "shell" "git branch -a*")
+    (allow "shell" "ls*")
+    (allow "shell" "pwd")
+    (allow "shell" "which *")
+    (allow "shell" "nix flake show*")
+  ];
+
+  # Re-asserted last in every shell ruleset so nothing above can override them.
+  shellSecretDenies = [
+    (deny "shell" "*ssh*")
+    (deny "shell" "*.ssh*")
+    (deny "shell" "*.env*")
+  ];
+in
 {
   imports = [ ./skills.nix ];
 
   config = lib.mkIf osConfig.my.opencode.enable {
-    xdg.configFile."opencode/tui.json".text = builtins.toJSON {
-      "$schema" = "https://opencode.ai/tui.json";
+    # v2 reads TUI settings and TUI plugins from cli.json (not tui.json).
+    xdg.configFile."opencode/cli.json".text = builtins.toJSON {
+      "$schema" = "https://opencode.ai/v2/cli.json";
+      theme.name = "myTheme";
+      plugins = [ "@leohenon/opencode-vim-plugin@0.2.0-beta.2" ]; # pinned, no floating @beta
       attention = {
         enabled = true;
         notifications = true;
         sound = true;
         volume = 0.4;
       };
-      plugin = [
-        [
-          "@leohenon/opencode-vim-plugin"
-          {
-            enabled = true;
-            vim_initial_mode = "insert";
-          }
-        ]
-      ];
+      diffs.wrap = "word";
+      session = {
+        sidebar = "auto";
+        scrollbar = false;
+        thinking = "hide";
+      };
+      animations = true;
     };
 
     programs.opencode = {
       enable = true;
       settings = {
-        plugin = [
-          [
-            "@leohenon/opencode-vim-plugin"
-            {
-              enabled = true;
-              vim_initial_mode = "normal";
-            }
-          ]
-        ];
-        agent.plan.permission = {
-          edit = "deny";
-          webfetch = "ask";
-          bash = {
-            "*" = "ask";
+        permissions = [
+          (ask "*" "*")
+        ] # default for anything not listed
+        ++ [
+          (allow "read" "*")
+          (allow "grep" "*")
+          (allow "glob" "*")
+          (allow "list" "*")
+          (allow "lsp" "*")
+          (allow "websearch" "*")
+          (allow "skill" "*")
+          (allow "question" "*")
+          (allow "subagent" "*")
+        ]
+        ++ [
+          # edits
+          (ask "edit" "*")
+          (allow "edit" "src/**")
+          (allow "edit" "include/**")
+          (allow "edit" "tests/**")
+          (ask "edit" "CMakeLists.txt") # build config
+        ]
+        ++ [
+          # outside the project
+          (ask "external_directory" "*")
+          (allow "external_directory" "~/Projects/**")
+          (ask "external_directory" "~/.config/**")
+        ]
+        ++ readOnlyShell
+        ++ [
+          (allow "shell" "git branch -v*")
+          (allow "shell" "git stash list*")
+          (allow "shell" "nix flake check*")
+          (allow "shell" "ctest*")
+          (ask "shell" "clang-format*")
+          (ask "shell" "clang-tidy*")
+          (ask "shell" "ninja*")
+          (ask "shell" "cmake*")
+          (ask "shell" "make*")
+          (ask "shell" "nixos-rebuild*")
+          (ask "shell" "curl*")
+          (ask "shell" "wget*")
+        ]
+        ++ [
+          # hard denies, LAST
+          (deny "read" "~/.ssh/**")
+          (deny "read" "**/id_*")
+          (deny "read" "*.env")
+          (deny "read" "*.env.*")
+          (allow "read" "*.env.example") # exception to the two denies above
+          (deny "edit" "flake.lock") # only via `nix flake update`
+          (deny "edit" ".git/**")
+          (deny "external_directory" "~/.ssh/**")
+          (deny "shell" "sudo*")
+          (deny "shell" "rm -rf*")
+          (deny "shell" "git reset --hard*")
+          (deny "shell" "git clean*")
+          (deny "shell" "git push*")
+        ]
+        ++ shellSecretDenies;
 
-            # read-only inspection
-            "git status*" = "allow";
-            "git diff*" = "allow";
-            "git log*" = "allow";
-            "git show*" = "allow";
-            "git branch --list*" = "allow";
-            "git branch -a*" = "allow";
-            "ls*" = "allow";
-            "pwd" = "allow";
-            "which *" = "allow";
-            "nix flake show*" = "allow";
-
-            # re-assert secret protection (must stay LAST)
-            "*ssh*" = "deny";
-            "*.ssh*" = "deny";
-            "*.env*" = "deny";
-          };
-        };
-        permission = {
-          "*" = "ask";
-          read = {
-            "*" = "allow";
-            "~/.ssh/**" = "deny";
-            "**/id_*" = "deny";
-            "*.env" = "deny";
-            "*.env.*" = "deny";
-            "*.env.example" = "allow";
-          };
-          grep = "allow";
-          glob = "allow";
-          list = "allow";
-          websearch = "allow";
-          webfetch = "ask";
-          task = "allow";
-          skill = "allow";
-          doom_loop = "ask";
-          lsp = "allow";
-          question = "allow";
-          edit = {
-            "*" = "ask";
-            "src/**" = "allow";
-            "include/**" = "allow";
-            "tests/**" = "allow";
-            "CMakeLists.txt" = "ask"; # build config
-            "flake.lock" = "deny"; # should only change via `nix flake update`
-            ".git/**" = "deny";
-          };
-          external_directory = {
-            "*" = "ask";
-            "~/Projects/**" = "allow";
-            "~/.ssh/**" = "deny";
-            "~/.config/**" = "ask";
-          };
-          bash = {
-            "*" = "ask";
-
-            # --- allow (read-only / build) ---
-            "git status*" = "allow";
-            "git diff*" = "allow";
-            "git log*" = "allow";
-            "git show*" = "allow";
-            "git branch --list*" = "allow";
-            "git branch -a*" = "allow";
-            "git branch -v*" = "allow";
-            "git stash list*" = "allow";
-            "ls*" = "allow";
-            "pwd" = "allow";
-            "which *" = "allow";
-            "nix flake show*" = "allow";
-            "nix flake check*" = "allow";
-            "ctest*" = "allow";
-            # --- ask ---
-            "clang-format*" = "ask";
-            "clang-tidy*" = "ask";
-            "ninja*" = "ask";
-            "cmake*" = "ask";
-            "make*" = "ask";
-            "nixos-rebuild*" = "ask";
-            "curl*" = "ask";
-            "wget*" = "ask";
-
-            # --- deny (LAST, so nothing above can override them) ---
-            "sudo*" = "deny";
-            "rm -rf*" = "deny";
-            "git reset --hard*" = "deny";
-            "git clean*" = "deny";
-            "git push*" = "deny";
-            "*ssh*" = "deny"; # broad: also hits files like sshd_config.nix
-            "*.ssh*" = "deny";
-            "*.env*" = "deny";
-          };
-        };
+        # Appended AFTER the global rules above, so these refine them.
+        agents.plan.permissions = [
+          (deny "edit" "*")
+          (ask "webfetch" "*")
+          (ask "shell" "*")
+        ]
+        ++ readOnlyShell
+        ++ shellSecretDenies;
       };
+
       context = ./data/AGENTS.md;
-      commands = {
-        daydream = ./data/commands/daydream.md;
-      };
+      commands.daydream = ./data/commands/daydream.md;
+      agents.teacher = ./data/teacher.md;
     };
 
     home.file = {

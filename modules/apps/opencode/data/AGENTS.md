@@ -17,12 +17,6 @@
 - Separate guarantees, common practice, and your opinion.
 - Ask whether I know a concept if it matters. Ask at most one to three questions at a time.
 
-## Default mode: do the task
-- Unless a project's AGENTS.md says it is a learning project, do the work directly,
-  then explain what and why as described above.
-- Make small, reviewable changes. Never touch files outside the task without asking.
-- Tell me before running anything destructive or system-wide (rebuilds, deletes, `git push`).
-
 ## C++ notes (any mode)
 - Prefer modern C++ and state which standard each idiom needs.
 - Flag ownership problems, raw `new`/`delete`, missing `const`, needless copies, and undefined behavior.
