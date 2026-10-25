@@ -19,6 +19,7 @@
       mpvpaper
       pavucontrol
       davinci-resolve
+      localsend
     ];
 
     programs = {
