@@ -17,14 +17,15 @@ order = [ "default" ]
     background_opacity = 0.74999998323619366
     border = "#4C4C4C"
     border_width = 0.5
-    capsule_radius = "auto"
+    capsule_radius = 0
     capsule_thickness = 0.99999998137354851
-    center = [ "clock", "notifications", "privacy" ]
+    center = [ "clock", "notifications", "privacy", "widget_7" ]
     concave_edge_corners = false
     end = [
         "media_2",
         "tray",
         "group:g1",
+        "group:g6",
         "group:g2",
         "group:g5",
         "group:g4",
@@ -104,9 +105,21 @@ order = [ "default" ]
         enabled = true
         fill = "surface_variant"
         id = "g1"
-        members = [ "status_5", "seperator", "bar_6", "bar_9", "Crashes", "status_4", "github" ]
+        members = [ "status_5", "seperator", "bar_6", "Crashes", "github" ]
         opacity = 0.0
         padding = 0.0
+
+        [[bar.default.capsule_group]]
+        accordion = true
+        accordion_direction = "start"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_variant"
+        id = "g6"
+        members = [ "widget_6", "seperator", "status_4", "bar_9" ]
+        opacity = 0.0
+        padding = 0.0
+        radius = 0.0
 
 [battery.device."/org/freedesktop/UPower/devices/battery_hidpp_battery_0"]
 warning_threshold = 10
@@ -181,10 +194,10 @@ widget_order = [ "desktop-widget-0000000000000002", "desktop-widget-000000000000
         variant = "default"
 
     [desktop_widgets.widget.desktop-widget-0000000000000002]
-    box_height = 0.0
-    box_width = 0.0
-    cx = 238.64999389648438
-    cy = 165.0
+    box_height = 112.0
+    box_width = 256.0
+    cx = 192.0
+    cy = 148.0
     output = "DP-1"
     placement_height = 1080.0
     placement_width = 1920.0
@@ -192,12 +205,15 @@ widget_order = [ "desktop-widget-0000000000000002", "desktop-widget-000000000000
     type = "media_player"
 
         [desktop_widgets.widget.desktop-widget-0000000000000002.settings]
+        album_art_background = false
+        audio_visualizer = true
         background = false
         bands = 128
         centered = false
         hide_when_no_media = true
         layout = "horizontal"
         mirrored = true
+        shadow = false
         show_when_idle = false
 
     [desktop_widgets.widget.desktop-widget-0000000000000003]
@@ -608,6 +624,9 @@ controls_position = "top_right"
 panel_open_near_click = true
 panel_placement = "floating"
 
+[plugin_settings."faented/opencode-monitor"]
+panel_placement = "floating"
+
 [plugin_settings."fel/quill"]
 ai_model = "deepseek-v4.1-flash"
 notes_dir = "/home/descryx/Projects/notes"
@@ -626,6 +645,11 @@ badge_style = "solid"
 enabled_by_default = false
 font_size = "small"
 max_keys = 8
+
+[plugin_settings."hbollon/shift"]
+dashboard_placement = "floating"
+duration_format = "units"
+holiday_country = "DE"
 
 [plugin_settings."icefish/phone-connect"]
 details_placement = "floating"
@@ -750,11 +774,11 @@ enabled = [
     "aristides/udiskie",
     "zumik3-del/opencode-go-usage",
     "fel/quill",
-    "alexander/mimir",
     "yocraft/qrcode",
     "pulser/hover-widgets",
     "eternalself-2328/undershell",
-    "johnnyp0t/niri-workspace-stack"
+    "johnnyp0t/niri-workspace-stack",
+    "faented/opencode-monitor"
 ]
 
     [[plugins.source]]
@@ -796,7 +820,7 @@ ui_scale = 0.95000000670552254
 
     [shell.launcher]
     app_grid = false
-    categories = false
+    categories = true
     compact = true
     width = 560
 
@@ -1198,6 +1222,7 @@ animation_speed = 2.0
 gaps = 4.0
 scale = 0.75
 show_active_window = true
+thickness = 5.0
 type = "luochen1990/niri-ribbon:ribbon"
 
 [widget.seperator]
@@ -1282,6 +1307,13 @@ type = "marccvictoria/llamanager:widget"
 
 [widget.widget_5]
 type = "h-jangra/keyviz:widget"
+
+[widget.widget_6]
+show_label = false
+type = "faented/opencode-monitor:widget"
+
+[widget.widget_7]
+type = "mera/localsend:widget"
 
 [widget.workspaces]
 active_pill_size = 2.0
