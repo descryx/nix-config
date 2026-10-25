@@ -124,6 +124,13 @@ Generated files stay live even when their feature is Nix: Noctalia writes the
 `btop`/`cava`/`yazi` themes into the real `~/.config/<app>/themes/` (or
 `flavors/`) at runtime, so palette changes apply without a rebuild.
 
+One file is the deliberate exception. opencode rewrites its TUI settings by
+writing `cli.json.tmp` and renaming it over `~/.config/opencode/cli.json`, which
+replaces any symlink home-manager put there. So that entry sets `force = true`:
+the file opencode wrote is moved to `cli.json.bak` and the declared version is
+relinked, which means a TUI toggle lasts only until the next switch. Edit
+`modules/apps/opencode/home.nix` to change those settings for good.
+
 ## Hosts & deploy
 
 - Filesystems are mounted by label, not UUID (the labels are in
