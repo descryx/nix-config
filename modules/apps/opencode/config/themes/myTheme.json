@@ -29,7 +29,11 @@
         "black": "#000000",
         "white": "#ffffff",
         "grey": "#707070",
-        "lightgrey": "#cccccc"
+        "lightgrey": "#cccccc",
+        "light_rm": "#e88a8a",
+        "light_rm_bg": "#2e1a1a",
+        "light_add": "#a8d4a8",
+        "light_add_bg": "#1a2e1a"
     },
     "theme": {
         "primary": {
@@ -93,12 +97,12 @@
             "light": "selection"
         },
         "diffAdded": {
-            "dark": "#a8d4a8",
-            "light": "#a8d4a8"
+            "dark": "light_add",
+            "light": "light_add"
         },
         "diffRemoved": {
-            "dark": "#e88a8a",
-            "light": "#e88a8a"
+            "dark": "light_rm",
+            "light": "light_rm"
         },
         "diffContext": {
             "dark": "variable",
@@ -109,20 +113,20 @@
             "light": "info"
         },
         "diffHighlightAdded": {
-            "dark": "#a8d4a8",
-            "light": "#a8d4a8"
+            "dark": "light_add",
+            "light": "light_add"
         },
         "diffHighlightRemoved": {
-            "dark": "#e88a8a",
-            "light": "#e88a8a"
+            "dark": "light_rm",
+            "light": "#light_rm"
         },
         "diffAddedBg": {
-            "dark": "#1a2e1a",
-            "light": "#1a2e1a"
+            "dark": "light_add_bg",
+            "light": "light_add_bg"
         },
         "diffRemovedBg": {
-            "dark": "#2e1a1a",
-            "light": "#2e1a1a"
+            "dark": "light_rm_bg",
+            "light": "light_rm_bg"
         },
         "diffContextBg": {
             "dark": "black",
@@ -133,12 +137,12 @@
             "light": "comment"
         },
         "diffAddedLineNumberBg": {
-            "dark": "#1a2e1a",
-            "light": "#1a2e1a"
+            "dark": "light_add_bg",
+            "light": "light_add_bg"
         },
         "diffRemovedLineNumberBg": {
-            "dark": "#2e1a1a",
-            "light": "#2e1a1a"
+            "dark": "light_rm_bg",
+            "light": "light_rm_bg"
         },
         "markdownText": {
             "dark": "fg",

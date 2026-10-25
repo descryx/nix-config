@@ -38,23 +38,42 @@ in
 
   config = lib.mkIf osConfig.my.opencode.enable {
     # v2 reads TUI settings and TUI plugins from cli.json (not tui.json).
-    xdg.configFile."opencode/cli.json".text = builtins.toJSON {
-      "$schema" = "https://opencode.ai/v2/cli.json";
-      theme.name = "myTheme";
-      plugins = [ "@leohenon/opencode-vim-plugin@0.2.0-beta.2" ]; # pinned, no floating @beta
-      attention = {
-        enabled = true;
-        notifications = true;
-        sound = true;
-        volume = 0.4;
+    #
+    # force = true: opencode saves TUI settings by writing cli.json.tmp and
+    # renaming it over cli.json, which replaces the symlink home-manager placed
+    # there with a regular file. Without force, the next activation sees a
+    # foreign file, tries to back it up, finds the previous cli.json.bak and
+    # aborts. With force the path is skipped by the collision check, the file
+    # opencode wrote is moved to cli.json.bak and ours is relinked. Consequence:
+    # a TUI toggle lasts until the next switch. Change settings here instead.
+    xdg.configFile."opencode/cli.json" = {
+      force = true;
+      text = builtins.toJSON {
+        "$schema" = "https://opencode.ai/v2/cli.json";
+        theme = {
+          name = "myTheme";
+          mode = "system";
+        };
+        plugins = [ "@leohenon/opencode-vim-plugin@0.2.0-beta.2" ]; # pinned, no floating @beta
+        attention = {
+          enabled = true;
+          notifications = true;
+          sound = true;
+          volume = 0.4;
+        };
+        diffs = {
+          wrap = "word";
+          view = "auto";
+        };
+        session = {
+          sidebar = "auto";
+          scrollbar = false;
+          thinking = "hide";
+        };
+        tabs.layout = "horizontal";
+        prompt.image_preview = true;
+        animations = true;
       };
-      diffs.wrap = "word";
-      session = {
-        sidebar = "auto";
-        scrollbar = false;
-        thinking = "hide";
-      };
-      animations = true;
     };
 
     programs.opencode = {
