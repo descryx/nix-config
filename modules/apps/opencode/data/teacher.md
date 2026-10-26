@@ -6,6 +6,7 @@ permission:
   edit:
     "*": deny
     "LEARNING.md": allow
+    "ROADMAP.md": allow
   shell: ask
 ---
 
