@@ -5,10 +5,10 @@ in the repository, and their licenses. This repo's own license is MIT - see
 [`../LICENSE`](../LICENSE) - and covers the Nix configuration only; everything
 below keeps its own license.
 
-> **Modified files.** Except for the two GPL packages listed under
-> [Fetched upstream](#fetched-upstream-unmodified), the bundled third-party files
-> listed here have been **edited/adapted** and are *not* verbatim copies of
-> upstream.
+> **Modified files.** Except for the three GPL packages listed under
+> [Fetched upstream](#fetched-upstream-patched-or-wrapped-at-build-time), the
+> bundled third-party files listed here have been **edited/adapted** and are
+> *not* verbatim copies of upstream.
 
 ## Built on
 
@@ -47,15 +47,18 @@ license; the MIT notice is reproduced at the bottom.
 | `modules/apps/opencode/config/skills/obsidian-skills/` | [kepano/obsidian-skills](https://github.com/kepano/obsidian-skills) | © 2026 Steph Ango (@kepano) | MIT |
 | `modules/apps/opencode/config/skills/daydream/` | [glebis/claude-skills](https://github.com/glebis/claude-skills) | © 2025–2026 Gleb Kalinin | MIT |
 
-## Fetched upstream (one build-time patch)
+## Fetched upstream (patched or wrapped at build time)
 
 Fetched and packaged at build time by the derivations next to each feature; the
-sources are not copied into this repo. Both are GPL:
+sources are not copied into this repo. All three are GPL:
 
 - [YAMIS - Yet Another Monochrome Icon Set](https://github.com/googIyEYES/YAMIS)
   (`modules/desktop/appearance/yamis-icon-theme.nix`) - GPL-3.0-only.
 - [undershell](https://github.com/EternalSelf-2328/undershell)
   (`modules/desktop/noctalia/undershell.nix`) - GPL-3.0-or-later.
+- [LearnHarness](https://github.com/amosblomqvist/learnharness)
+  (`modules/apps/learnharness/package.nix`) - AGPL-3.0-only; the upstream
+  release AppImage is wrapped unmodified, not patched.
 
 ## MIT license text
 

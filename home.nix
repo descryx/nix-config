@@ -21,6 +21,7 @@
     ./modules/apps/gaming/home.nix # + system half: modules/apps/gaming/system.nix
     ./modules/apps/ghostty/home.nix
     ./modules/apps/kitty/home.nix
+    ./modules/apps/learnharness/home.nix
     ./modules/apps/nvim/home.nix
     ./modules/apps/opencode/home.nix
     ./modules/apps/vesktop/home.nix

@@ -25,6 +25,7 @@
     ./modules/apps/gaming/system.nix # + home half: modules/apps/gaming/home.nix
     ./modules/apps/ghostty/system.nix # + home half: modules/apps/ghostty/home.nix
     ./modules/apps/kitty/system.nix # + home half: modules/apps/kitty/home.nix
+    ./modules/apps/learnharness/system.nix # + home half: modules/apps/learnharness/home.nix
     ./modules/apps/nvim/system.nix # + home half: modules/apps/nvim/home.nix
     ./modules/apps/obs/system.nix # host override: hosts/desk/obs.nix
     ./modules/apps/opencode/system.nix # + home half: modules/apps/opencode/home.nix
@@ -74,6 +75,7 @@
     opencode.enable = lib.mkDefault true;
     ghostty.enable = lib.mkDefault true;
     kitty.enable = lib.mkDefault true;
+    learnharness.enable = lib.mkDefault true;
     zsh.enable = lib.mkDefault true;
     zen.enable = lib.mkDefault true;
     vesktop.enable = lib.mkDefault true;

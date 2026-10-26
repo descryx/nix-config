@@ -86,6 +86,7 @@
                   niri-zoom = final.callPackage ./modules/desktop/niri/niri-zoom.nix { };
                   yamis-icon-theme = final.callPackage ./modules/desktop/appearance/yamis-icon-theme.nix { };
                   undershell = final.callPackage ./modules/desktop/noctalia/undershell.nix { };
+                  learnharness = final.callPackage ./modules/apps/learnharness/package.nix { };
                 })
               ];
 
