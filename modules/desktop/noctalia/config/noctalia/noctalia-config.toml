@@ -116,7 +116,7 @@ order = [ "default" ]
         enabled = true
         fill = "surface_container"
         id = "g6"
-        members = [ "widget_6", "seperator", "bar_9" ]
+        members = [ "widget_6", "bar_9" ]
         opacity = 0.0
         padding = 0.0
         radius = 0.0
@@ -1241,7 +1241,7 @@ type = "luochen1990/niri-ribbon:ribbon"
 
 [widget.seperator]
 color = "#FF0000"
-enabled = false
+enabled = true
 glyph = ""
 label = "┊"
 type = "custom_button"
