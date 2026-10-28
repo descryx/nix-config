@@ -16,7 +16,7 @@ How the repo fits together. Day-to-day commands are in
 
 `flake.nix` takes the inputs (`nixpkgs`, `home-manager`, `disko`, `nix-flatpak`,
 `noctalia`, `zen-browser`, `wshowkeys`, `oniri`, `mac-style-plymouth`,
-`git-hooks`) and exposes:
+`nix-craftapps`, `git-hooks`) and exposes:
 
 - `nixosConfigurations.{desk,t480}`, built by a local `mkSystem` that passes
   `inputs` and `local` through `specialArgs` and enables the home-manager NixOS
@@ -35,7 +35,12 @@ stays light.
 Custom packages come from an overlay that `callPackage`s the derivations kept next
 to the feature that uses them (`modules/desktop/niri/niri-zoom.nix`,
 `modules/desktop/appearance/yamis-icon-theme.nix`,
-`modules/desktop/noctalia/undershell.nix`).
+`modules/desktop/noctalia/undershell.nix`,
+`modules/desktop/noctalia/localsend-controller.nix`,
+`modules/apps/learnharness/package.nix`). Each pins its upstream source by
+revision or release hash. `localsend-controller` is the one that has to track an
+updater it does not control, because Noctalia updates the plugin it belongs to at
+runtime; see [COMMANDS.md](COMMANDS.md#noctalia-plugin-dependencies).
 
 ## Modules and home-manager
 
@@ -59,6 +64,10 @@ module), `home.nix` (home-manager module) and `config/` (its dotfiles).
   `default-apps`, `desktop-apps`.
 - `optional/` - off by default; imported always but a host opts in with
   `opt.<feature>.enable`.
+
+`system/` is the exception to the folder rule: it holds one file per concern
+(`boot.nix`, `networking.nix`, ...) and has no per-feature `system.nix`/`home.nix`
+split.
 
 A feature never splits across categories: its `system.nix`, `home.nix` and
 `config/` stay in one folder. Per-machine differences live in `hosts/<host>/`.
@@ -103,11 +112,12 @@ defaults (harmless, but tidy them up). The desk-only OBS override
 
 One deliberate coupling is inverted: `modules/apps/dev/python` owns the single
 `python3` interpreter and exposes `local.python.extensions`, a list any feature
-contributes to (Noctalia adds `pygobject3` for the shelf plugin). This exists
-because two `python3` derivations in the same profile collide, so only one module
-may build the interpreter. The option is declared unconditionally and only the
-interpreter package is gated by `my.dev.enable`, so a contributor staying enabled
-while `dev` is off is harmless (it just contributes an unused package).
+contributes to (Noctalia's shelf plugin was the only user and has been removed, so
+the list is empty today). This exists because two `python3` derivations in the
+same profile collide, so only one module may build the interpreter. The option is
+declared unconditionally and only the interpreter package is gated by
+`my.dev.enable`, so a contributor staying enabled while `dev` is off is harmless
+(it just contributes an unused package).
 
 ## Nix vs dotfiles
 

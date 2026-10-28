@@ -81,3 +81,23 @@ not redirect `export merged` by hand):
 
 `scripts/noctalia-scrub.sh` strips credential fields and the write is refused if a
 sensitive field remains; `ripsecrets` is the catch-all scanner.
+
+## Noctalia plugin dependencies
+
+Most plugin dependencies are plain nixpkgs packages in
+`modules/desktop/noctalia/home.nix`. `localsend-plus` is the exception: its
+`localsend-controller` helper is built from the plugin sources, pinned in
+[`modules/desktop/noctalia/localsend-controller.nix`](../modules/desktop/noctalia/localsend-controller.nix)
+to the community-plugins revision that ships it.
+
+Noctalia pulls plugin sources itself (startup and every 6h), so a plugin release
+can ask for a newer controller than the packaged one. The panel then reports
+"old controller" and refuses to start the daemon; nothing else breaks. Compare and
+bump:
+
+```sh
+grep -m1 '^version' ~/.local/state/noctalia/plugins/materialized/community/localsend-plus/controller/Cargo.toml
+```
+
+Change `rev`, `version`, `src.hash` and `cargoHash` in the `.nix` file together;
+`nix build` prints the correct hashes on mismatch.
