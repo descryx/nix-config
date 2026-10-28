@@ -23,6 +23,9 @@ How the repo fits together. Day-to-day commands are in
   module.
 - `checks.${system}.pre-commit-check` and `devShells.${system}.default`, from
   [`git-hooks.nix`](../git-hooks.nix).
+- `packages.${system}` and `overlays.default`: the custom packages as standalone
+  build targets (`nix build .#undershell`) and the same set as an overlay, so
+  each derivation is defined once and nix-update has something to evaluate.
 - `formatter.${system}`, the treefmt wrapper used by `nix fmt`.
 
 Plain `nix flake check` evaluates the module graph but never instantiates the
@@ -32,8 +35,9 @@ forces instantiation of each host's system in its own short-lived `nix eval`
 process; it stays a script rather than a flake check so the heaviest command
 stays light.
 
-Custom packages come from an overlay that `callPackage`s the derivations kept next
-to the feature that uses them (`modules/desktop/niri/niri-zoom.nix`,
+Custom packages come from an overlay defined once in `flake.nix` that
+`callPackage`s the derivations kept next to the feature that uses them
+(`modules/desktop/niri/niri-zoom.nix`,
 `modules/desktop/appearance/yamis-icon-theme.nix`,
 `modules/desktop/noctalia/undershell.nix`,
 `modules/desktop/noctalia/localsend-controller.nix`,

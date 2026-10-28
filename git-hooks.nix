@@ -52,10 +52,12 @@ in
     pre-commit-check = check;
   };
 
-  # `nix develop` (or the .envrc via direnv) installs the git hook.
+  # `nix develop` (or the .envrc via direnv) installs the git hook and puts the
+  # package updater on PATH: `nix-update undershell --flake`.
   devShells = {
     default = pkgs.mkShell {
       inherit (check) shellHook enabledPackages;
+      buildInputs = [ pkgs.nix-update ];
     };
   };
 }

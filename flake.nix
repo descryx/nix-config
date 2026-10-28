@@ -58,6 +58,18 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       gitHooks = import ./git-hooks.nix { inherit inputs nixpkgs system; };
+      # Custom packages live next to the feature that uses them and reach the
+      # hosts through this overlay. Kept as a named value so the same set is
+      # also exposed as `packages.<system>` (gives nix-update something to
+      # evaluate) without defining any derivation twice.
+      overlay = final: _prev: {
+        niri-zoom = final.callPackage ./modules/desktop/niri/niri-zoom.nix { };
+        yamis-icon-theme = final.callPackage ./modules/desktop/appearance/yamis-icon-theme.nix { };
+        undershell = final.callPackage ./modules/desktop/noctalia/undershell.nix { };
+        localsend-controller = final.callPackage ./modules/desktop/noctalia/localsend-controller.nix { };
+        learnharness = final.callPackage ./modules/apps/learnharness/package.nix { };
+      };
+      pkgsWithOverlay = pkgs.extend overlay;
       mkSystem =
         {
           hostName,
@@ -82,13 +94,7 @@
             {
               nixpkgs.overlays = [
                 inputs.mac-style-plymouth.overlays.default
-                (final: _prev: {
-                  niri-zoom = final.callPackage ./modules/desktop/niri/niri-zoom.nix { };
-                  yamis-icon-theme = final.callPackage ./modules/desktop/appearance/yamis-icon-theme.nix { };
-                  undershell = final.callPackage ./modules/desktop/noctalia/undershell.nix { };
-                  localsend-controller = final.callPackage ./modules/desktop/noctalia/localsend-controller.nix { };
-                  learnharness = final.callPackage ./modules/apps/learnharness/package.nix { };
-                })
+                overlay
               ];
 
               home-manager = {
@@ -106,6 +112,20 @@
         };
     in
     {
+      # The custom packages on their own, so `nix build .#undershell` and
+      # `nix-update --flake undershell` work without touching a host config.
+      # nix-update finds the file through the derivation's `src`, then rewrites
+      # version/rev/hash in place.
+      packages.${system} = {
+        inherit (pkgsWithOverlay)
+          niri-zoom
+          yamis-icon-theme
+          undershell
+          localsend-controller
+          learnharness
+          ;
+      };
+      overlays.default = overlay;
       nixosConfigurations = {
         desk = mkSystem {
           hostName = "desk";

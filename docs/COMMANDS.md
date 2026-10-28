@@ -82,6 +82,38 @@ not redirect `export merged` by hand):
 `scripts/noctalia-scrub.sh` strips credential fields and the write is refused if a
 sensitive field remains; `ripsecrets` is the catch-all scanner.
 
+## Updating pinned packages
+
+Custom packages are exposed as `packages.<system>` in `flake.nix`, so they build
+and update without touching a host:
+
+```sh
+nix build .#undershell                  # the package alone
+nix develop -c nix-update undershell --flake   # version + rev + hash from GitHub releases
+```
+
+`nix-update` is in the dev shell. It finds the `.nix` file through the
+derivation's `src` and rewrites `version`, `rev` and `hash` in place; check the
+result with `nix build .#<name>` before the usual checks. Packages whose upstream
+has no releases (commit-tracked ones) need `--version=branch`, and packages with
+non-standard URLs need `--url`.
+
+Doing it by hand, change `rev` and `version` together, then let the build tell you
+the hash:
+
+```sh
+nix store prefetch-file --unpack --json https://github.com/<owner>/<repo>/archive/<rev>.tar.gz
+```
+
+`fetchFromGitHub` takes either `rev` or `tag`, not both (current nixpkgs enforces
+this), and its `hash` is the sha256 of the *unpacked* tree - the `--unpack` flag
+above is what makes the two tools agree.
+
+Upstream meson projects with `auto` options get `-Dauto_features=enabled` from
+nixpkgs, so a missing optional library is a hard configure error rather than a
+silently disabled feature. Pin what the package should ship in `mesonFlags`
+(`undershell.nix` is the example) instead of relying on `auto`.
+
 ## Noctalia plugin dependencies
 
 Most plugin dependencies are plain nixpkgs packages in
