@@ -19,7 +19,7 @@ order = [ "default" ]
     border_width = 0.5
     capsule_radius = 0
     capsule_thickness = 0.99999998137354851
-    center = [ "clock", "notifications", "privacy", "widget_7" ]
+    center = [ "clock", "notifications", "privacy" ]
     concave_edge_corners = false
     end = [
         "media_2",
@@ -57,7 +57,7 @@ order = [ "default" ]
         accordion_direction = "start"
         border_width = 1.0
         enabled = true
-        fill = "surface_variant"
+        fill = "surface_container"
         id = "g2"
         members = [ "bluetooth", "seperator", "bar_10", "status_3", "mirror_2", "bar_2" ]
         opacity = 0.0
@@ -68,7 +68,7 @@ order = [ "default" ]
         accordion_direction = "start"
         border_width = 1.0
         enabled = true
-        fill = "surface_variant"
+        fill = "surface_container"
         id = "g3"
         members = [ "session", "seperator", "nix-monitor" ]
         opacity = 0.0
@@ -80,7 +80,7 @@ order = [ "default" ]
         border = ""
         border_width = 1.0
         enabled = true
-        fill = "surface_variant"
+        fill = "surface_container"
         id = "g4"
         members = [ "temp", "seperator", "ram", "visual-seperator", "sysmon", "visual-seperator", "cpu", "visual-seperator" ]
         opacity = 0.0
@@ -92,7 +92,7 @@ order = [ "default" ]
         accordion_direction = "start"
         border_width = 1.0
         enabled = true
-        fill = "surface_variant"
+        fill = "surface_container"
         id = "g5"
         members = [ "network", "seperator", "network_tx", "visual-seperator", "network_rx", "visual-seperator", "toggle_3" ]
         opacity = 0.0
@@ -103,20 +103,20 @@ order = [ "default" ]
         accordion_direction = "start"
         border_width = 1.0
         enabled = true
-        fill = "surface_variant"
+        fill = "surface_container"
         id = "g1"
-        members = [ "status_5", "seperator", "bar_6", "Crashes", "github" ]
+        members = [ "status_5", "seperator", "bar_6", "github", "widget_8" ]
         opacity = 0.0
         padding = 0.0
 
         [[bar.default.capsule_group]]
-        accordion = true
+        accordion = false
         accordion_direction = "start"
         border_width = 1.0
         enabled = true
-        fill = "surface_variant"
+        fill = "surface_container"
         id = "g6"
-        members = [ "widget_6", "seperator", "status_4", "bar_9" ]
+        members = [ "widget_6", "seperator", "bar_9" ]
         opacity = 0.0
         padding = 0.0
         radius = 0.0
@@ -139,6 +139,7 @@ event_date_format = "%e %B [%A]"
     type = "google"
 
 [control_center]
+circular_avatar = false
 hidden_tabs = []
 sidebar_section = "compact"
 width = 800
@@ -183,7 +184,7 @@ widget_order = [ "desktop-widget-0000000000000002", "desktop-widget-000000000000
         background = false
         bands = 128
         centered = false
-        color_1 = "outline"
+        color_1 = "outline_variant"
         color_2 = "secondary"
         command = "noctalia msg panel-toggle gustav0ar/drive-health:drives"
         glyph = "storage"
@@ -339,7 +340,7 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.0
         background_radius = 0.0
         center_password_text = true
@@ -366,7 +367,7 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.0
         background_radius = 6.0
         center_password_text = true
@@ -393,7 +394,7 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -546,6 +547,9 @@ scale = 0.80000000447034836
     [osd.kinds]
     media = false
 
+[plugin_settings."0rgl/localsend-plus"]
+alias = "DesDesk"
+
 [plugin_settings."ahmedhossamdev/reading-list"]
 panel_placement = "floating"
 save_path = "~/Documents/ReadingList"
@@ -616,6 +620,9 @@ vault_path = "/home/descryx/Projects/Main-vault"
 [plugin_settings."decksters-lab/palette-creator"]
 creator_position = "top_right"
 
+[plugin_settings."dmopp/settings-to-nix"]
+panel_placement = "floating"
+
 [plugin_settings."elijaharch/wl-screen-mirror"]
 controls_placement = "floating"
 controls_position = "top_right"
@@ -662,6 +669,11 @@ panel_placement = "widget"
 [plugin_settings."imjustdoingmypart/niri-animations"]
 docked_open_near_click = true
 presets_dir = "~/.config/niri/niri-animation-collection/animations"
+
+[plugin_settings."ishan0121/wallpaper-deck"]
+extra_wallpaper_dir = "/home/descryx/Pictures/WallHaven"
+wallhaven_hires_preview = true
+wallpaper_dir = "/home/descryx/Pictures/lol"
 
 [plugin_settings."johnnyp0t/niri-workspace-stack"]
 navigator_placement = "floating"
@@ -768,7 +780,6 @@ enabled = [
     "avivbintangaringga/nix-monitor",
     "shangshui0302/github-kanban",
     "kenn/keybind-cheatsheet",
-    "umedbazarov/crashes",
     "srounce/systemd",
     "knyrps/nix-search",
     "aristides/udiskie",
@@ -778,7 +789,9 @@ enabled = [
     "pulser/hover-widgets",
     "eternalself-2328/undershell",
     "johnnyp0t/niri-workspace-stack",
-    "faented/opencode-monitor"
+    "faented/opencode-monitor",
+    "ishan0121/wallpaper-deck",
+    "0rgl/localsend-plus"
 ]
 
     [[plugins.source]]
@@ -842,6 +855,7 @@ ui_scale = 0.95000000670552254
     [shell.screenshot]
     annotate = true
     confirm_region = false
+    copy_on_close = true
     directory = "/home/descryx/Pictures/Screenshots"
     pipe_command = ""
 
@@ -903,7 +917,7 @@ community_palette = "ADW"
 custom_palette = "redhc"
 mode = "dark"
 source = "custom"
-wallpaper_scheme = "m3-content"
+wallpaper_scheme = "m3-rainbow"
 
     [theme.templates]
     builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "kcolorscheme", "kitty", "niri", "qt" ]
@@ -1227,6 +1241,7 @@ type = "luochen1990/niri-ribbon:ribbon"
 
 [widget.seperator]
 color = "#FF0000"
+enabled = false
 glyph = ""
 label = "┊"
 type = "custom_button"
@@ -1314,6 +1329,9 @@ type = "faented/opencode-monitor:widget"
 
 [widget.widget_7]
 type = "mera/localsend:widget"
+
+[widget.widget_8]
+type = "0rgl/localsend-plus:widget"
 
 [widget.workspaces]
 active_pill_size = 2.0

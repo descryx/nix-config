@@ -45,6 +45,8 @@ in
 
       playerctl
       wlrctl
+      localsend-controller
+      zenity
 
       # -------------------------------------------
     ];
