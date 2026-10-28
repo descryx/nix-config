@@ -25,11 +25,11 @@
 
 let
   pname = "learnharness";
-  version = "0.3.7";
+  version = "0.3.9";
 
   src = fetchurl {
     url = "https://github.com/amosblomqvist/learnharness/releases/download/v${version}/LearnHarness-${version}-x86_64.AppImage";
-    hash = "sha256-7zRlGDOxGOpcdEnM2UUFgBB66xg+bHGrFQdrQ7xFGOw=";
+    hash = "sha256-mlSd5V/RojGh9m1ZLOCkCKattj8H1Tz7icnWbiZZ4IU=";
   };
 
   # Extracted a second time by wrapType2 itself; this copy exists only so
