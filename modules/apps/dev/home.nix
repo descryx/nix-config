@@ -19,6 +19,7 @@
       # ^ keep this the plain pkgs.nodejs: modules/apps/opencode/skills.nix also
       #   provides pkgs.nodejs, and home-manager's buildEnv dedups identical store
       #   paths. Switching either to nodejs.withPackages/override would collide.
+      prettier
       unzip
       cargo
       fzf
