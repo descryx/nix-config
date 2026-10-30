@@ -27,9 +27,9 @@
   bundles/ (package lists, defaults), optional/ (off by default).
 - A feature lives in one folder, modules/<category>/<feature>/, holding any of
   system.nix, home.nix, config/. Never split a feature across folders.
-- Togglable features declare my.<feature>.enable in system.nix with
-  mkEnableOption and wrap their config in lib.mkIf.
-  The manifest with defaults is in configuration.nix. Hosts set deltas. home.nix
+- Togglable features are declared in configuration.nix with mkEnableOption and
+  their config is wrapped in lib.mkIf.
+  The defaults sit next to the declarations in configuration.nix. Hosts set deltas. home.nix
   reads the switch via osConfig. Declare each option once.
 - Use Nix (home-manager module) when the app has a good one. Large or often
   hand-edited configs go in config/ as out-of-store symlinked dotfiles. State

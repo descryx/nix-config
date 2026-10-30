@@ -86,7 +86,6 @@ let
       });
 in
 {
-  options.my.sddm.enable = lib.mkEnableOption "sddm";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [

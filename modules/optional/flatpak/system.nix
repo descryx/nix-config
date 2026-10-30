@@ -10,8 +10,6 @@ in
 {
   imports = [ inputs.nix-flatpak.nixosModules.nix-flatpak ];
 
-  options.my.flatpak.enable = lib.mkEnableOption "flatpak";
-
   config = lib.mkIf cfg.enable {
     services = {
       flatpak.enable = true;

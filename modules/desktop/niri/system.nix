@@ -8,7 +8,6 @@ let
   cfg = config.my.niri;
 in
 {
-  options.my.niri.enable = lib.mkEnableOption "niri";
 
   config = lib.mkIf cfg.enable {
     programs.niri.enable = true;

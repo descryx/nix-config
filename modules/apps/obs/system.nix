@@ -8,7 +8,6 @@ let
   cfg = config.my.obs;
 in
 {
-  options.my.obs.enable = lib.mkEnableOption "OBS Studio";
 
   config = lib.mkIf cfg.enable {
     programs.obs-studio = {

@@ -9,8 +9,6 @@ let
 in
 {
 
-  options.my.syncthing.enable = lib.mkEnableOption "syncthing";
-
   # Syncthing is paired at runtime: its device IDs and folder config live in
   # ~/.config/syncthing/config.xml, not in this repo. Pair each machine once in
   # the UI (or by copying that file). Starts at boot.

@@ -89,10 +89,13 @@ can silently drop a feature by deleting an import.
 
 - Every switch is `my.<feature>.enable`. There is a single namespace:
   `modules/optional/` only marks the features that are off by default.
-- `configuration.nix` lists every option once, as a by-hand lookup table. Shared
-  features use `lib.mkDefault true`, the rest `lib.mkDefault false`. `lib.mkDefault`
-  is essential: it makes the value only a *default*, so a host can still override
-  it; a plain `= true` there would conflict with a host's `= false`.
+- `configuration.nix` declares every switch with `lib.mkEnableOption` and sets
+  its default in the same block, as a by-hand lookup table. Shared features use
+  `lib.mkDefault true`, the rest `lib.mkDefault false`. `lib.mkDefault` is
+  essential: it makes the value only a *default*, so a host can still override
+  it; a plain `= true` there would conflict with a host's `= false`. A feature
+  with nothing to configure on the system side has no `system.nix` - the
+  declaration here is all it needs.
 - `hosts/<host>/default.nix` carries only the deltas, as plain `= true`/`= false`
   (normal priority beats `lib.mkDefault`). Features wanted on both machines stay in
   `configuration.nix`; only real per-machine differences live in the host file.

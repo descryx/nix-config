@@ -8,7 +8,6 @@ let
   cfg = config.my.ollama;
 in
 {
-  options.my.ollama.enable = lib.mkEnableOption "the Ollama LLM server";
 
   config = lib.mkIf cfg.enable {
     services.ollama = {

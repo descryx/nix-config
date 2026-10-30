@@ -7,7 +7,6 @@ let
   cfg = config.my.noctalia;
 in
 {
-  options.my.noctalia.enable = lib.mkEnableOption "noctalia";
 
   config = lib.mkIf cfg.enable {
     # Prebuilt Noctalia packages (the noctalia flake input). Kept in this feature

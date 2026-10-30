@@ -8,7 +8,6 @@ let
   cfg = config.my.minecraft;
 in
 {
-  options.my.minecraft.enable = lib.mkEnableOption "the Minecraft server";
 
   config = lib.mkIf cfg.enable {
     services.minecraft-server = {

@@ -7,7 +7,6 @@ let
   cfg = config.my.gaming;
 in
 {
-  options.my.gaming.enable = lib.mkEnableOption "gaming (steam + gamemode)";
 
   config = lib.mkIf cfg.enable {
     programs = {
