@@ -152,7 +152,7 @@ in
 
       context = ./data/AGENTS.md;
       commands.daydream = ./data/commands/daydream.md;
-      agents.teacher = ./data/teacher.md;
+      # agents.teacher = ./data/teacher.md;
     };
 
     home.file = {
