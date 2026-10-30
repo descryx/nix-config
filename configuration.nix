@@ -1,57 +1,15 @@
-{ lib, ... }: {
-  imports = [
-    # Machine foundation (modules/system). Rarely touched.
-    ./modules/system/boot.nix
-    ./modules/system/networking.nix
-    ./modules/system/users.nix
-    ./modules/system/nix-settings.nix
-    ./modules/system/nh.nix
-    ./modules/system/power.nix
-    ./modules/system/tools.nix
-    ./modules/system/audio.nix
-
-    # Desktop session (modules/desktop).
-    ./modules/desktop/appearance/system.nix # + home half: modules/desktop/appearance/home.nix
-    ./modules/desktop/sddm/system.nix
-    ./modules/desktop/niri/system.nix # + home half: modules/desktop/niri/home.nix
-    ./modules/desktop/noctalia/system.nix # + home half: modules/desktop/noctalia/home.nix
-
-    # Apps (modules/apps).
-    ./modules/apps/btop/system.nix # + home half: modules/apps/btop/home.nix
-    ./modules/apps/cava/system.nix # + home half: modules/apps/cava/home.nix
-    ./modules/apps/dev/system.nix # + home halves: modules/apps/dev{,/python}/home.nix
-    ./modules/apps/easyeffects/system.nix # + home half: modules/apps/easyeffects/home.nix
-    ./modules/apps/fastfetch/system.nix # + home half: modules/apps/fastfetch/home.nix
-    ./modules/apps/gaming/system.nix # + home half: modules/apps/gaming/home.nix
-    ./modules/apps/ghostty/system.nix # + home half: modules/apps/ghostty/home.nix
-    ./modules/apps/kitty/system.nix # + home half: modules/apps/kitty/home.nix
-    ./modules/apps/learnharness/system.nix # + home half: modules/apps/learnharness/home.nix
-    ./modules/apps/nvim/system.nix # + home half: modules/apps/nvim/home.nix
-    ./modules/apps/obs/system.nix # host override: hosts/desk/obs.nix
-    ./modules/apps/opencode/system.nix # + home half: modules/apps/opencode/home.nix
-    ./modules/apps/vesktop/system.nix # + home half: modules/apps/vesktop/home.nix
-    ./modules/apps/wayscriber/system.nix # + home half: modules/apps/wayscriber/home.nix
-    ./modules/apps/yazi/system.nix # + home half: modules/apps/yazi/home.nix
-    ./modules/apps/zen/system.nix # + home half: modules/apps/zen/home.nix
-    ./modules/apps/zsh/system.nix # + home half: modules/apps/zsh/home.nix
-
-    # Services (modules/services).
-    ./modules/services/kdeconnect/system.nix
-    ./modules/services/storage/system.nix # + home half: modules/services/storage/home.nix
-    ./modules/services/syncthing/system.nix
-
-    # Bundles (modules/bundles).
-    ./modules/bundles/default-apps/system.nix # + home half: modules/bundles/default-apps/home.nix
-    ./modules/bundles/desktop-apps/system.nix # + home half: modules/bundles/desktop-apps/home.nix
-
-    # Optional features (modules/optional). Imported always so their `opt.*`
-    # options exist for every host; toggled per host in hosts/<host>/default.nix.
-    ./modules/optional/flatpak/system.nix
-    ./modules/optional/minecraft/system.nix
-    ./modules/optional/ollama/system.nix
-    ./modules/optional/openrgb/system.nix
-    ./modules/optional/tmux/system.nix
-  ];
+{ lib, ... }:
+let
+  # Every module file is imported by name, not from a list: see lib/modules.nix.
+  # The two halves are still split (NixOS module / home-manager module), so a
+  # feature with both is imported once on each side.
+  modules = import ./lib/modules.nix {
+    inherit lib;
+    root = ./modules;
+  };
+in
+{
+  imports = modules.system;
 
   # ---------------------------------------------------------------------------
   # Feature switches. Every option is listed here by hand so there is a single

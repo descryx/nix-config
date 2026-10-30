@@ -12,6 +12,9 @@
 # is deliberately NOT part of `nix flake check`, which is already the heaviest
 # command here.
 #
+# It also refuses module files that git does not track: lib/modules.nix imports
+# modules by file name, so an unadded file is silently absent from the build.
+#
 # Usage:
 #   scripts/check-systems.sh
 set -euo pipefail
@@ -21,7 +24,22 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(dirname "$script_dir")"
 cd "$repo_root"
 
-# --- 2. Force instantiation of every host -------------------------------------
+# --- 2. Auto-imported modules must be tracked by git --------------------------
+# lib/modules.nix imports modules by file name, so a module file that git does
+# not know about is silently absent from the build instead of producing a
+# missing-import error. Fail loudly here instead.
+untracked="$(
+  git ls-files --others --exclude-standard -- modules |
+    grep -E '(^|/)system\.nix$|(^|/)home\.nix$|^modules/system/[^/]+\.nix$' ||
+    true
+)"
+if [ -n "$untracked" ]; then
+  echo "check-systems: untracked module file(s) - git add them or they are not built:" >&2
+  echo "$untracked" | sed 's/^/  /' >&2
+  exit 1
+fi
+
+# --- 3. Force instantiation of every host -------------------------------------
 # Keep in sync with nixosConfigurations in flake.nix when hosts are added/removed.
 hosts=(desk t480)
 failed=0
@@ -39,5 +57,5 @@ for host in "${hosts[@]}"; do
   fi
 done
 
-# --- 3. Any host that failed makes the whole run fail -------------------------
+# --- 4. Any host that failed makes the whole run fail -------------------------
 exit "$failed"

@@ -53,8 +53,13 @@ system and user config build together in one generation.
 `modules/` is feature-first and grouped by domain: each feature lives in its own
 `modules/<category>/<feature>/` folder, holding any of `system.nix` (NixOS
 module), `home.nix` (home-manager module) and `config/` (its dotfiles).
-`configuration.nix` imports the `system.nix` side and `home.nix` imports the
-`home.nix` side. Categories:
+
+Both halves are imported by file name, not from a list: [`lib/modules.nix`](../lib/modules.nix)
+walks `modules/` and picks up `system.nix`, `home.nix` and everything in
+`modules/system/`. Adding a feature means adding a folder - there is no import
+line to forget. The cost is that an *untracked* module file does not exist as far
+as the flake is concerned and nothing fails; `scripts/check-systems.sh` refuses
+that case. Categories:
 
 - `system/` - machine foundation that has no natural app (boot, networking,
   users, Nix settings, `nh`, power, audio, tools).
@@ -78,11 +83,10 @@ A feature never splits across categories: its `system.nix`, `home.nix` and
 ## Toggles
 
 Every feature has an `enable` option, off by default. Modules are imported
-permanently - `configuration.nix` imports every `system.nix`, `home.nix` every
-`home.nix` - and a feature is turned on or off only through its option, never by
-removing an import. This is the whole point of the option approach: the shared
-import lists never change, so a host cannot silently drop a feature by editing
-them.
+permanently - by file name through `lib/modules.nix`, so there is no import list
+to edit at all - and a feature is turned on or off only through its option, never
+by removing an import. This is the whole point of the option approach: no host
+can silently drop a feature by deleting an import.
 
 - Core features use `my.<feature>.enable`; optional features use
   `opt.<feature>.enable` (declared in `modules/optional/*/system.nix`).
