@@ -26,8 +26,9 @@ For filesystem/mount changes (`fileSystems` devices), use `nh os boot` then
 reboot, not `nh os switch`: it tries to remount `/home` and `/` live and fails
 with `failed to restart home.mount`.
 
-Build parallelism is capped per host in `hosts/<host>/nix-settings.nix`
-(`max-jobs`/`cores`) so a build cannot exhaust RAM. Build without activating:
+Build parallelism is capped per host (`max-jobs` in `hosts/<host>/default.nix`,
+`cores` in `modules/core/nix-settings.nix`) so a build cannot exhaust RAM. Build
+without activating:
 
 ```sh
 nix build .#nixosConfigurations.desk.config.system.build.toplevel
