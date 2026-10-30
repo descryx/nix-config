@@ -24,7 +24,7 @@ How the repo fits together. Day-to-day commands are in
 - `checks.${system}.pre-commit-check` and `devShells.${system}.default`, from
   [`git-hooks.nix`](../git-hooks.nix).
 - `packages.${system}` and `overlays.default`: the custom packages as standalone
-  build targets (`nix build .#undershell`) and the same set as an overlay, so
+  build targets (`nix build .#niri-zoom`) and the same set as an overlay, so
   each derivation is defined once and nix-update has something to evaluate.
 - `formatter.${system}`, the treefmt wrapper used by `nix fmt`.
 
@@ -39,7 +39,6 @@ Custom packages come from an overlay defined once in `flake.nix` that
 `callPackage`s the derivations kept next to the feature that uses them
 (`modules/desktop/niri/niri-zoom.nix`,
 `modules/desktop/appearance/yamis-icon-theme.nix`,
-`modules/desktop/noctalia/undershell.nix`,
 `modules/desktop/noctalia/localsend-controller.nix`,
 `modules/apps/learnharness/package.nix`). Each pins its upstream source by
 revision or release hash. `localsend-controller` is the one that has to track an

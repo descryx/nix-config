@@ -88,8 +88,8 @@ Custom packages are exposed as `packages.<system>` in `flake.nix`, so they build
 and update without touching a host:
 
 ```sh
-nix build .#undershell                  # the package alone
-nix develop -c nix-update undershell --flake   # version + rev + hash from GitHub releases
+nix build .#niri-zoom                   # the package alone
+nix develop -c nix-update niri-zoom --flake --version=branch   # new rev + hash
 ```
 
 `nix-update` is in the dev shell. It finds the `.nix` file through the
@@ -112,7 +112,7 @@ above is what makes the two tools agree.
 Upstream meson projects with `auto` options get `-Dauto_features=enabled` from
 nixpkgs, so a missing optional library is a hard configure error rather than a
 silently disabled feature. Pin what the package should ship in `mesonFlags`
-(`undershell.nix` is the example) instead of relying on `auto`.
+instead of relying on `auto`.
 
 ## Noctalia plugin dependencies
 

@@ -15,8 +15,8 @@ below keeps its own license.
 Projects this configuration depends on or is inspired by:
 
 - [Niri](https://github.com/YaLTeR/niri) - the Wayland compositor.
-- [Noctalia](https://github.com/noctalia-dev/noctalia) - desktop shell; the
-  `undershell` widgets and several plugins plug into it.
+- [Noctalia](https://github.com/noctalia-dev/noctalia) - desktop shell; several
+  plugins plug into it.
 - [LazyVim](https://github.com/LazyVim/LazyVim) - Neovim base.
 - [Home Manager](https://github.com/nix-community/home-manager) and
   [nixpkgs](https://github.com/NixOS/nixpkgs) - the framework underneath.
@@ -50,13 +50,11 @@ license; the MIT notice is reproduced at the bottom.
 ## Fetched upstream (packaged at build time)
 
 Fetched and packaged at build time by the derivations next to each feature; the
-sources are not copied into this repo. The first three are GPL; the controller is
-MIT and links the LocalSend core, which is Apache-2.0:
+sources are not copied into this repo. The first two are GPL-family; the
+controller is MIT and links the LocalSend core, which is Apache-2.0:
 
 - [YAMIS - Yet Another Monochrome Icon Set](https://github.com/googIyEYES/YAMIS)
   (`modules/desktop/appearance/yamis-icon-theme.nix`) - GPL-3.0-only.
-- [undershell](https://github.com/EternalSelf-2328/undershell)
-  (`modules/desktop/noctalia/undershell.nix`) - GPL-3.0-or-later.
 - [LearnHarness](https://github.com/amosblomqvist/learnharness)
   (`modules/apps/learnharness/package.nix`) - AGPL-3.0-only; the upstream
   release AppImage is wrapped unmodified, not patched.
