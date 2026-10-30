@@ -28,9 +28,12 @@ in
     obs.enable = lib.mkEnableOption "OBS Studio";
     storage.enable = lib.mkEnableOption "storage services (tumbler, udisks2, gvfs)";
     syncthing.enable = lib.mkEnableOption "syncthing";
-    # Covers modules/apps/dev and modules/apps/dev/python: the python half owns
-    # the single interpreter and is only meaningful alongside dev.
-    dev.enable = lib.mkEnableOption "the dev toolchain";
+    dev = {
+      # Covers modules/apps/dev and modules/apps/dev/python: the python half owns
+      # the single interpreter and is only meaningful alongside dev.
+      enable = lib.mkEnableOption "the dev toolchain";
+      godot.enable = lib.mkEnableOption "Godot 4 with its export templates";
+    };
     nvim.enable = lib.mkEnableOption "neovim";
     opencode.enable = lib.mkEnableOption "opencode";
     ghostty.enable = lib.mkEnableOption "ghostty";
@@ -46,7 +49,10 @@ in
     fastfetch.enable = lib.mkEnableOption "fastfetch";
     yazi.enable = lib.mkEnableOption "yazi";
     defaultApps.enable = lib.mkEnableOption "the default apps / mime associations";
-    desktopApps.enable = lib.mkEnableOption "the desktop apps bundle";
+    desktopApps = {
+      enable = lib.mkEnableOption "the desktop apps bundle";
+      davinciResolve.enable = lib.mkEnableOption "DaVinci Resolve";
+    };
     kdeconnect.enable = lib.mkEnableOption "kdeconnect";
     flatpak.enable = lib.mkEnableOption "flatpak";
     minecraft.enable = lib.mkEnableOption "the Minecraft server";
@@ -67,7 +73,10 @@ in
       obs.enable = lib.mkDefault true;
       storage.enable = lib.mkDefault true;
       syncthing.enable = lib.mkDefault true;
-      dev.enable = lib.mkDefault true;
+      dev = {
+        enable = lib.mkDefault true;
+        godot.enable = lib.mkDefault true;
+      };
       nvim.enable = lib.mkDefault true;
       opencode.enable = lib.mkDefault true;
       ghostty.enable = lib.mkDefault true;
@@ -83,7 +92,10 @@ in
       fastfetch.enable = lib.mkDefault true;
       yazi.enable = lib.mkDefault true;
       defaultApps.enable = lib.mkDefault true;
-      desktopApps.enable = lib.mkDefault true;
+      desktopApps = {
+        enable = lib.mkDefault true;
+        davinciResolve.enable = lib.mkDefault true;
+      };
 
       # Off except where a host turns it on.
       kdeconnect.enable = lib.mkDefault false;

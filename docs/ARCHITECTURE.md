@@ -99,6 +99,12 @@ can silently drop a feature by deleting an import.
 - `hosts/<host>/default.nix` carries only the deltas, as plain `= true`/`= false`
   (normal priority beats `lib.mkDefault`). Features wanted on both machines stay in
   `configuration.nix`; only real per-machine differences live in the host file.
+- A single package inside a feature that one host does not want gets its own
+  nested switch (`my.dev.godot.enable`, `my.desktopApps.davinciResolve.enable`).
+  It is defaulted on in `configuration.nix` and its gate also tests the parent
+  switch, so turning the feature off can never leave the package behind. This is
+  what keeps hostname checks like the old `ConditionHost = "desk"` out of the
+  modules.
 - A feature with both halves is gated by one switch: `system.nix` uses
   `lib.mkIf cfg.enable`; `home.nix` reads the same system option through `osConfig`
   (`lib.mkIf osConfig.my.<feature>.enable`). Home-manager runs as a NixOS module, so

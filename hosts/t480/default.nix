@@ -1,6 +1,13 @@
 { ... }: {
 
-  my.flatpak.enable = true;
+  my = {
+    flatpak.enable = true;
+
+    # Not on the laptop: disk space and build time. The toggles exist so the
+    # desktop can keep them without a hostname check inside the modules.
+    dev.godot.enable = false;
+    desktopApps.davinciResolve.enable = false;
+  };
 
   imports = [
     ./hardware-configuration.nix
