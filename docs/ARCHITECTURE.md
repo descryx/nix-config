@@ -56,12 +56,12 @@ module), `home.nix` (home-manager module) and `config/` (its dotfiles).
 
 Both halves are imported by file name, not from a list: [`lib/modules.nix`](../lib/modules.nix)
 walks `modules/` and picks up `system.nix`, `home.nix` and everything in
-`modules/system/`. Adding a feature means adding a folder - there is no import
+`modules/core/`. Adding a feature means adding a folder - there is no import
 line to forget. The cost is that an *untracked* module file does not exist as far
 as the flake is concerned and nothing fails; `scripts/check-systems.sh` refuses
 that case. Categories:
 
-- `system/` - machine foundation that has no natural app (boot, networking,
+- `core/` - machine foundation that has no natural app (boot, networking,
   users, Nix settings, `nh`, power, audio, tools).
 - `desktop/` - the session and how it looks: `niri`, `noctalia`, `appearance`,
   `sddm`.
@@ -72,7 +72,7 @@ that case. Categories:
   `default-apps`, `desktop-apps`.
 - `optional/` - off by default; a host opts in with `my.<feature>.enable`.
 
-`system/` is the exception to the folder rule: it holds one file per concern
+`core/` is the exception to the folder rule: it holds one file per concern
 (`boot.nix`, `networking.nix`, ...) and has no per-feature `system.nix`/`home.nix`
 split.
 

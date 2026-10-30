@@ -30,7 +30,7 @@ cd "$repo_root"
 # missing-import error. Fail loudly here instead.
 untracked="$(
   git ls-files --others --exclude-standard -- modules |
-    grep -E '(^|/)system\.nix$|(^|/)home\.nix$|^modules/system/[^/]+\.nix$' ||
+    grep -E '(^|/)system\.nix$|(^|/)home\.nix$|^modules/core/[^/]+\.nix$' ||
     true
 )"
 if [ -n "$untracked" ]; then

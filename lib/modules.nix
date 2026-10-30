@@ -16,6 +16,6 @@ let
   named = n: builtins.filter (f: builtins.baseNameOf f == n) files;
 in
 {
-  system = lib.filesystem.listFilesRecursive (root + "/system") ++ named "system.nix";
+  system = lib.filesystem.listFilesRecursive (root + "/core") ++ named "system.nix";
   home = named "home.nix";
 }

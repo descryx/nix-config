@@ -22,7 +22,7 @@
 - Full rationale: docs/ARCHITECTURE.md. Verify against the real tree, not from
   memory.
 - modules/ is grouped by category, one folder per feature:
-  system/ (machine foundation, flat files), desktop/ (session and look),
+  core/ (machine foundation, flat files), desktop/ (session and look),
   apps/ (one app per folder), services/ (daemons, device glue),
   bundles/ (package lists, defaults), optional/ (off by default).
 - A feature lives in one folder, modules/<category>/<feature>/, holding any of
