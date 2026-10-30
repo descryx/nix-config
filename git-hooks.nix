@@ -53,7 +53,7 @@ in
   };
 
   # `nix develop` (or the .envrc via direnv) installs the git hook and puts the
-  # package updater on PATH: `nix-update undershell --flake`.
+  # package updater on PATH: `nix-update learnharness --flake`.
   devShells = {
     default = pkgs.mkShell {
       inherit (check) shellHook enabledPackages;

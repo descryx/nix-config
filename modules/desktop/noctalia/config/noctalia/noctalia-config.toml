@@ -59,7 +59,7 @@ order = [ "default" ]
         enabled = true
         fill = "surface_container"
         id = "g2"
-        members = [ "bluetooth", "seperator", "bar_10", "status_3", "mirror_2", "bar_2" ]
+        members = [ "bluetooth", "seperator", "status_3", "mirror_2", "bar_2" ]
         opacity = 0.0
         padding = 0.0
 
@@ -94,7 +94,7 @@ order = [ "default" ]
         enabled = true
         fill = "surface_container"
         id = "g5"
-        members = [ "network", "seperator", "network_tx", "visual-seperator", "network_rx", "visual-seperator", "toggle_3" ]
+        members = [ "network", "seperator", "network_tx", "visual-seperator", "network_rx", "visual-seperator" ]
         opacity = 0.0
         padding = 0.0
 
@@ -787,7 +787,6 @@ enabled = [
     "fel/quill",
     "yocraft/qrcode",
     "pulser/hover-widgets",
-    "eternalself-2328/undershell",
     "johnnyp0t/niri-workspace-stack",
     "faented/opencode-monitor",
     "ishan0121/wallpaper-deck",

@@ -5,7 +5,6 @@ result-*
 .direnv/
 /.pre-commit-config.yaml
 modules/apps/easyeffects/config/db/easyeffectsrc
-modules/desktop/noctalia/config/undershell/profiles
 .ua/
 
 # Ignore (potential) Syncthing private keys

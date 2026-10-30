@@ -65,7 +65,6 @@
       overlay = final: _prev: {
         niri-zoom = final.callPackage ./modules/desktop/niri/niri-zoom.nix { };
         yamis-icon-theme = final.callPackage ./modules/desktop/appearance/yamis-icon-theme.nix { };
-        undershell = final.callPackage ./modules/desktop/noctalia/undershell.nix { };
         localsend-controller = final.callPackage ./modules/desktop/noctalia/localsend-controller.nix { };
         learnharness = final.callPackage ./modules/apps/learnharness/package.nix { };
       };
@@ -112,15 +111,14 @@
         };
     in
     {
-      # The custom packages on their own, so `nix build .#undershell` and
-      # `nix-update --flake undershell` work without touching a host config.
+      # The custom packages on their own, so `nix build .#niri-zoom` and
+      # `nix-update --flake niri-zoom` work without touching a host config.
       # nix-update finds the file through the derivation's `src`, then rewrites
       # version/rev/hash in place.
       packages.${system} = {
         inherit (pkgsWithOverlay)
           niri-zoom
           yamis-icon-theme
-          undershell
           localsend-controller
           learnharness
           ;
