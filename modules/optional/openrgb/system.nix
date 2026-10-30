@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.opt.openrgb;
+  cfg = config.my.openrgb;
 in
 {
-  options.opt.openrgb.enable = lib.mkEnableOption "OpenRGB";
+  options.my.openrgb.enable = lib.mkEnableOption "OpenRGB";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ pkgs.openrgb-with-all-plugins ];

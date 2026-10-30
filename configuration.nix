@@ -48,10 +48,8 @@ in
 
     # Off except where a host turns it on.
     kdeconnect.enable = lib.mkDefault false;
-  };
 
-  # Optional features (opt.*), off unless a host opts in.
-  opt = {
+    # Optional features, off unless a host opts in.
     flatpak.enable = lib.mkDefault false;
     minecraft.enable = lib.mkDefault false;
     ollama.enable = lib.mkDefault false;

@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf osConfig.opt.tmux.enable {
+  config = lib.mkIf osConfig.my.tmux.enable {
     home.packages = [ pkgs.tmux ];
 
     programs.tmux = {

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.opt.minecraft;
+  cfg = config.my.minecraft;
 in
 {
-  options.opt.minecraft.enable = lib.mkEnableOption "the Minecraft server";
+  options.my.minecraft.enable = lib.mkEnableOption "the Minecraft server";
 
   config = lib.mkIf cfg.enable {
     services.minecraft-server = {

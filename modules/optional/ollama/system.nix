@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.opt.ollama;
+  cfg = config.my.ollama;
 in
 {
-  options.opt.ollama.enable = lib.mkEnableOption "the Ollama LLM server";
+  options.my.ollama.enable = lib.mkEnableOption "the Ollama LLM server";
 
   config = lib.mkIf cfg.enable {
     services.ollama = {

@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config.opt.flatpak;
+  cfg = config.my.flatpak;
 in
 {
   imports = [ inputs.nix-flatpak.nixosModules.nix-flatpak ];
 
-  options.opt.flatpak.enable = lib.mkEnableOption "flatpak";
+  options.my.flatpak.enable = lib.mkEnableOption "flatpak";
 
   config = lib.mkIf cfg.enable {
     services = {

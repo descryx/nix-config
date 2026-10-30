@@ -1,8 +1,10 @@
 { ... }: {
 
-  my.kdeconnect.enable = true;
-  opt.flatpak.enable = true;
-  opt.openrgb.enable = true;
+  my = {
+    kdeconnect.enable = true;
+    flatpak.enable = true;
+    openrgb.enable = true;
+  };
 
   imports = [
     ./hardware-configuration.nix

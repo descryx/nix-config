@@ -70,8 +70,7 @@ that case. Categories:
   `storage`.
 - `bundles/` - grouped package lists and default choices, with no per-app folders:
   `default-apps`, `desktop-apps`.
-- `optional/` - off by default; imported always but a host opts in with
-  `opt.<feature>.enable`.
+- `optional/` - off by default; a host opts in with `my.<feature>.enable`.
 
 `system/` is the exception to the folder rule: it holds one file per concern
 (`boot.nix`, `networking.nix`, ...) and has no per-feature `system.nix`/`home.nix`
@@ -88,8 +87,8 @@ to edit at all - and a feature is turned on or off only through its option, neve
 by removing an import. This is the whole point of the option approach: no host
 can silently drop a feature by deleting an import.
 
-- Core features use `my.<feature>.enable`; optional features use
-  `opt.<feature>.enable` (declared in `modules/optional/*/system.nix`).
+- Every switch is `my.<feature>.enable`. There is a single namespace:
+  `modules/optional/` only marks the features that are off by default.
 - `configuration.nix` lists every option once, as a by-hand lookup table. Shared
   features use `lib.mkDefault true`, the rest `lib.mkDefault false`. `lib.mkDefault`
   is essential: it makes the value only a *default*, so a host can still override
@@ -109,7 +108,7 @@ Because the option default is off, a feature mentioned nowhere is off.
 |---|---|---|
 | core (niri, noctalia, zsh, nvim, gaming, ...) | `my.<feature>.enable` | `configuration.nix` (on), overridden per host |
 | kdeconnect | `my.kdeconnect.enable` | `hosts/desk/default.nix` |
-| optional (flatpak, minecraft, ollama, openrgb, tmux) | `opt.<feature>.enable` | `hosts/<host>/default.nix` |
+| optional (flatpak, minecraft, ollama, openrgb, tmux) | `my.<feature>.enable` | `hosts/<host>/default.nix` |
 
 Watch the soft couplings: `default-apps` points at `zen.desktop`, `nvim.desktop`,
 `thunar.desktop`, `mpv.desktop`, `imv.desktop`, `libreoffice-*` and

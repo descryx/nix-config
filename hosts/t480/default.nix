@@ -1,6 +1,6 @@
 { ... }: {
 
-  opt.flatpak.enable = true;
+  my.flatpak.enable = true;
 
   imports = [
     ./hardware-configuration.nix

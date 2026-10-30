@@ -1,4 +1,4 @@
 { lib, ... }:
 {
-  options.opt.tmux.enable = lib.mkEnableOption "tmux";
+  options.my.tmux.enable = lib.mkEnableOption "tmux";
 }
