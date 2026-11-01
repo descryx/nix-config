@@ -13,8 +13,8 @@
         autosuggestion = {
           enable = true;
           strategy = [
-            "completion"
             "history"
+            "completion"
           ];
         };
 
@@ -23,7 +23,8 @@
           save = 10000;
           path = "$HOME/.zsh_history";
           share = true;
-          ignoreAllDups = true;
+          ignoreDups = true;
+          ignoreAllDups = false;
         };
 
         initContent = ''
@@ -71,6 +72,23 @@
               desmod()  { local d=$(_desmod_pick); [ -n "$d" ] && cd "$d"; }
               desmodv() { local d=$(_desmod_pick); [ -n "$d" ] && nvim "$d"; }
               desmody() { local d=$(_desmod_pick); [ -n "$d" ] && yazi "$d"; }
+
+            # Custom next-word strategy
+            _zsh_autosuggest_strategy_history_word() {
+                _zsh_autosuggest_strategy_history "$1"
+                [[ -z "$suggestion" ]] && return
+
+                local suffix="''${suggestion#$1}"
+
+                if [[ "$suffix" =~ ^([[:space:]]*[^[:space:]]+) ]]; then
+                suggestion="$1''${match[1]}"
+                else
+                unset suggestion
+                fi
+            }
+
+            # Use the custom strategy (this overrides the Nix option)
+            ZSH_AUTOSUGGEST_STRATEGY=(history_word completion)
         '';
 
         localVariables = {
