@@ -19,6 +19,7 @@
         mpvpaper
         pavucontrol
         localsend
+        anki
       ];
 
       programs = {
