@@ -14,7 +14,6 @@
         telegram-desktop
         thunar
         libreoffice
-        onlyoffice-desktopeditors
         qbittorrent
         imv
         mpvpaper
