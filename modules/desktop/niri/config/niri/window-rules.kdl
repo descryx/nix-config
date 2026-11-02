@@ -87,3 +87,14 @@ window-rule {
     max-width 1280
     max-height 720
 }
+
+// Obsidian scratchpad (toggled by Mod+Y). Floats and is centered on open.
+// The 0.2 opacity is the "hidden" look; the scratchpad script toggles it back
+// to full opacity when the window is shown (see scripts/obsidian-scratchpad.sh).
+window-rule {
+    match app-id="Obsidian"
+    open-floating true
+    default-column-width { proportion 0.6; }
+    default-window-height { proportion 0.8; }
+    opacity 0.2
+}

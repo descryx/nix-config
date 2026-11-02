@@ -31,7 +31,7 @@ binds {
     Mod+Alt+Space hotkey-overlay-title="Wallhaven Browser" { spawn-sh "noctalia msg panel-toggle noctalia/wallhaven:browser"; }
     Mod+Shift+Space hotkey-overlay-title="Video Wallpaper" { spawn-sh "noctalia msg panel-toggle noctalia/mpvpaper:picker"; }
 
-    Mod+Y hotkey-overlay-title="Obsidian" { spawn "obsidian"; }
+    Mod+Y hotkey-overlay-title="Obsidian Scratchpad" { spawn-sh "~/.config/niri/scripts/obsidian-scratchpad.sh"; }
     Mod+Ctrl+Alt+H hotkey-overlay-title="AniLib" { spawn "google-chrome" "--app=https://animelib.org"; }
     Mod+M hotkey-overlay-title="SoundCloud" { spawn "google-chrome" "--app=https://soundcloud.com"; }
 
