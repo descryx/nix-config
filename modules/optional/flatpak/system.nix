@@ -13,7 +13,10 @@ in
   config = lib.mkIf cfg.enable {
     services = {
       flatpak.enable = true;
-      flatpak.packages = [ "org.vinegarhq.Sober" ];
+      flatpak.packages = [
+        "org.vinegarhq.Sober"
+        "com.actualbudget.actual"
+      ];
     };
   };
 }
