@@ -20,7 +20,7 @@ order = [ "default" ]
     border_width = 0.5
     capsule_radius = 0
     capsule_thickness = 0.99999998137354851
-    center = [ "clock", "notifications", "privacy", "capsule" ]
+    center = [ "clock", "notifications", "privacy" ]
     concave_edge_corners = false
     end = [
         "media_2",
@@ -665,12 +665,13 @@ panel_placement = "floating"
 [plugin_settings."goldesquemoon/typing-stats"]
 calendar_placement = "floating"
 level_notify = false
+thresholds = "500,1000,2500,5000"
 
 [plugin_settings."gustav0ar/drive-health"]
 alert_hdd = false
 alerts_enabled = false
 notify_recovery = false
-show_hdd = false
+show_hdd = true
 system_collector_enabled = true
 
 [plugin_settings."h-jangra/keyviz"]
@@ -703,6 +704,9 @@ wallpaper_dir = "/home/descryx/Pictures/lol"
 
 [plugin_settings."johnnyp0t/niri-workspace-stack"]
 navigator_placement = "floating"
+
+[plugin_settings."lowcache/dropkitty"]
+kitty_conf = "/home/descryx/nix-config/modules/apps/kitty/config/kitty/kitty.conf"
 
 [plugin_settings."marccvictoria/llamanager"]
 modelfile_path = "/home/descryx/nix-config/ollama"
@@ -780,6 +784,13 @@ use_24_hour_format = true
 sync_colors = false
 w-engine-panel_position = "center"
 
+[plugin_settings."theblackdon/theme-switcher"]
+carousel_open_near_click = true
+editor_open_near_click = true
+wallpaper-picker_open_near_click = true
+wallpapers_open_near_click = true
+wallpapers_placement = "floating"
+
 [plugin_settings."tordex/nvtop"]
 delay = 1
 panel_placement = "floating"
@@ -801,6 +812,10 @@ show_reasoning = true
 
 [plugin_settings."weinguyen/procmon"]
 panel_position = "bottom_left"
+
+[plugin_settings."yuuto/calculator"]
+panel_placement = "floating"
+precision = 10
 
 [plugin_settings."zumik3-del/opencode-go-usage"]
 panel_placement = "floating"
@@ -828,10 +843,11 @@ enabled = [
     "pulser/hover-widgets",
     "johnnyp0t/niri-workspace-stack",
     "faented/opencode-monitor",
-    "ishan0121/wallpaper-deck",
     "0rgl/localsend-plus",
     "dmopp/nixos-updates",
-    "goldesquemoon/typing-stats"
+    "goldesquemoon/typing-stats",
+    "gustav0ar/drive-health",
+    "theblackdon/theme-switcher"
 ]
 
     [[plugins.source]]
@@ -845,6 +861,7 @@ enabled = [
     name = "community"
 
     [[plugins.source]]
+    enabled = false
     kind = "path"
     location = "~/.local/share/noctalia/plugins/scramble-text"
     name = "jo"
