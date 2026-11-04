@@ -2,6 +2,7 @@
 ui_scale = 0.95000000670552254
 
 [audio]
+colorize_icons = true
 enable_overdrive = true
 enable_sounds = false
 notification_sound = "/home/descryx/nix-config/sounds/mixkit-message-pop-alert-2354.wav"
@@ -19,7 +20,7 @@ order = [ "default" ]
     border_width = 0.5
     capsule_radius = 0
     capsule_thickness = 0.99999998137354851
-    center = [ "clock", "notifications", "privacy" ]
+    center = [ "clock", "notifications", "privacy", "capsule" ]
     concave_edge_corners = false
     end = [
         "media_2",
@@ -70,7 +71,7 @@ order = [ "default" ]
         enabled = true
         fill = "surface_container"
         id = "g3"
-        members = [ "session", "seperator", "nix-monitor" ]
+        members = [ "session", "seperator", "updates", "nix-monitor" ]
         opacity = 0.0
         padding = 0.0
 
@@ -162,7 +163,7 @@ width = 800
 [desktop_widgets]
 enabled = false
 schema_version = 2
-widget_order = [ "desktop-widget-0000000000000002", "desktop-widget-0000000000000003" ]
+widget_order = [ "desktop-widget-0000000000000002", "desktop-widget-0000000000000003", "desktop-widget-0000000000000004" ]
 
     [desktop_widgets.grid]
     cell_size = 16
@@ -237,13 +238,13 @@ widget_order = [ "desktop-widget-0000000000000002", "desktop-widget-000000000000
     [desktop_widgets.widget.desktop-widget-0000000000000004]
     box_height = 0.0
     box_width = 0.0
-    cx = 1859.0999755859375
-    cy = 78.050003051757812
+    cx = 308.0
+    cy = 171.75
     output = "DP-1"
     placement_height = 1080.0
     placement_width = 1920.0
     rotation = 0.0
-    type = "button"
+    type = "styrish/modernclock:clock"
 
         [desktop_widgets.widget.desktop-widget-0000000000000004.settings]
         background = false
@@ -257,6 +258,7 @@ active_scale = 1.2000000178813934
 auto_hide = true
 background_opacity = 0.4999999888241291
 border_width = 0.5
+colorize_icons = true
 concave_edge_corners = false
 enabled = false
 icon_size = 24
@@ -531,6 +533,7 @@ temperature_night = 3500
 
 [notification]
 background_opacity = 0.69999998435378075
+colorize_icons = true
 offset_x = 10
 offset_y = 10
 scale = 0.70000000298023224
@@ -549,6 +552,7 @@ scale = 0.80000000447034836
 
 [plugin_settings."0rgl/localsend-plus"]
 alias = "DesDesk"
+panel_open_near_click = true
 
 [plugin_settings."ahmedhossamdev/reading-list"]
 panel_placement = "floating"
@@ -564,6 +568,7 @@ default_model = "deepseek-V4.1-flash"
 [plugin_settings."alexander/screen-toolkit"]
 panel-legacy_position = "top_right"
 panel-mode = "legacy"
+panel_layer = "overlay"
 panel_position = "top_right"
 record-audio-out = true
 record-copy-to-clipboard = true
@@ -620,6 +625,19 @@ vault_path = "/home/descryx/Projects/Main-vault"
 [plugin_settings."decksters-lab/palette-creator"]
 creator_position = "top_right"
 
+[plugin_settings."demo/scramble-text"]
+hold_ms = 2000
+loop = false
+text = "scramble-scramble-67-big-bigTEXT/\\.122345677868(&%*(^(!@^$"
+tick_ms = 30
+ticks_per_char = 1
+
+[plugin_settings."dmopp/nixos-updates"]
+check_flatpak = false
+flake_dir = "/home/descryx/nix-config"
+panel_placement = "floating"
+update_command = "nix flake update "
+
 [plugin_settings."dmopp/settings-to-nix"]
 panel_placement = "floating"
 
@@ -634,11 +652,19 @@ panel_placement = "floating"
 [plugin_settings."faented/opencode-monitor"]
 panel_placement = "floating"
 
+[plugin_settings."faminec/terminal-widgets"]
+panel_placement = "floating"
+terminal = "ghostty -e"
+
 [plugin_settings."fel/quill"]
 ai_model = "deepseek-v4.1-flash"
 notes_dir = "/home/descryx/Projects/notes"
 panel_open_near_click = true
 panel_placement = "floating"
+
+[plugin_settings."goldesquemoon/typing-stats"]
+calendar_placement = "floating"
+level_notify = false
 
 [plugin_settings."gustav0ar/drive-health"]
 alert_hdd = false
@@ -728,6 +754,9 @@ panel_placement = "floating"
 panel_position = "top_right"
 url = "http://localhost:8384/"
 
+[plugin_settings."rylos/usb-manager"]
+panel_placement = "floating"
+
 [plugin_settings."samuelskovbakke/calculator-plus"]
 panel_placement = "floating"
 
@@ -736,6 +765,16 @@ appearance_avatar_shape = "rounded"
 appearance_density = "compact"
 kanban_placement = "floating"
 repositories_layout = "grid"
+
+[plugin_settings."styrish/modernclock"]
+date_font_size = 12
+date_format = "%d %m %Y"
+day_font_path = "/home/descryx/Downloads/kremlin-alexander-font/KremlinAlexanderBold-l8AX.ttf"
+day_font_size = 40
+show_time = false
+time_character = ""
+time_font_size = 12
+use_24_hour_format = true
 
 [plugin_settings."tadomika_ari/w-engine"]
 sync_colors = false
@@ -790,7 +829,9 @@ enabled = [
     "johnnyp0t/niri-workspace-stack",
     "faented/opencode-monitor",
     "ishan0121/wallpaper-deck",
-    "0rgl/localsend-plus"
+    "0rgl/localsend-plus",
+    "dmopp/nixos-updates",
+    "goldesquemoon/typing-stats"
 ]
 
     [[plugins.source]]
@@ -803,9 +844,13 @@ enabled = [
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
 
+    [[plugins.source]]
+    kind = "path"
+    location = "~/.local/share/noctalia/plugins/scramble-text"
+    name = "jo"
+
 [shell]
 app_icon_color = "#FFFFFF"
-app_icon_colorize = true
 avatar_path = "/home/descryx/Pictures/telegram/photo_2026-05-16_13-53-22.jpg"
 clipboard_auto_paste = "off"
 clipboard_history_max_entries = 200
@@ -816,7 +861,9 @@ launch_apps_as_systemd_services = true
 niri_overview_type_to_launch_enabled = false
 password_style = "default"
 polkit_agent = true
+polkit_colorize_icons = true
 popup_shadows = false
+screen_time_colorize_icons = true
 screen_time_enabled = true
 settings_window_translucent = true
 show_location = false
@@ -833,7 +880,9 @@ ui_scale = 0.95000000670552254
     [shell.launcher]
     app_grid = false
     categories = true
+    colorize_icons = true
     compact = true
+    pinned = [ "learnharness" ]
     width = 560
 
     [shell.mpris]
@@ -906,6 +955,9 @@ ui_scale = 0.95000000670552254
     [shell.shadow]
     alpha = 0.0
     direction = "center"
+
+    [shell.window_switcher]
+    colorize_icons = true
 
 [system.monitor]
 gpu_poll_seconds = 5
@@ -1110,6 +1162,7 @@ type = "custom_button"
     right = "exec noctalia msg plugin umedbazarov/crashes:service all refresh"
 
 [widget.active_window]
+colorize_icons = true
 icon_size = 18
 max_length = 140
 min_length = 1
@@ -1160,6 +1213,9 @@ type = "baizhu/paged-todo:bar"
 
 [widget.bar_9]
 type = "zumik3-del/opencode-go-usage:bar"
+
+[widget.capsule]
+type = "goldesquemoon/typing-stats:capsule"
 
 [widget.clock]
 anchor = true
@@ -1280,6 +1336,9 @@ show_value = true
 stat = "disk_used"
 visualization = "gauge"
 
+[widget.taskbar]
+colorize_icons = true
+
 [widget.toggle]
 type = "decksters-lab/palette-creator:toggle"
 
@@ -1287,10 +1346,14 @@ type = "decksters-lab/palette-creator:toggle"
 type = "cleboost/hotspot:toggle"
 
 [widget.tray]
+colorize_icons = true
 detached_panel = true
 drawer = true
 hide_passive = false
 match_adjacent_spacing = true
+
+[widget.updates]
+type = "dmopp/nixos-updates:updates"
 
 [widget.visual-seperator]
 color = "#FFFFFF"
@@ -1335,6 +1398,7 @@ type = "0rgl/localsend-plus:widget"
 [widget.workspaces]
 active_pill_size = 2.0
 capsule_radius = 8
+colorize_icons = true
 enabled = false
 focused_output_only = true
 hide_when_empty = true
