@@ -3,6 +3,7 @@
   local,
   osConfig,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -78,6 +79,23 @@ in
 
     programs.opencode = {
       enable = true;
+
+      # WORKAROUND, remove when nixpkgs is fixed: NixOS/nixpkgs#582673.
+      # nixpkgs' opencode 2.2.5 node_modules FOD records a hash that was taken
+      # with bun 1.4.2; the pin ships bun 1.4.4, which resolves the tree
+      # differently, so the build dies on a hash mismatch and nothing is cached
+      # on cache.nixos.org. The value below is the output of this derivation
+      # on x86_64-linux and matches what another builder reported in the issue.
+      # Only the FOD's hash is overridden, the rest of the package is untouched.
+      # To get back to normal: once #582675 (or a successor) is merged, delete
+      # the two `node_modules` lines below, drop `pkgs` from the argument list
+      # above if nothing else uses it, and run `nix flake update`.
+      package = pkgs.opencode.overrideAttrs (old: {
+        node_modules = old.node_modules.overrideAttrs (_: {
+          outputHash = "sha256-prx9dX7kUvs/E3zopkaPk5LXh3xJAy5sZeum/W8L7cA=";
+        });
+      });
+
       settings = {
         permissions = [
           (ask "*" "*")
