@@ -1,11 +1,19 @@
 {
   local,
   osConfig,
+  pkgs,
   lib,
   ...
 }:
 {
   config = lib.mkIf osConfig.my.zsh.enable {
+    # wl-clipboard is the notch the shell's vi yank/put binds to. It is not a
+    # dev tool: keep it here so the binds survive my.dev being switched off.
+    home.packages = with pkgs; [
+      wl-clipboard
+      zsh-system-clipboard
+    ];
+
     programs = {
       zsh = {
         enable = true;
@@ -36,6 +44,14 @@
               bindkey -v
               bindkey '^?' backward-delete-char
               export KEYTIMEOUT=1
+
+              # vi yank/put -> Wayland clipboard. Sourced by hand (not via
+              # programs.zsh.plugins) so it lands after `bindkey -v`: plugins are
+              # sourced at priority 900, this initContent runs at 1000.
+              # DISPLAY is set by Xwayland, and xclip/xsel are not installed, so
+              # the plugin's autodetect would refuse wl-copy without this force.
+              export ZSH_SYSTEM_CLIPBOARD_USE_WL_CLIPBOARD=1
+              source ${pkgs.zsh-system-clipboard}/share/zsh/zsh-system-clipboard/zsh-system-clipboard.zsh
 
               function zle-keymap-select-cursor() {
                   case $KEYMAP in
