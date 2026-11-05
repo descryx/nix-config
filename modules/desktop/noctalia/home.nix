@@ -17,6 +17,7 @@ in
     home.packages = with pkgs; [
       inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
       cliphist
+      wl-clipboard # cliphist watcher / copy-back
 
       ### Noctalia & Script dependencies ###
       # Screen Toolkit #
