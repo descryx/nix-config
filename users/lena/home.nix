@@ -1,9 +1,12 @@
 { pkgs, inputs, ... }:
 let
   # 26.05 ships opencode-desktop 1.15.10. Lena's sessions come from the 2.x app
-  # on Windows, so this one package is taken from the unstable input (2.2.6,
-  # the version desk runs). It is the only unstable package on this host.
-  opencodeDesktop = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.opencode-desktop;
+  # on Windows, so the app and its CLI come from the unstable input (2.2.6, the
+  # version desk runs). They are the only unstable packages on this host.
+  unstable = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  opencodeDesktop = unstable.opencode-desktop;
+  # The desktop package ships no CLI; this is what imports/exports sessions.
+  opencodeCli = unstable.opencode;
 in
 {
   imports = [
@@ -50,6 +53,7 @@ in
   home.packages = with pkgs; [
     libreoffice-qt
     opencodeDesktop
+    opencodeCli
     telegram-desktop
     localsend
     zoom-us
