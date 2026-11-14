@@ -7,7 +7,7 @@ How the repo fits together. Day-to-day commands are in
 
 - Declarative: packages, services, the compositor and quite some app configs
   are Nix, rebuilt from one `flake.lock`.
-- Reproducible: inputs are pinned, and `nix flake check` evaluates both hosts.
+- Reproducible: inputs are pinned, and `nix flake check` evaluates all hosts.
 - Live-editable where it matters: a few large or frequently edited configs stay
   as plain dotfiles.
 - Multi-host: shared config in `modules/`, per-machine deltas in `hosts/`.
@@ -18,14 +18,17 @@ How the repo fits together. Day-to-day commands are in
 
 ## Flake structure
 
-`flake.nix` takes the inputs (`nixpkgs`, `home-manager`, `nix-flatpak`,
-`noctalia`, `zen-browser`, `zen-browser-pinned`, `plasma-manager`, `wshowkeys`,
-`oniri`, `mac-style-plymouth`, `nix-craftapps`, `git-hooks`) and exposes:
+`flake.nix` takes the inputs (`nixpkgs`, `nixpkgs-stable`, `home-manager`,
+`home-manager-stable`, `nix-flatpak`, `noctalia`, `zen-browser`,
+`zen-browser-pinned`, `plasma-manager`, `wshowkeys`, `oniri`,
+`mac-style-plymouth`, `nix-craftapps`, `git-hooks`) and exposes:
 
-- `nixosConfigurations.{desk,t480}`, built by [`lib/mk-system.nix`](../lib/mk-system.nix),
-  which takes the nixpkgs/home-manager inputs and a per-host `homeUsers` map.
-  It passes `inputs` and `local` through `specialArgs` and enables the
-  home-manager NixOS module.
+- `nixosConfigurations.{desk,t480,vivobook}`, built by
+  [`lib/mk-system.nix`](../lib/mk-system.nix), which takes the nixpkgs and
+  home-manager inputs and a per-host `homeUsers` map. Desk and t480 use unstable;
+  Vivobook uses `nixpkgs-stable` (26.05) and `home-manager-stable`. The builder
+  passes `inputs` and `local` through `specialArgs` and enables the home-manager
+  NixOS module.
 - `checks.${system}.pre-commit-check` and `devShells.${system}.default`, from
   [`git-hooks.nix`](../git-hooks.nix).
 - `packages.${system}` and `overlays.default`: the custom packages as standalone
@@ -127,8 +130,9 @@ Because the option default is off, a feature mentioned nowhere is off.
 | Group | Switch | Enabled in |
 |---|---|---|
 | core (niri, noctalia, zsh, nvim, gaming, ...) | `my.<feature>.enable` | `configuration.nix` (on), overridden per host |
-| kde | `my.kde.enable` | `hosts/desk/default.nix` (test) and the laptop later |
-| photocraft | `my.photocraft.enable` | `hosts/desk/default.nix` |
+| kde | `my.kde.enable` | `hosts/desk/default.nix` (test) and `hosts/vivobook/default.nix` |
+| photocraft | `my.photocraft.enable` | `hosts/desk/default.nix`, `hosts/vivobook/default.nix` |
+| printing | `my.printing.enable` | `hosts/vivobook/default.nix` |
 | kdeconnect | `my.kdeconnect.enable` | `hosts/desk/default.nix` |
 | optional (flatpak, minecraft, ollama, openrgb, tmux) | `my.<feature>.enable` | `hosts/<host>/default.nix` |
 
@@ -200,12 +204,20 @@ look-and-feel defaults are patched to Breeze for those pieces.
 - Filesystems are mounted by label, not UUID (the labels are in
   [NOTES.md](NOTES.md)), so no disk IDs are in the repo.
 - There is no disko integration. New machines are partitioned manually and use
-  label-based `fileSystems`; the install runbook is added with the laptop host.
+  label-based `fileSystems`; the Vivobook runbook is
+  [FAMILY.md](FAMILY.md).
+- The Vivobook runs 26.05 stable with `linuxPackages_latest` (7.3) because the
+  default 6.18 LTS has no MT7902 driver. `hardware.enableRedistributableFirmware`
+  provides the Wi-Fi/Bluetooth/GPU firmware. It keeps 5 system generations
+  (`configurationLimit` and `nh clean --keep 5`).
+- On the Vivobook, `descryx` is a maintenance account reachable over SSH and a
+  TTY but hidden from SDDM with `services.displayManager.hiddenUsers`; lena is
+  the only visible user. The theme's index-0 default then selects lena.
 - The SDDM astronaut theme is patched to preselect index 0 instead of
-  `model.lastIndex`. On desk/t480 that is niri + descryx; on the laptop the only
-  session/user is Plasma + lena. Do not log descryx into Plasma on desk: KWin
-  writes a display config into his home and can move the monitor off-screen; use
-  lena for Plasma.
+  `model.lastIndex`. On desk/t480 that is niri + descryx; on the Vivobook the only
+  session is Plasma and the only visible user is lena. Do not log descryx into
+  Plasma on desk: KWin writes a display config into his home and can move the
+  monitor off-screen; use lena for Plasma.
 - `hosts/desk/plasma.nix` exists only so a second user can log into KDE on desk.
   It pins `defaultSession = "niri"`, the greeter compositor back to `weston`,
   the owner's fonts/pinentry, and SDDM's last-user/last-session memory.
@@ -225,6 +237,8 @@ Rule: never put a secret value in the repo. What is kept out, and why:
 - Syncthing pairs at runtime (`~/.config/syncthing/config.xml`), so no device IDs
   live here; filesystems are mounted by label, so no disk UUIDs live here.
 - The git identity uses the GitHub noreply address (`local.nix`).
+- The Vivobook host carries the `descryx` SSH **public** key; public keys are not
+  secrets and are safe in the repo. Private keys and passwords never are.
 - Hooks guard it: `noctalia-scrub` strips credential fields and refuses a write
   that still has one, `detect-private-keys` catches PEM keys, and `ripsecrets` is
   the catch-all scanner.

@@ -34,6 +34,20 @@ Before pushing, check no real email is in history: `git log --all --format='%ae'
 | sort -u | grep -vE 'users\.noreply\.github\.com|noreply@github\.com'`. Anything
 but the noreply address means do not push.
 
+## Vivobook (lena)
+
+- NixOS 26.05 stable with `linuxPackages_latest` (7.3). The 26.05 default kernel
+  is 6.18 LTS, which has no MediaTek MT7902 driver; `hardware.enableRedistributableFirmware`
+  provides the Wi-Fi/Bluetooth/GPU firmware.
+- MT7902 is a single-antenna combo: 2.4 GHz Wi-Fi is unstable with Bluetooth on.
+  Use a 5 GHz SSID. The 26.05 installer ISO is 6.18 and has no Wi-Fi; install over
+  Ethernet, phone USB tethering or a USB dongle. The installed host gets 7.3.
+- Filesystem labels are `nixos` and `boot`; there is no disko. The full install
+  runbook is [FAMILY.md](FAMILY.md).
+- SDDM: `descryx` is hidden from the greeter, lena is the only visible user;
+  Plasma is the only session. Generations are limited to 5.
+- Printer: Canon PIXMA TS5050, USB only; gutenprint and sane-pixma.
+
 ## Want to try
 
 - Obsidian: declare basic settings (theme, vim mode, readable line length).

@@ -21,16 +21,18 @@ user gets store copies so her config never depends on my home directory.
 |--------|----------|----------|--------|
 | Desktop | `desk` | NVIDIA + Intel | [`hosts/desk/`](hosts/desk/) |
 | Laptop  | `t480` | ThinkPad T480 (Intel) | [`hosts/t480/`](hosts/t480/) |
+| Laptop (lena) | `vivobook` | ASUS Vivobook 16 M1605YA (AMD) | [`hosts/vivobook/`](hosts/vivobook/) |
 
 | User | Where | Session |
 |------|-------|---------|
-| `descryx` | desk, t480 | niri + Noctalia |
-| `lena` | desk (test), her laptop later | KDE Plasma |
+| `descryx` | desk, t480, vivobook (SSH/console only) | niri + Noctalia |
+| `lena` | desk (test), vivobook | KDE Plasma |
 
 ## How to use
 
-Prerequisites: NixOS unstable with flakes enabled, plus
-[direnv](https://direnv.net) and nix-direnv.
+Prerequisites: NixOS unstable with flakes enabled for `desk`/`t480`; the
+Vivobook host uses NixOS 26.05 stable. Both need [direnv](https://direnv.net)
+and nix-direnv.
 
 **Dotfiles only.** Every feature keeps its config in
 `modules/<category>/<feature>/config/`; browse `modules/*/*/config/` and copy what
@@ -49,7 +51,8 @@ start from [`hosts/_template/`](hosts/_template/) - a manual-install template
 
 **Just looking.** How it all fits together is in
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), commands in
-[docs/COMMANDS.md](docs/COMMANDS.md), credits in [docs/CREDITS.md](docs/CREDITS.md).
+[docs/COMMANDS.md](docs/COMMANDS.md), the Vivobook runbook in
+[docs/FAMILY.md](docs/FAMILY.md), credits in [docs/CREDITS.md](docs/CREDITS.md).
 
 ## AI assistance & scope
 

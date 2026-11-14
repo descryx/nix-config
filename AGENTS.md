@@ -1,10 +1,10 @@
-# nix-config (NixOS + home-manager flake, hosts: desk, t480)
+# nix-config (NixOS + home-manager flake, hosts: desk, t480, vivobook)
 
 ## Hard rules
 - Show a diff and explain it before applying changes. Never rebuild/switch,
   commit, or push without asking.
-- Never run `nix flake update` or change `flake.lock` on t480. Updates happen on
-  desk only.
+- Never run `nix flake update` or change `flake.lock` on t480 or vivobook.
+  Updates happen on desk only.
 - Never put a secret value in the repo. Don't open or print files that look
   secret (keys, tokens, .env). If you find one, tell me the file path and kind
   only, never the value. See docs/ARCHITECTURE.md -> "Secrets".
@@ -37,6 +37,10 @@
   KDE rewrites them atomically. Use plasma-manager in users/lena/plasma.nix and
   capture runtime tweaks with rc2nix.
 - No disko. New hosts are installed manually with label-based fileSystems.
+- Vivobook uses `nixpkgs-stable` (26.05) + `home-manager-stable`; desk/t480 stay
+  unstable. Vivobook needs `linuxPackages_latest` (7.3) for the MT7902 Wi-Fi, and
+  keeps 5 generations. `descryx` is hidden from SDDM there; lena is the only
+  visible user. See docs/FAMILY.md.
 - KDE: the SDDM theme is patched to preselect index 0 (niri/descryx on the
   owner's machines, plasma/lena on the laptop). Do not log descryx into Plasma
   on desk; it writes KWin/GTK user state. The owner's GTK dconf values are pinned

@@ -6,8 +6,8 @@ architecture in [ARCHITECTURE.md](ARCHITECTURE.md).
 `programs.nh` sets `NH_FLAKE=/home/descryx/nix-config`, so `nh` works from any
 directory; it picks the config from the running hostname.
 
-> **Laptop rule:** never run `nix flake update` (or change `flake.lock`) on `t480`.
-> Update on `desk`, then push and pull.
+> **Laptop rule:** never run `nix flake update` (or change `flake.lock`) on `t480`
+> or `vivobook`. Update on `desk`, then push and pull.
 
 ## Rebuild / switch
 
@@ -33,15 +33,41 @@ without activating:
 ```sh
 nix build .#nixosConfigurations.desk.config.system.build.toplevel
 nix build .#nixosConfigurations.t480.config.system.build.toplevel
+nix build .#nixosConfigurations.vivobook.config.system.build.toplevel
 ```
+
+## Vivobook / stable host
+
+Vivobook is on 26.05 stable with `linuxPackages_latest` for the MT7902 Wi-Fi.
+Build and test it on desk before touching the laptop:
+
+```sh
+nix build .#nixosConfigurations.vivobook.config.system.build.toplevel
+nix build .#nixosConfigurations.vivobook.config.system.build.vm
+./result/bin/run-vivobook-vm
+```
+
+The VM auto-logs in as lena (test-only setting) so no password is needed. It
+does not test Wi-Fi, Bluetooth, GPU, the printer, audio or suspend.
+
+Install and day-to-day details are in [FAMILY.md](FAMILY.md). On Vivobook:
+
+```sh
+cd /home/descryx/nix-config
+git pull
+sudo nh os switch
+```
+
+Build on desk and `nix copy --to ssh-ng://descryx@vivobook <toplevel>` first if the
+laptop should not run a long build. Never update `flake.lock` on Vivobook.
 
 ## Checks
 
-`nix flake check` evaluates both hosts and builds the pre-commit check, but does
+`nix flake check` evaluates all hosts and builds the pre-commit check, but does
 not instantiate the systems. For derivation-time errors (e.g. a moved path):
 
 ```sh
-./scripts/check-systems.sh   # both hosts, one nix eval each
+./scripts/check-systems.sh   # all hosts, one nix eval each
 ```
 
 `nix fmt` formats Nix files (treefmt: nixfmt + deadnix). `.envrc` loads the dev
