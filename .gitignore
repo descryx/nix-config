@@ -1,6 +1,9 @@
 result
 result-*
 *.bin
+
+# QEMU disk images (system.build.vm run from the repo root)
+*.qcow2
 *.gguf
 .direnv/
 /.pre-commit-config.yaml
