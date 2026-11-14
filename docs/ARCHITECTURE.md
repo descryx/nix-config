@@ -11,16 +11,21 @@ How the repo fits together. Day-to-day commands are in
 - Live-editable where it matters: a few large or frequently edited configs stay
   as plain dotfiles.
 - Multi-host: shared config in `modules/`, per-machine deltas in `hosts/`.
+- Multi-user: home-manager roots live in `users/<name>/home.nix`; a host
+  declares which users it gets in `flake.nix`. A user can live-symlink the
+  owner's dotfiles or get store copies (`my.dotfiles.live`), so a second user
+  never depends on the owner's home directory.
 
 ## Flake structure
 
-`flake.nix` takes the inputs (`nixpkgs`, `home-manager`, `disko`, `nix-flatpak`,
-`noctalia`, `zen-browser`, `wshowkeys`, `oniri`, `mac-style-plymouth`,
-`nix-craftapps`, `git-hooks`) and exposes:
+`flake.nix` takes the inputs (`nixpkgs`, `home-manager`, `nix-flatpak`,
+`noctalia`, `zen-browser`, `zen-browser-pinned`, `plasma-manager`, `wshowkeys`,
+`oniri`, `mac-style-plymouth`, `nix-craftapps`, `git-hooks`) and exposes:
 
-- `nixosConfigurations.{desk,t480}`, built by a local `mkSystem` that passes
-  `inputs` and `local` through `specialArgs` and enables the home-manager NixOS
-  module.
+- `nixosConfigurations.{desk,t480}`, built by [`lib/mk-system.nix`](../lib/mk-system.nix),
+  which takes the nixpkgs/home-manager inputs and a per-host `homeUsers` map.
+  It passes `inputs` and `local` through `specialArgs` and enables the
+  home-manager NixOS module.
 - `checks.${system}.pre-commit-check` and `devShells.${system}.default`, from
   [`git-hooks.nix`](../git-hooks.nix).
 - `packages.${system}` and `overlays.default`: the custom packages as standalone
@@ -50,6 +55,12 @@ runtime; see [COMMANDS.md](COMMANDS.md#noctalia-plugin-dependencies).
 Home-manager runs as a NixOS module (`useGlobalPkgs` + `useUserPackages`), so
 system and user config build together in one generation.
 
+Home-manager roots are per-user, not per-host: `users/descryx/home.nix` imports
+the auto-discovered module set, while `users/lena/home.nix` imports a curated
+subset (zsh, ghostty, nvim, zen, learnharness) plus KDE. The flake's
+`homeUsers` map decides which users a host gets, which keeps a second user's
+packages and config out of the owner's profile.
+
 `modules/` is feature-first and grouped by domain: each feature lives in its own
 `modules/<category>/<feature>/` folder, holding any of `system.nix` (NixOS
 module), `home.nix` (home-manager module) and `config/` (its dotfiles).
@@ -64,8 +75,8 @@ that case. Categories:
 - `core/` - machine foundation that has no natural app (boot, networking,
   users, Nix settings, `nh`, power, audio, tools).
 - `desktop/` - the session and how it looks: `niri`, `noctalia`, `appearance`,
-  `sddm`.
-- `apps/` - one app or concern per folder.
+  `sddm`, `kde`.
+- `apps/` - one app or concern per folder, including `photocraft`.
 - `services/` - background daemons and device glue: `syncthing`, `kdeconnect`,
   `storage`.
 - `bundles/` - grouped package lists and default choices, with no per-app folders:
@@ -116,8 +127,14 @@ Because the option default is off, a feature mentioned nowhere is off.
 | Group | Switch | Enabled in |
 |---|---|---|
 | core (niri, noctalia, zsh, nvim, gaming, ...) | `my.<feature>.enable` | `configuration.nix` (on), overridden per host |
+| kde | `my.kde.enable` | `hosts/desk/default.nix` (test) and the laptop later |
+| photocraft | `my.photocraft.enable` | `hosts/desk/default.nix` |
 | kdeconnect | `my.kdeconnect.enable` | `hosts/desk/default.nix` |
 | optional (flatpak, minecraft, ollama, openrgb, tmux) | `my.<feature>.enable` | `hosts/<host>/default.nix` |
+
+`my.sddm.wallpaper` and `my.sddm.forceLastUser` are value options, not switches.
+`my.dotfiles.live` and `my.zen.package` are per-user options declared in
+home-manager, not host switches.
 
 Watch the soft couplings: `default-apps` points at `zen.desktop`, `nvim.desktop`,
 `thunar.desktop`, `mpv.desktop`, `imv.desktop`, `libreoffice-*` and
@@ -156,10 +173,42 @@ the file opencode wrote is moved to `cli.json.bak` and the declared version is
 relinked, which means a TUI toggle lasts only until the next switch. Edit
 `modules/apps/opencode/home.nix` to change those settings for good.
 
+A second user can set `my.dotfiles.live = false` (declared in
+[`lib/user-options.nix`](../lib/user-options.nix)). nvim and ghostty are then
+copied into the store instead of symlinked to the owner's repo, so they do not
+depend on `/home/descryx` being readable. KDE is not symlinked at all: KDE
+rewrites its rc files atomically, which replaces symlinks. The stable keys are
+declared through plasma-manager in `users/lena/plasma.nix`; runtime edits stay
+in the real files and can be captured with `rc2nix` when they should go into
+git.
+
+KDE's GTK bridge also writes dconf values (icon theme, font) when a KDE session
+logs in, and dconf wins over `gtk-3.0/settings.ini` for GTK apps.
+`modules/desktop/appearance/home.nix` pins the owner's values with
+`dconf.settings`, so a rebuild restores them. lena uses Thunar
+(`environment.plasma6.excludePackages` drops Dolphin), and her Ghostty profile
+sets `my.ghostty.windowDecorations = true` to get `window-decoration = auto`.
+
+lena's Win11 look is packaged from two GPL-3.0 repos in
+`users/lena/theme/` and linked into her home: the look-and-feel, Plasma style,
+Aurorae decoration, color scheme and the black/dark icon set. The Windows
+wallpaper, Kvantum theme and KDE Store dependency list are not shipped; the
+look-and-feel defaults are patched to Breeze for those pieces.
+
 ## Hosts & deploy
 
 - Filesystems are mounted by label, not UUID (the labels are in
   [NOTES.md](NOTES.md)), so no disk IDs are in the repo.
+- There is no disko integration. New machines are partitioned manually and use
+  label-based `fileSystems`; the install runbook is added with the laptop host.
+- The SDDM astronaut theme is patched to preselect index 0 instead of
+  `model.lastIndex`. On desk/t480 that is niri + descryx; on the laptop the only
+  session/user is Plasma + lena. Do not log descryx into Plasma on desk: KWin
+  writes a display config into his home and can move the monitor off-screen; use
+  lena for Plasma.
+- `hosts/desk/plasma.nix` exists only so a second user can log into KDE on desk.
+  It pins `defaultSession = "niri"`, the greeter compositor back to `weston`,
+  the owner's fonts/pinentry, and SDDM's last-user/last-session memory.
 - Rebuilds go through `nh`; see [COMMANDS.md](COMMANDS.md). Never update
   `flake.lock` on the laptop. For filesystem/mount changes, use `nh os boot` and
   reboot, not `nh os switch`.

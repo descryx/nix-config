@@ -1,8 +1,9 @@
 # nix-config
 
 My personal, flake-based [NixOS](https://nixos.org) + [home-manager](https://github.com/nix-community/home-manager)
-config for two machines. Inputs are pinned in `flake.lock`; dotfiles are
-symlinked out of the store so they stay editable.
+config for my machines and a second user. Inputs are pinned in `flake.lock`;
+dotfiles are symlinked out of the store so they stay editable, while the second
+user gets store copies so her config never depends on my home directory.
 
 <img src="screenshots/desktop-screen-1.png" width="100%" alt="desktop screenshot 1">
 
@@ -21,6 +22,11 @@ symlinked out of the store so they stay editable.
 | Desktop | `desk` | NVIDIA + Intel | [`hosts/desk/`](hosts/desk/) |
 | Laptop  | `t480` | ThinkPad T480 (Intel) | [`hosts/t480/`](hosts/t480/) |
 
+| User | Where | Session |
+|------|-------|---------|
+| `descryx` | desk, t480 | niri + Noctalia |
+| `lena` | desk (test), her laptop later | KDE Plasma |
+
 ## How to use
 
 Prerequisites: NixOS unstable with flakes enabled, plus
@@ -38,7 +44,8 @@ file(s) you need.
 
 **Whole config.** Set your values in [`local.nix`](local.nix), adjust
 `hardware-configuration.nix`, then rebuild with `nh os switch`. For a new machine,
-start from [`hosts/_template/`](hosts/_template/) - an untested draft.
+start from [`hosts/_template/`](hosts/_template/) - a manual-install template
+(there is no disko integration).
 
 **Just looking.** How it all fits together is in
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), commands in

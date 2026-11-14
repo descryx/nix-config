@@ -20,7 +20,10 @@ Projects this configuration depends on or is inspired by:
 - [LazyVim](https://github.com/LazyVim/LazyVim) - Neovim base.
 - [Home Manager](https://github.com/nix-community/home-manager) and
   [nixpkgs](https://github.com/NixOS/nixpkgs) - the framework underneath.
-- [disko](https://github.com/nix-community/disko) - declarative disk layouts.
+- [plasma-manager](https://github.com/nix-community/plasma-manager) - declarative
+  KDE Plasma settings for the second user.
+- [nix-craftapps](https://github.com/olafkfreund/nix-craftapps) - Photocraft
+  packaging.
 - [git-hooks.nix](https://github.com/cachix/git-hooks.nix) - pre-commit checks.
 - [Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) - the
   pinned skills in [`modules/apps/opencode/skills.nix`](../modules/apps/opencode/skills.nix).
@@ -28,6 +31,10 @@ Projects this configuration depends on or is inspired by:
   [`modules/desktop/niri/niri-zoom.nix`](../modules/desktop/niri/niri-zoom.nix), MIT.
 - [Wayscriber](https://github.com/devmobasa/wayscriber) - whiteboard overlay.
 - [opencode](https://opencode.ai) - used to help write parts of this config.
+- [KDE Plasma wallpapers](https://invent.kde.org/plasma/plasma-workspace-wallpapers)
+  - "Darkest Hour" by Risto Saukonpää (LGPL-3.0), used as lena's desktop
+  wallpaper. The image is fetched from the KDE package, not copied into this
+  repository.
 - [fastfetch](https://github.com/fastfetch-cli/fastfetch) - config based on
   [this Reddit post](https://www.reddit.com/r/NixOS/comments/1tt2qww/fastfetchconfig/),
   with art from [this post](https://x.com/maoxianxiaotao/status/2033224745957929219).
@@ -50,8 +57,8 @@ license; the MIT notice is reproduced at the bottom.
 ## Fetched upstream (packaged at build time)
 
 Fetched and packaged at build time by the derivations next to each feature; the
-sources are not copied into this repo. The first two are GPL-family; the
-controller is MIT and links the LocalSend core, which is Apache-2.0:
+sources are not copied into this repo. All are GPL-family except the controller,
+which is MIT and links the LocalSend core, which is Apache-2.0:
 
 - [YAMIS - Yet Another Monochrome Icon Set](https://github.com/googIyEYES/YAMIS)
   (`modules/desktop/appearance/yamis-icon-theme.nix`) - GPL-3.0-only.
@@ -62,6 +69,13 @@ controller is MIT and links the LocalSend core, which is Apache-2.0:
   (`modules/desktop/noctalia/localsend-controller.nix`) - MIT; built from the
   plugin's own `controller/` sources, which link the
   [LocalSend](https://github.com/localsend/localsend) core.
+- [Win11OS-dark KDE theme](https://github.com/yeyushengfan258/Win11OS-kde)
+  (`users/lena/theme/win11os-kde.nix`) - GPL-3.0-only. The look-and-feel, Plasma
+  style, Aurorae decoration and color scheme are installed. The Windows
+  wallpaper, Kvantum theme and KDE Store dependency list are not shipped.
+- [Win11 icon theme](https://github.com/yeyushengfan258/Win11-icon-theme)
+  (`users/lena/theme/win11-icon-theme.nix`) - GPL-3.0-only. The upstream
+  installer is patched only so `-t black` installs the black/dark variants.
 
 ## MIT license text
 

@@ -27,6 +27,20 @@
   bundles/ (package lists, defaults), optional/ (off by default).
 - A feature lives in one folder, modules/<category>/<feature>/, holding any of
   system.nix, home.nix, config/. Never split a feature across folders.
+- Home-manager roots live in users/<name>/home.nix; users/<name>/system.nix
+  declares an extra account. flake.nix's homeUsers map decides which users a
+  host gets. Never put a user's home.nix under modules/: lib/modules.nix
+  auto-imports every home.nix there and would leak it into the other user.
+- lib/mk-system.nix builds a host; lib/user-options.nix holds per-user options.
+- Dotfiles: the owner uses my.dotfiles.live = true (out-of-store symlink); a
+  second user uses false (store copy). KDE rc files are not symlinked at all;
+  KDE rewrites them atomically. Use plasma-manager in users/lena/plasma.nix and
+  capture runtime tweaks with rc2nix.
+- No disko. New hosts are installed manually with label-based fileSystems.
+- KDE: the SDDM theme is patched to preselect index 0 (niri/descryx on the
+  owner's machines, plasma/lena on the laptop). Do not log descryx into Plasma
+  on desk; it writes KWin/GTK user state. The owner's GTK dconf values are pinned
+  in modules/desktop/appearance/home.nix; lena uses Thunar, Dolphin is excluded.
 - Togglable features are declared in configuration.nix with mkEnableOption and
   their config is wrapped in lib.mkIf.
   The defaults sit next to the declarations in configuration.nix. Hosts set deltas. home.nix

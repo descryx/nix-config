@@ -49,6 +49,39 @@ shell via direnv and its `shellHook` installs the git hooks (nixfmt, deadnix,
 statix, check-toml, detect-private-keys, noctalia-scrub, ripsecrets). Run them by
 hand with `nix develop -c pre-commit run --all-files`.
 
+## Second user on desk
+
+`lena` exists on desk for testing. SDDM preselects index 0, which is niri +
+descryx on desk/t480; choose Plasma and lena manually. Do not log descryx into
+Plasma on desk: KWin writes a display config into his home and can move the
+monitor off-screen. Use lena for Plasma.
+
+lena's file manager is Thunar; Dolphin is excluded from Plasma. Her Ghostty
+profile uses native KDE window decorations (`my.ghostty.windowDecorations`).
+
+Her Win11 look is packaged in `users/lena/theme/`, so no KDE Store download is
+needed for the global theme or icons. If the old KDE Store copies still exist in
+her home, the first switch moves them to `.bak`; if an old `.bak` is in the way,
+remove it and retry.
+
+```sh
+sudo passwd lena   # once; no password is stored in the repo
+```
+
+KDE's stable keys live in `users/lena/plasma.nix` through plasma-manager. Tweak
+the rest in System Settings as lena, then capture them:
+
+```sh
+nix run github:nix-community/plasma-manager
+```
+
+Merge the relevant `programs.plasma` keys into `users/lena/plasma.nix`, rebuild
+as descryx with `nh os switch`, and log back in as lena to verify. Do not
+symlink KDE rc files; KDE rewrites them atomically.
+
+The system generation is shared with descryx; lena's home-manager generations
+are per user.
+
 ## Navigation
 
 ```sh
