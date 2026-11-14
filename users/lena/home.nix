@@ -1,4 +1,10 @@
 { pkgs, inputs, ... }:
+let
+  # 26.05 ships opencode-desktop 1.15.10. Lena's sessions come from the 2.x app
+  # on Windows, so this one package is taken from the unstable input (2.2.6,
+  # the version desk runs). It is the only unstable package on this host.
+  opencodeDesktop = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.opencode-desktop;
+in
 {
   imports = [
     ../../lib/user-options.nix
@@ -43,7 +49,7 @@
 
   home.packages = with pkgs; [
     libreoffice-qt
-    opencode-desktop
+    opencodeDesktop
     telegram-desktop
     localsend
     zoom-us

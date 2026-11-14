@@ -10,12 +10,18 @@ in
 {
   config = lib.mkIf cfg.enable {
     services.desktopManager.plasma6.enable = true;
-    programs.xwayland.enable = true;
 
     # plasma6 turns these on with mkDefault; a daily-driver desktop does not need
     # a screen reader or the KMail/Kontact stack.
     services.orca.enable = false;
-    programs.kde-pim.enable = false;
+
+    programs = {
+      xwayland.enable = true;
+      kde-pim.enable = false;
+
+      # KDE's GTK bridge and Thunar use dconf for GTK settings.
+      dconf.enable = true;
+    };
 
     # lena uses Thunar; do not pull Dolphin into the Plasma closure.
     #

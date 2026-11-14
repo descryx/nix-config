@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
@@ -14,6 +15,11 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     zen-browser = {
@@ -110,6 +116,15 @@
         t480 = mkSystem {
           hostName = "t480";
           homeUsers.descryx = [ ./users/descryx/home.nix ];
+        };
+        vivobook = mkSystem {
+          hostName = "vivobook";
+          nixpkgsInput = inputs.nixpkgs-stable;
+          homeManagerInput = inputs.home-manager-stable;
+          homeUsers.lena = [
+            ./users/lena/home.nix
+            inputs.plasma-manager.homeModules.plasma-manager
+          ];
         };
       };
       checks.${system} = gitHooks.checks;

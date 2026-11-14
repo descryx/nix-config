@@ -24,7 +24,7 @@ in
     sddm = {
       enable = lib.mkEnableOption "sddm";
       wallpaper = lib.mkOption {
-        type = lib.types.path;
+        type = lib.types.either lib.types.path lib.types.str;
         default = ./wallpapers/bg.png;
         description = "Background image copied into the sddm-astronaut theme.";
       };
@@ -36,6 +36,7 @@ in
     };
     kde.enable = lib.mkEnableOption "KDE Plasma 6";
     photocraft.enable = lib.mkEnableOption "Photocraft";
+    printing.enable = lib.mkEnableOption "printing (CUPS + SANE)";
     niri.enable = lib.mkEnableOption "niri";
     noctalia.enable = lib.mkEnableOption "noctalia";
     gaming.enable = lib.mkEnableOption "gaming (steam + gamemode)";
@@ -115,6 +116,7 @@ in
       kdeconnect.enable = lib.mkDefault false;
       kde.enable = lib.mkDefault false;
       photocraft.enable = lib.mkDefault false;
+      printing.enable = lib.mkDefault false;
 
       # Optional features, off unless a host opts in.
       flatpak.enable = lib.mkDefault false;

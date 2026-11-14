@@ -1,5 +1,6 @@
 {
   local,
+  lib,
   ...
 }:
 {
@@ -8,7 +9,7 @@
     flake = local.flakeDir;
     clean = {
       enable = true;
-      extraArgs = "--keep 10";
+      extraArgs = lib.mkDefault "--keep 10";
       dates = "daily";
     };
   };
