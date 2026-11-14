@@ -74,10 +74,39 @@ replace that directory with the Windows data folder. Documents go to
 
 Work from the NixOS 26.05 installer with a network connection.
 
-1. Partition the target NVMe. Keep the repo's label-based layout:
-   1 GiB ESP labelled `boot`, rest btrfs labelled `nixos`, subvolumes `@`,
-   `@home`, `@nix`, `@log`.
-2. Mount the subvolumes under `/mnt`.
+1. Partition the target NVMe. Confirm the device first (`lsblk -o
+   NAME,SIZE,MODEL,SERIAL,FSTYPE`); the Windows disk is the one with the
+   Microsoft/EFI partitions. Then, with the repo's label-based layout (no LUKS,
+   no swap):
+
+   ```sh
+   DISK=/dev/nvme0n1   # verify before every destructive command below
+   sgdisk --zap-all "$DISK"
+   sgdisk -n1:0:+1G -t1:ef00 -c1:boot  "$DISK"
+   sgdisk -n2:0:0   -t2:8300 -c2:nixos "$DISK"
+   mkfs.fat -F32 -n boot "${DISK}p1"
+   mkfs.btrfs -L nixos "${DISK}p2"
+   mount "${DISK}p2" /mnt
+   btrfs subvolume create /mnt/@{,@home,@nix,@log}
+   umount /mnt
+   ```
+
+   The labels are case-sensitive because `hardware-configuration.nix` uses
+   `/dev/disk/by-label/boot` and `/dev/disk/by-label/nixos`. Check with
+   `sudo blkid`; `mkfs.fat` keeps `boot` lowercase, but if it comes out as
+   `BOOT` fix it with `sudo fatlabel "${DISK}p1" boot`.
+
+2. Mount the subvolumes under `/mnt` in the order the configuration expects:
+
+   ```sh
+   mount -o subvol=@ "${DISK}p2" /mnt
+   mkdir -p /mnt/{home,nix,var/log,boot}
+   mount -o subvol=@home "${DISK}p2" /mnt/home
+   mount -o subvol=@nix  "${DISK}p2" /mnt/nix
+   mount -o subvol=@log  "${DISK}p2" /mnt/var/log
+   mount "${DISK}p1" /mnt/boot
+   lsblk -f   # expect nixos on /mnt/{,home,nix,var/log} and boot on /mnt/boot
+   ```
 3. Generate the hardware file with `nixos-generate-config --root /mnt
    --no-filesystems`, copy it over `hosts/vivobook/hardware-configuration.nix`,
    and add the label-based `fileSystems` (the committed placeholder shows the
@@ -149,4 +178,6 @@ with `nh os rollback`.
   wallpaper.
 - The installer ISO has no MT7902 driver; the installed system does.
 - No snapshots: keep an external backup for documents. The system generations
-  are for rollback, not for data.
+  are for rollback, not for data. The disk is deliberately not LUKS-encrypted,
+  like the other hosts; the laptop is the one that leaves the house, so the
+  backup is what protects the data.
