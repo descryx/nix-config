@@ -45,5 +45,19 @@ in
       size = 16;
       package = pkgs.bibata-cursors;
     };
+
+    # Pin the dconf values too. KDE's GTK bridge writes these when a KDE
+    # session logs in, and dconf wins over gtk-3.0/settings.ini for GTK apps.
+    # Re-applying them on every switch keeps niri/GTK on the owner's theme.
+    dconf.settings = {
+      "org/gnome/desktop/interface" = {
+        icon-theme = iconThemeName;
+        font-name = "Cascadia Code 10";
+        cursor-theme = "Bibata-Original-Classic";
+        cursor-size = 16;
+        gtk-theme = "adw-gtk3-dark";
+        color-scheme = "prefer-dark";
+      };
+    };
   };
 }

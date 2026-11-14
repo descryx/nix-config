@@ -1,9 +1,9 @@
 { lib, local, ... }:
 let
   # Every home-manager module file is imported by name: see lib/modules.nix.
-  modules = import ./lib/modules.nix {
+  modules = import ../../lib/modules.nix {
     inherit lib;
-    root = ./modules;
+    root = ../../modules;
   };
 in
 {
@@ -12,7 +12,7 @@ in
     homeDirectory = local.homeDir;
   };
 
-  imports = modules.home;
+  imports = [ ../../lib/user-options.nix ] ++ modules.home;
 
   xdg = {
     enable = true;

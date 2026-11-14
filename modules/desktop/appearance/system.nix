@@ -19,5 +19,8 @@ in
       monocraft
       iosevka
     ];
+
+    # Required for the home-manager dconf pin (GTK icon/font settings).
+    programs.dconf.enable = true;
   };
 }

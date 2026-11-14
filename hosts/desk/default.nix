@@ -4,6 +4,11 @@
     kdeconnect.enable = true;
     flatpak.enable = true;
     openrgb.enable = true;
+
+    # Plasma is installed so lena can log in here for testing. See plasma.nix
+    # for the pins that keep niri and the greeter unchanged.
+    kde.enable = true;
+    photocraft.enable = true;
   };
 
   imports = [
@@ -11,6 +16,8 @@
     ./graphics.nix
     ./obs.nix
     ./boot.nix
+    ./plasma.nix
+    ../../users/lena/system.nix
   ];
   networking.hostName = "desk";
 

@@ -3,10 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    disko = {
-      url = "github:nix-community/disko/latest";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
@@ -23,6 +19,19 @@
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Two releases behind the input above (1.24b vs 1.24.2b). Used only by
+    # lena's profile; see users/lena/home.nix.
+    zen-browser-pinned = {
+      url = "github:youwen5/zen-browser-flake/ae42b99b1dae36a2ac413db5615427338c1d8de6";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     wshowkeys = {
@@ -69,46 +78,9 @@
         learnharness = final.callPackage ./modules/apps/learnharness/package.nix { };
       };
       pkgsWithOverlay = pkgs.extend overlay;
-      mkSystem =
-        {
-          hostName,
-        }:
-        let
-          local = import ./local.nix;
-        in
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs;
-            inherit local;
-          };
-
-          modules = [
-            ./configuration.nix
-            ./hosts/${hostName}/default.nix
-            home-manager.nixosModules.home-manager
-            inputs.disko.nixosModules.disko
-            inputs.nix-craftapps.nixosModules.default
-
-            {
-              nixpkgs.overlays = [
-                inputs.mac-style-plymouth.overlays.default
-                overlay
-              ];
-
-              home-manager = {
-                backupFileExtension = "bak";
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  inherit inputs;
-                  inherit local;
-                };
-                users.${local.username}.imports = [ ./home.nix ];
-              };
-            }
-          ];
-        };
+      mkSystem = import ./lib/mk-system.nix {
+        inherit inputs overlay system;
+      };
     in
     {
       # The custom packages on their own, so `nix build .#niri-zoom` and
@@ -127,9 +99,17 @@
       nixosConfigurations = {
         desk = mkSystem {
           hostName = "desk";
+          homeUsers = {
+            descryx = [ ./users/descryx/home.nix ];
+            lena = [
+              ./users/lena/home.nix
+              inputs.plasma-manager.homeModules.plasma-manager
+            ];
+          };
         };
         t480 = mkSystem {
           hostName = "t480";
+          homeUsers.descryx = [ ./users/descryx/home.nix ];
         };
       };
       checks.${system} = gitHooks.checks;

@@ -6,12 +6,15 @@
 }:
 let
   cfg = config.my.sddm;
+  # Keep the configured file's extension so SDDM's image loader picks the right
+  # decoder (png or jpg). Both hosts default to bg.png; lena uses a jpg.
+  bgName = baseNameOf (toString cfg.wallpaper);
   sddm-astronaut =
     (pkgs.sddm-astronaut.override {
       embeddedTheme = "pixel_sakura_static";
       themeConfig = {
         #################### Background ####################
-        Background = "Backgrounds/bg.png";
+        Background = "Backgrounds/${bgName}";
         # BackgroundPlaceholder = "";        # shown before video bg loads (video bg only)
         # BackgroundSpeed = "";               # video playback speed, 0.0-10.0
         # PauseBackground = "";                # freeze gif playback if true
@@ -72,7 +75,7 @@ let
         HideVirtualKeyboard = "true";
         # HideSystemButtons = "true";
         HideLoginButton = "true";
-        ForceLastUser = "true"; # auto-fill last logged-in username
+        ForceLastUser = lib.boolToString cfg.forceLastUser; # auto-fill last logged-in username
         PasswordFocus = "true"; # auto-focus password field
         HideCompletePassword = "true"; # mask password while typing
       };
@@ -80,8 +83,17 @@ let
       (oldAttrs: {
         installPhase = oldAttrs.installPhase + ''
           chmod u+w $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/
-          cp ${../../../wallpapers/bg.png} \
-            $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/bg.png
+          cp ${cfg.wallpaper} \
+            $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/${bgName}
+
+          # The package copies directly from $src, so patch the installed QML.
+          # It preselects model.lastIndex, i.e. the last session/user. The first
+          # entry is niri + descryx on the owner's machines, and the only
+          # session/user on the laptop, so index 0 is the intended default.
+          substituteInPlace $out/share/sddm/themes/sddm-astronaut-theme/Components/SessionButton.qml \
+            --replace-fail "currentIndex: model.lastIndex" "currentIndex: 0"
+          substituteInPlace $out/share/sddm/themes/sddm-astronaut-theme/Components/Input.qml \
+            --replace-fail "currentIndex: model.lastIndex" "currentIndex: 0"
         '';
       });
 in
@@ -93,7 +105,7 @@ in
     ];
     services.displayManager.sddm = {
       enable = true;
-      package = pkgs.kdePackages.sddm;
+      package = lib.mkDefault pkgs.kdePackages.sddm;
       theme = "sddm-astronaut-theme";
       wayland.enable = true;
       extraPackages = [

@@ -21,7 +21,21 @@ in
 
   options.my = {
     appearance.enable = lib.mkEnableOption "the appearance / theming setup";
-    sddm.enable = lib.mkEnableOption "sddm";
+    sddm = {
+      enable = lib.mkEnableOption "sddm";
+      wallpaper = lib.mkOption {
+        type = lib.types.path;
+        default = ./wallpapers/bg.png;
+        description = "Background image copied into the sddm-astronaut theme.";
+      };
+      forceLastUser = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Pre-fill the last logged-in user in the SDDM theme.";
+      };
+    };
+    kde.enable = lib.mkEnableOption "KDE Plasma 6";
+    photocraft.enable = lib.mkEnableOption "Photocraft";
     niri.enable = lib.mkEnableOption "niri";
     noctalia.enable = lib.mkEnableOption "noctalia";
     gaming.enable = lib.mkEnableOption "gaming (steam + gamemode)";
@@ -99,6 +113,8 @@ in
 
       # Off except where a host turns it on.
       kdeconnect.enable = lib.mkDefault false;
+      kde.enable = lib.mkDefault false;
+      photocraft.enable = lib.mkDefault false;
 
       # Optional features, off unless a host opts in.
       flatpak.enable = lib.mkDefault false;
