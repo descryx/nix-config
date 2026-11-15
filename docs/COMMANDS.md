@@ -112,9 +112,18 @@ Everyday scenarios:
 - **From outside the LAN**: not configured. There is no VPN and no port
   forwarding, and port 22 should not be exposed.
 
-Terminfo trap: from Ghostty the session gets `TERM=xterm-ghostty`, which has no
-entry for descryx on the laptop, so git's pager fails with `unknown terminal
-type`. Use `TERM=xterm-256color ssh ...` or `git --no-pager`.
+Terminal type: ssh from Ghostty sends `TERM=xterm-ghostty`. The laptop installs
+`ghostty.terminfo`, so that entry exists and zsh can redraw the line, clear/less
+work, and Delete/arrows are bound. On a host without it the symptoms are odd:
+Backspace deletes in the shell's buffer but the display does not change, so it
+looks dead; `clear` says `unknown terminal type`; `bindkey '^[[3~'` is undefined.
+`export TERM=xterm-256color` fixes the session immediately.
+
+Kitty protocol leak: if keys turn into text like `...u` or `04;6u` instead of
+acting, a TUI (opencode, nvim) left the terminal in the Kitty keyboard protocol,
+which zsh does not understand (bash does). Reset with `printf '\033[<100u'` or
+open a fresh Ghostty window; the protocol is per surface and a clean one starts
+in legacy mode.
 
 The key is the one committed in `hosts/vivobook/default.nix`; a second desk or
 recovery key is added there, never by appending to the laptop's
