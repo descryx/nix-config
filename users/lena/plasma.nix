@@ -6,15 +6,15 @@
       layouts = [
         {
           layout = "de";
-          displayName = "German";
+          displayName = "Ger";
         }
         {
           layout = "ru";
-          displayName = "Russian";
+          displayName = "Rus";
         }
         {
           layout = "us";
-          displayName = "English (US)";
+          displayName = "Eng";
         }
       ];
       options = [ "grp:alt_shift_toggle" ];
