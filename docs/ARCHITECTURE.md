@@ -130,8 +130,8 @@ Because the option default is off, a feature mentioned nowhere is off.
 | Group | Switch | Enabled in |
 |---|---|---|
 | core (niri, noctalia, zsh, nvim, gaming, ...) | `my.<feature>.enable` | `configuration.nix` (on), overridden per host |
-| kde | `my.kde.enable` | `hosts/desk/default.nix` (test) and `hosts/vivobook/default.nix` |
-| photocraft | `my.photocraft.enable` | `hosts/desk/default.nix`, `hosts/vivobook/default.nix` |
+| kde | `my.kde.enable` | `hosts/vivobook/default.nix` |
+| photocraft | `my.photocraft.enable` | `hosts/vivobook/default.nix` |
 | printing | `my.printing.enable` | `hosts/vivobook/default.nix` |
 | kdeconnect | `my.kdeconnect.enable` | `hosts/desk/default.nix` |
 | optional (flatpak, minecraft, ollama, openrgb, tmux) | `my.<feature>.enable` | `hosts/<host>/default.nix` |
@@ -215,12 +215,10 @@ look-and-feel defaults are patched to Breeze for those pieces.
   the only visible user. The theme's index-0 default then selects lena.
 - The SDDM astronaut theme is patched to preselect index 0 instead of
   `model.lastIndex`. On desk/t480 that is niri + descryx; on the Vivobook the only
-  session is Plasma and the only visible user is lena. Do not log descryx into
-  Plasma on desk: KWin writes a display config into his home and can move the
-  monitor off-screen; use lena for Plasma.
-- `hosts/desk/plasma.nix` exists only so a second user can log into KDE on desk.
-  It pins `defaultSession = "niri"`, the greeter compositor back to `weston`,
-  the owner's fonts/pinentry, and SDDM's last-user/last-session memory.
+  session is Plasma and the only visible user is lena.
+- Desk and t480 do not run Plasma at all; lena's profile is only on the Vivobook.
+  Changes to it are validated by building the Vivobook toplevel or its VM on
+  desk, never by logging into Plasma on desk.
 - Rebuilds go through `nh`; see [COMMANDS.md](COMMANDS.md). Never update
   `flake.lock` on the laptop. For filesystem/mount changes, use `nh os boot` and
   reboot, not `nh os switch`.

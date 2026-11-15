@@ -75,38 +75,41 @@ shell via direnv and its `shellHook` installs the git hooks (nixfmt, deadnix,
 statix, check-toml, detect-private-keys, noctalia-scrub, ripsecrets). Run them by
 hand with `nix develop -c pre-commit run --all-files`.
 
-## Second user on desk
+## KDE profile (lena's laptop)
 
-`lena` exists on desk for testing. SDDM preselects index 0, which is niri +
-descryx on desk/t480; choose Plasma and lena manually. Do not log descryx into
-Plasma on desk: KWin writes a display config into his home and can move the
-monitor off-screen. Use lena for Plasma.
+lena exists only on the Vivobook; desk and t480 are the owner's niri machines.
+Validate her profile with `nix build
+.#nixosConfigurations.vivobook.config.system.build.vm` and the VM (it autologs in
+as lena) instead of installing Plasma on desk.
 
-lena's file manager is Thunar; Dolphin is excluded from Plasma. Her Ghostty
-profile uses native KDE window decorations (`my.ghostty.windowDecorations`).
+Her file manager is Thunar; Dolphin is excluded. Her Ghostty profile uses native
+KDE window decorations (`my.ghostty.windowDecorations`), and the Win11 theme and
+icons are packaged in `users/lena/theme/`, so no KDE Store download is needed.
+Her home-manager generations are per user; the system generation is shared with
+descryx. No password is stored in the repo.
 
-Her Win11 look is packaged in `users/lena/theme/`, so no KDE Store download is
-needed for the global theme or icons. If the old KDE Store copies still exist in
-her home, the first switch moves them to `.bak`; if an old `.bak` is in the way,
-remove it and retry.
+### Editing KDE live
 
-```sh
-sudo passwd lena   # once; no password is stored in the repo
-```
-
-KDE's stable keys live in `users/lena/plasma.nix` through plasma-manager. Tweak
-the rest in System Settings as lena, then capture them:
+KDE rewrites its rc files at runtime, and plasma-manager regenerates the files it
+manages on every activation, so an undeclared key set in System Settings is lost
+at the next switch. Treat the GUI as a preview and export the change:
 
 ```sh
-nix run github:nix-community/plasma-manager
+# on the Vivobook, from the repo, as descryx (`ssh -t` from desk)
+./scripts/kde-export.sh save     # baseline, right after a switch
+# change the setting in lena's Plasma session
+./scripts/kde-export.sh diff     # diff of the two captures, in Nix
 ```
 
-Merge the relevant `programs.plasma` keys into `users/lena/plasma.nix`, rebuild
-as descryx with `nh os switch`, and log back in as lena to verify. Do not
-symlink KDE rc files; KDE rewrites them atomically.
+The script runs rc2nix (pinned to `flake.lock`) over snapshots of the files it
+reads. Merge the added lines into `users/lena/plasma-desktop.nix`, drop
+machine-specific noise (activity UUIDs, KWin screen/output IDs, Dolphin,
+Logitech), then commit on desk, push, and on the laptop `git pull && sudo nh os
+switch`.
 
-The system generation is shared with descryx; lena's home-manager generations
-are per user.
+Never compact `"kwin/$InverseAction"` into `shortcuts.kwin`; that option only
+accepts action -> key bindings, and the group is KWin's built-in inverse table,
+not a shortcut. Drop it from the export.
 
 ## Navigation
 

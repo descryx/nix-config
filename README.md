@@ -26,7 +26,7 @@ user gets store copies so her config never depends on my home directory.
 | User | Where | Session |
 |------|-------|---------|
 | `descryx` | desk, t480, vivobook (SSH/console only) | niri + Noctalia |
-| `lena` | desk (test), vivobook | KDE Plasma |
+| `lena` | vivobook | KDE Plasma |
 
 ## How to use
 

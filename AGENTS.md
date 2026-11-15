@@ -34,17 +34,17 @@
 - lib/mk-system.nix builds a host; lib/user-options.nix holds per-user options.
 - Dotfiles: the owner uses my.dotfiles.live = true (out-of-store symlink); a
   second user uses false (store copy). KDE rc files are not symlinked at all;
-  KDE rewrites them atomically. Use plasma-manager in users/lena/plasma.nix and
-  capture runtime tweaks with rc2nix.
+  KDE rewrites them atomically. Use plasma-manager in users/lena/*.nix; live
+  tweaks are exported with scripts/kde-export.sh, not hand-merged rc2nix dumps.
 - No disko. New hosts are installed manually with label-based fileSystems.
 - Vivobook uses `nixpkgs-stable` (26.05) + `home-manager-stable`; desk/t480 stay
   unstable. Vivobook needs `linuxPackages_latest` (7.3) for the MT7902 Wi-Fi, and
   keeps 5 generations. `descryx` is hidden from SDDM there; lena is the only
   visible user. See docs/FAMILY.md.
 - KDE: the SDDM theme is patched to preselect index 0 (niri/descryx on the
-  owner's machines, plasma/lena on the laptop). Do not log descryx into Plasma
-  on desk; it writes KWin/GTK user state. The owner's GTK dconf values are pinned
-  in modules/desktop/appearance/home.nix; lena uses Thunar, Dolphin is excluded.
+  owner's machines, plasma/lena on the laptop). The owner's GTK dconf values are
+  pinned in modules/desktop/appearance/home.nix; lena uses Thunar, Dolphin is
+  excluded. lena only exists on the Vivobook.
 - Togglable features are declared in configuration.nix with mkEnableOption and
   their config is wrapped in lib.mkIf.
   The defaults sit next to the declarations in configuration.nix. Hosts set deltas. home.nix
