@@ -18,6 +18,7 @@
       brightnessctl
       nix-output-monitor
       xdg-utils
+      usbutils # lsusb: first question for any USB device
 
       # TERM=xterm-ghostty arrives with SSH sessions from Ghostty. Without
       # this entry the remote zsh deletes in its buffer but cannot redraw the
