@@ -45,6 +45,9 @@ data_files=(
 
 snapshot() {
   local out=$1 f
+  # The state dir must belong to the invoking user: nix run needs
+  # ~/.cache/nix, and sudo would otherwise create ~/.cache as root.
+  mkdir -p "$state"
   sudo rm -rf "$out"
   sudo install -d -m 0700 "$out/config" "$out/data"
   for f in "${config_files[@]}"; do
@@ -58,7 +61,7 @@ snapshot() {
       sudo cp -a "$home/.local/share/$f" "$out/data/$f"
     fi
   done
-  sudo chown -R "$(id -u):$(id -g)" "$out"
+  sudo chown -R "$(id -u):$(id -g)" "$state"
 }
 
 capture() {
