@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# check-systems — instantiate both hosts' system derivations without building.
+# check-systems — instantiate every host's system derivation without building.
 #
 # `nix flake check` evaluates the module graph but does not instantiate the
 # toplevel, so errors that only appear at derivation time (e.g. a missing path
@@ -40,8 +40,9 @@ if [ -n "$untracked" ]; then
 fi
 
 # --- 3. Force instantiation of every host -------------------------------------
-# Keep in sync with nixosConfigurations in flake.nix when hosts are added/removed.
-hosts=(desk t480 vivobook)
+# Derived from the flake, so adding or removing a host needs no edit here.
+read -ra hosts <<<"$(nix eval --raw .#nixosConfigurations \
+  --apply 'cs: builtins.concatStringsSep " " (builtins.attrNames cs)')"
 failed=0
 
 for host in "${hosts[@]}"; do
