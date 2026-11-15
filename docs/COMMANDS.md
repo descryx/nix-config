@@ -82,34 +82,92 @@ Validate her profile with `nix build
 .#nixosConfigurations.vivobook.config.system.build.vm` and the VM (it autologs in
 as lena) instead of installing Plasma on desk.
 
-Her file manager is Thunar; Dolphin is excluded. Her Ghostty profile uses native
-KDE window decorations (`my.ghostty.windowDecorations`), and the Win11 theme and
-icons are packaged in `users/lena/theme/`, so no KDE Store download is needed.
-Her home-manager generations are per user; the system generation is shared with
-descryx. No password is stored in the repo.
+Files: `users/lena/plasma.nix` holds the high-level plasma-manager options
+(keyboard layouts, wallpaper, look-and-feel); `plasma-desktop.nix` holds the
+settings captured from her session; `theme.nix` packages the Win11 assets. Thunar
+is her file manager, Dolphin is excluded, and Ghostty uses native KDE decorations
+(`my.ghostty.windowDecorations`). Home-manager generations are per user, the
+system generation is shared with descryx. No password is stored in the repo.
 
 ### Editing KDE live
 
-KDE rewrites its rc files at runtime, and plasma-manager regenerates the files it
-manages on every activation, so an undeclared key set in System Settings is lost
-at the next switch. Treat the GUI as a preview and export the change:
+Plasma-manager is the source of truth, but the GUI is the fastest way to find a
+setting: change it live, export the change, merge it, switch. Settings changed in
+System Settings survive a switch anyway (the writer only updates the keys
+declared in Nix and preserves the rest, because `overrideConfig` is off), but
+they are not reproducible and are lost on a reinstall. Capture what is worth
+keeping.
+
+The loop, on the Vivobook, from the repo, as descryx (`ssh -t` from desk for the
+`sudo` prompt):
 
 ```sh
-# on the Vivobook, from the repo, as descryx (`ssh -t` from desk)
-./scripts/kde-export.sh save     # baseline, right after a switch
-# change the setting in lena's Plasma session
-./scripts/kde-export.sh diff     # diff of the two captures, in Nix
+./scripts/kde-export.sh save     # baseline; right after a switch
+# change ONE thing in lena's Plasma session
+./scripts/kde-export.sh diff | cat
 ```
 
-The script runs rc2nix (pinned to `flake.lock`) over snapshots of the files it
-reads. Merge the added lines into `users/lena/plasma-desktop.nix`, drop
-machine-specific noise (activity UUIDs, KWin screen/output IDs, Dolphin,
-Logitech), then commit on desk, push, and on the laptop `git pull && sudo nh os
-switch`.
+`save` snapshots the files rc2nix reads into `~/.cache/kde-export/base`; `diff`
+takes a second snapshot, renders both with rc2nix pinned to `flake.lock`, and
+prints a unified diff. The first run downloads and builds rc2nix.
 
-Never compact `"kwin/$InverseAction"` into `shortcuts.kwin`; that option only
-accepts action -> key bindings, and the group is KWin's built-in inverse table,
-not a shortcut. Drop it from the export.
+Merge the `+` lines on desk, in `users/lena/plasma-desktop.nix`:
+
+- `shortcuts.*` -> `shortcuts.<group>.<action> = "key";` or a list.
+- `configFile.*` -> `configFile."<file>"."<section>"."<key>" = value;`, under the
+  existing entry for that file.
+- If the file is generated from a high-level option, change the option instead.
+  `kxkbrc` comes from `input.keyboard.layouts`, so layout display names belong in
+  `plasma.nix`; a `configFile` entry for the same file fights the option.
+- Drop: `"kwin/$InverseAction"` (KWin's built-in inverse table; never compact it
+  into `shortcuts.kwin`, which only accepts action -> key bindings), activity
+  UUIDs, screen/output IDs, Dolphin, Logitech, generated `kwinrulesrc` rules.
+
+Adding a file to `configFile` for the first time is safe: the writer reads the
+existing file and only sets the declared keys. That changes if `overrideConfig`
+is ever enabled - it deletes the listed files and rebuilds them from Nix, so
+undeclared keys would then vanish.
+
+What the export does not cover: the panel/bar
+(`plasma-org.kde.plasma.desktop-appletsrc`), screen layout, and KWin window rules
+(`kwinrulesrc`). Those stay live. A panel is only reproducible with
+`programs.plasma.panels`, which rebuilds the appletsrc on activation and
+therefore discards live panel edits; do that deliberately once the layout is
+settled, not while iterating.
+
+Then the normal cycle:
+
+```sh
+# desk
+nix fmt
+nix flake check
+./scripts/check-systems.sh
+git commit -am "..."   # or split
+git push
+```
+
+```sh
+# laptop
+cd ~/nix-config
+git pull
+sudo nh os switch
+```
+
+Log lena out and back in afterwards: `kcminputrc`, `kxkbrc`, shortcuts and
+look-and-feel are read at login. Then run `save` again so the baseline includes
+what you just merged, otherwise the next `diff` repeats it.
+
+### Gotchas
+
+- Do not run the script with `sudo`. It elevates internally; under `sudo` the home
+  is `/root`, so it finds no baseline.
+- `git diff` on the laptop is expected to be empty. The export lives in
+  `~/.cache/kde-export`, not in the repo.
+- Over `ssh` from Ghostty, `TERM=xterm-ghostty` has no terminfo entry for
+  descryx on the laptop, and git's pager fails with `unknown terminal type`. Use
+  `git --no-pager diff` or `export TERM=xterm-256color`.
+- The repo on the laptop is read-only in practice: edit and commit on desk, pull
+  and switch on the laptop. Never update `flake.lock` there.
 
 ## Navigation
 
