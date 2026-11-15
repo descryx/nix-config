@@ -69,6 +69,7 @@ in
     ripgrep
     fd
     kdePackages.kcalc
+    kdePackages.skanpage
     kdePackages.parley
     kdePackages.merkuro
     drawy
