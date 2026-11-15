@@ -44,6 +44,12 @@ in
 
   xdg = {
     enable = true;
+
+    # Active Blur wallpaper plugin. ~/.local/share is always searched by
+    # plasmashell, unlike the profile directory. Select it live in Desktop
+    # Settings; the choice lives in the applet config.
+    dataFile."plasma/wallpapers/a2n.blur".source =
+      "${pkgs.blurredwallpaper}/share/plasma/wallpapers/a2n.blur";
     userDirs = {
       enable = true;
       createDirectories = true;
@@ -63,6 +69,9 @@ in
     ripgrep
     fd
     kdePackages.kcalc
+    kdePackages.parley
+    kdePackages.merkuro
+    drawy
   ];
 
   # Terminal environment. Plasma's own UI language is set in plasma-localerc.

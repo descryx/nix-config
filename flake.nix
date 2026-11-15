@@ -82,6 +82,8 @@
         yamis-icon-theme = final.callPackage ./modules/desktop/appearance/yamis-icon-theme.nix { };
         localsend-controller = final.callPackage ./modules/desktop/noctalia/localsend-controller.nix { };
         learnharness = final.callPackage ./modules/apps/learnharness/package.nix { };
+        drawy = final.callPackage ./modules/apps/drawy/package.nix { };
+        blurredwallpaper = final.callPackage ./modules/apps/blurredwallpaper/package.nix { };
       };
       pkgsWithOverlay = pkgs.extend overlay;
       mkSystem = import ./lib/mk-system.nix {
@@ -99,6 +101,8 @@
           yamis-icon-theme
           localsend-controller
           learnharness
+          drawy
+          blurredwallpaper
           ;
       };
       overlays.default = overlay;
