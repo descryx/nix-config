@@ -1,6 +1,8 @@
 # Captured from lena's KDE session with plasma-manager rc2nix, then pruned:
 # - Dolphin, Logitech mouse and machine-specific KWin/activity UUIDs removed
 # - kxkbrc/plasma-localerc stay in plasma.nix
+# - KWin's kwin/$InverseAction table is omitted: it is not a shortcut, and
+#   plasma-manager would append `,,` to its values
 # - the Win11 assets are packaged in users/lena/theme.nix
 {
   programs.plasma = {
@@ -238,37 +240,6 @@
         "Meta+="
       ];
       kwin.view_zoom_out = "Meta+-";
-      "kwin/$InverseAction"."Cycle Overview Opposite" = "Cycle Overview";
-      "kwin/$InverseAction"."Decrease Opacity" = "Increase Opacity";
-      "kwin/$InverseAction".MoveZoomDown = "MoveZoomUp";
-      "kwin/$InverseAction".MoveZoomRight = "MoveZoomLeft";
-      "kwin/$InverseAction"."Switch One Desktop Down" = "Switch One Desktop Up";
-      "kwin/$InverseAction"."Switch One Desktop to the Right" = "Switch One Desktop to the Left";
-      "kwin/$InverseAction"."Switch Window Left" = "Switch Window Right";
-      "kwin/$InverseAction"."Switch Window Up" = "Switch Window Down";
-      "kwin/$InverseAction"."Switch to Next Desktop" = "Switch to Previous Desktop";
-      "kwin/$InverseAction"."Switch to Previous Screen" = "Switch to Next Screen";
-      "kwin/$InverseAction"."Switch to Screen Below" = "Switch to Screen Above";
-      "kwin/$InverseAction"."Switch to Screen to the Right" = "Switch to Screen to the Left";
-      "kwin/$InverseAction"."Walk Through Windows (Reverse)" = "Walk Through Windows";
-      "kwin/$InverseAction"."Walk Through Windows Alternative" =
-        "Walk Through Windows Alternative (Reverse)";
-      "kwin/$InverseAction"."Walk Through Windows of Current Application (Reverse)" =
-        "Walk Through Windows of Current Application";
-      "kwin/$InverseAction"."Walk Through Windows of Current Application Alternative (Reverse)" =
-        "Walk Through Windows of Current Application Alternative";
-      "kwin/$InverseAction"."Window Grow Horizontal" = "Window Shrink Horizontal";
-      "kwin/$InverseAction"."Window One Desktop Down" = "Window One Desktop Up";
-      "kwin/$InverseAction"."Window One Desktop to the Left" = "Window One Desktop to the Right";
-      "kwin/$InverseAction"."Window One Screen Up" = "Window One Screen Down";
-      "kwin/$InverseAction"."Window One Screen to the Right" = "Window One Screen to the Left";
-      "kwin/$InverseAction"."Window Pack Down" = "Window Pack Up";
-      "kwin/$InverseAction"."Window Pack Right" = "Window Pack Left";
-      "kwin/$InverseAction"."Window Raise" = "Window Lower";
-      "kwin/$InverseAction"."Window Shrink Vertical" = "Window Grow Vertical";
-      "kwin/$InverseAction"."Window to Next Screen" = "Window to Previous Screen";
-      "kwin/$InverseAction"."Window to Previous Desktop" = "Window to Next Desktop";
-      "kwin/$InverseAction".view_zoom_in = "view_zoom_out";
       mediacontrol.mediavolumedown = [ ];
       mediacontrol.mediavolumeup = [ ];
       mediacontrol.nextmedia = "Media Next";
