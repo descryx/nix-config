@@ -105,13 +105,7 @@
       nixosConfigurations = {
         desk = mkSystem {
           hostName = "desk";
-          homeUsers = {
-            descryx = [ ./users/descryx/home.nix ];
-            lena = [
-              ./users/lena/home.nix
-              inputs.plasma-manager.homeModules.plasma-manager
-            ];
-          };
+          homeUsers.descryx = [ ./users/descryx/home.nix ];
         };
         t480 = mkSystem {
           hostName = "t480";
