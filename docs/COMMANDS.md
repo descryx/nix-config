@@ -106,6 +106,10 @@ Everyday scenarios:
 - **Her clipboard**: `wl-copy` has to run inside her session with her
   `XDG_RUNTIME_DIR` and `WAYLAND_DISPLAY`; the exact command is in
   [FAMILY.md](FAMILY.md).
+- **Notify her desktop**: `ssh -t descryx@<ip> '~/nix-config/scripts/notify-lena.sh "Kaffeepause" "Zeit für eine Pause."'`.
+  The script enters her session bus as her (sudo) and calls the notification
+  service with busctl. She must be logged in; Do Not Disturb suppresses the
+  popup but keeps the entry in the tray history.
 - **Logs**: `ssh descryx@<ip> 'systemctl --failed; journalctl -b -p warning | tail'`.
 - **If remote access is down**: Ctrl+Alt+F3 on the laptop gives a text console
   for descryx; her Plasma session stays on its own VT.
