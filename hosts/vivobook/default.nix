@@ -18,6 +18,7 @@
     zen.enable = true;
     learnharness.enable = true;
     kde.enable = true;
+    kdePim.enable = true;
     photocraft.enable = true;
     printing.enable = true;
     storage.enable = true;

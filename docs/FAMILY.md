@@ -142,6 +142,34 @@ Print a test page and scan once with Skanpage. Do not add Avahi or a network
 queue; this printer is USB-only. Gutenprint marks the TS5050 driver EXPERIMENTAL;
 if output is unacceptable, `cnijfilter2` has only the generic TS5000 series PPD.
 
+## Apps and Google Calendar
+
+lena's profile ships Parley (vocabulary trainer), Drawy (infinite whiteboard) and
+Merkuro (calendar and contacts). Drawy and the Active Blur wallpaper plugin are
+not in nixpkgs, so they live in `modules/apps/` and reach the hosts through the
+flake overlay.
+
+The wallpaper is a third-party QML plugin (`a2n.blur`). It is installed into
+`~/.local/share/plasma/wallpapers/` by home-manager; select it in Desktop
+Settings -> Wallpaper Type -> Active blur. The choice lives in the Plasma
+applet config, which is not managed declaratively, so this is a live step.
+
+Google Calendar goes through Akonadi, not Online Accounts. KAccounts would need
+`signon-ui`, which is not packaged, while the Akonadi Google resource does its
+own LibKGAPI OAuth. `my.kdePim.enable` installs akonadi, kdepim-runtime (the
+Google resource) and kdepim-addons system-wide; the last one matters because the
+Digital Clock loads calendar plugins from `QT_PLUGIN_PATH`, not from lena's
+profile.
+
+1. Open Merkuro -> Calendar -> Add calendar -> "Google Calendar and Tasks".
+2. Sign in through the browser; the tokens are stored in KWallet.
+3. Right-click the Digital Clock -> Configure -> Calendar -> enable the PIM
+   Events plugin and select the Google calendar.
+
+That selection is live as well. If Google rejects the OAuth client, fall back to
+the calendar's secret iCal address with the iCal resource: read-only and no
+OAuth, but it works without the account.
+
 ## Updates
 
 Only desk touches `flake.lock`:

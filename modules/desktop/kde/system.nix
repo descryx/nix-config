@@ -17,7 +17,7 @@ in
 
     programs = {
       xwayland.enable = true;
-      kde-pim.enable = false;
+      kde-pim.enable = lib.mkDefault false;
 
       # KDE's GTK bridge and Thunar use dconf for GTK settings.
       dconf.enable = true;

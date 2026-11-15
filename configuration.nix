@@ -35,6 +35,7 @@ in
       };
     };
     kde.enable = lib.mkEnableOption "KDE Plasma 6";
+    kdePim.enable = lib.mkEnableOption "KDE PIM base (Akonadi and the Google calendar resource)";
     photocraft.enable = lib.mkEnableOption "Photocraft";
     printing.enable = lib.mkEnableOption "printing (CUPS + SANE)";
     niri.enable = lib.mkEnableOption "niri";
@@ -115,6 +116,7 @@ in
       # Off except where a host turns it on.
       kdeconnect.enable = lib.mkDefault false;
       kde.enable = lib.mkDefault false;
+      kdePim.enable = lib.mkDefault false;
       photocraft.enable = lib.mkDefault false;
       printing.enable = lib.mkDefault false;
 
