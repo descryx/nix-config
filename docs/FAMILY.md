@@ -107,10 +107,12 @@ Work from the NixOS 26.05 installer with a network connection.
    mount "${DISK}p1" /mnt/boot
    lsblk -f   # expect nixos on /mnt/{,home,nix,var/log} and boot on /mnt/boot
    ```
-3. Generate the hardware file with `nixos-generate-config --root /mnt
-   --no-filesystems`, copy it over `hosts/vivobook/hardware-configuration.nix`,
-   and add the label-based `fileSystems` (the committed placeholder shows the
-   expected layout).
+3. `hosts/vivobook/hardware-configuration.nix` is already the real file for
+   this machine and is what the installed system boots with. Generating a
+   fresh one is optional: `nixos-generate-config --root /mnt --no-filesystems
+   --show-hardware-config` prints it. Diff it against the committed file and
+   only adopt module lists that are missing; keep the label-based
+   `fileSystems` by hand.
 4. Clone this repo on the live system, `git add` the generated hardware file
    (the flake cannot see untracked files), and run:
 

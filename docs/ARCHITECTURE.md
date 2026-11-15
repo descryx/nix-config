@@ -95,7 +95,8 @@ A feature never splits across categories: its `system.nix`, `home.nix` and
 
 ## Toggles
 
-Every feature has an `enable` option, off by default. Modules are imported
+Every feature has an `enable` option. `lib.mkEnableOption` defaults to off;
+`configuration.nix` turns the shared ones on with `lib.mkDefault true`. Modules are imported
 permanently - by file name through `lib/modules.nix`, so there is no import list
 to edit at all - and a feature is turned on or off only through its option, never
 by removing an import. This is the whole point of the option approach: no host
@@ -131,6 +132,7 @@ Because the option default is off, a feature mentioned nowhere is off.
 |---|---|---|
 | core (niri, noctalia, zsh, nvim, gaming, ...) | `my.<feature>.enable` | `configuration.nix` (on), overridden per host |
 | kde | `my.kde.enable` | `hosts/vivobook/default.nix` |
+| kdePim | `my.kdePim.enable` | `hosts/vivobook/default.nix` |
 | photocraft | `my.photocraft.enable` | `hosts/vivobook/default.nix` |
 | printing | `my.printing.enable` | `hosts/vivobook/default.nix` |
 | kdeconnect | `my.kdeconnect.enable` | `hosts/desk/default.nix` |

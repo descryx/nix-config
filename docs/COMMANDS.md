@@ -43,23 +43,82 @@ Build and test it on desk before touching the laptop:
 
 ```sh
 nix build .#nixosConfigurations.vivobook.config.system.build.toplevel
-nix build .#nixosConfigurations.vivobook.config.system.build.vm
-./result/bin/run-vivobook-vm
 ```
 
-The VM auto-logs in as lena (test-only setting) so no password is needed. It
-does not test Wi-Fi, Bluetooth, GPU, the printer, audio or suspend.
+### Testing the config in a VM
 
-Install and day-to-day details are in [FAMILY.md](FAMILY.md). On Vivobook:
+The VM is the quickest way to see a desktop change without touching the laptop.
+It builds the same config and auto-logs in as lena (VM-only setting):
 
 ```sh
-cd /home/descryx/nix-config
-git pull
-sudo nh os switch
+cd /tmp/opencode
+run="$(nix build --no-link --print-out-paths .#nixosConfigurations.vivobook.config.system.build.vm)/bin/run-vivobook-vm"
+"$run"
 ```
 
-Build on desk and `nix copy --to ssh-ng://descryx@vivobook <toplevel>` first if the
-laptop should not run a long build. Never update `flake.lock` on Vivobook.
+- Run it from a scratch directory: QEMU writes `vivobook.qcow2` (20 GiB sparse)
+  into the current directory. Delete it for a clean boot, or set `NIX_DISK_IMAGE`
+  to another path.
+- 4 GiB RAM, 4 cores, 20 GiB disk (`virtualisation.vmVariant` in
+  `hosts/vivobook/default.nix`).
+- Tests: Plasma start, SDDM and theme assets, Thunar, Ghostty, the apps, the
+  clock and calendar plugin UI, and evaluation/activation errors.
+- Does not test: Wi-Fi and Bluetooth (MT7902), GPU, audio, suspend, the printer,
+  and Google OAuth (needs a real browser session). Those run on the laptop.
+
+### Remote access
+
+Only the Vivobook runs sshd; desk and t480 do not, so the direction is always
+desk -> laptop. It is key-only (`AllowGroups wheel`, no passwords), so only
+`descryx` can connect; lena cannot, by design.
+
+Find the address on the laptop (`ip -4 -br addr show scope global`). There is no
+Avahi, so `<host>.local` does not resolve; use the IP:
+
+```sh
+ssh descryx@<ip>                          # interactive; accept the host key once
+ssh -o BatchMode=yes descryx@<ip> true     # connectivity check, no prompt
+```
+
+A command-only session gets no TTY, so `ssh host 'sudo ...'` fails with
+"a password is required". Add `-t`:
+
+```sh
+ssh -t descryx@<ip> 'sudo nh os switch'
+```
+
+Everyday scenarios:
+
+- **Update the laptop**: edit and commit on desk, push, then
+  `ssh -t descryx@<ip>`, `cd ~/nix-config`, `git pull`, `sudo nh os switch`.
+  Log lena out first; KDE reads her rc files at login.
+- **Build on desk, install on the laptop** for long builds:
+  `nix copy --to ssh-ng://descryx@<ip> "$(nix build --no-link --print-out-paths
+  .#nixosConfigurations.vivobook.config.system.build.toplevel)"`, then `sudo nh
+  os switch` on the laptop. It still evaluates, but everything is already in the
+  store.
+- **Files for lena**: `scp` them to `/tmp`, then
+  `ssh -t descryx@<ip> 'sudo mv /tmp/x /home/lena/... && sudo chown -R
+  lena:users /home/lena/...'`. `/home/lena` is 0700, so descryx cannot write
+  there directly. rsync is not installed on the laptop.
+- **Run something as lena**: `ssh -t descryx@<ip> 'sudo -u lena -i <command>'`,
+  for example the opencode session import.
+- **Her clipboard**: `wl-copy` has to run inside her session with her
+  `XDG_RUNTIME_DIR` and `WAYLAND_DISPLAY`; the exact command is in
+  [FAMILY.md](FAMILY.md).
+- **Logs**: `ssh descryx@<ip> 'systemctl --failed; journalctl -b -p warning | tail'`.
+- **If remote access is down**: Ctrl+Alt+F3 on the laptop gives a text console
+  for descryx; her Plasma session stays on its own VT.
+- **From outside the LAN**: not configured. There is no VPN and no port
+  forwarding, and port 22 should not be exposed.
+
+Terminfo trap: from Ghostty the session gets `TERM=xterm-ghostty`, which has no
+entry for descryx on the laptop, so git's pager fails with `unknown terminal
+type`. Use `TERM=xterm-256color ssh ...` or `git --no-pager`.
+
+The key is the one committed in `hosts/vivobook/default.nix`; a second desk or
+recovery key is added there, never by appending to the laptop's
+`authorized_keys` (NixOS rewrites that file on activation).
 
 ## Checks
 
