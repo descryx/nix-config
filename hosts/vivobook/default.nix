@@ -8,7 +8,10 @@
     ../../users/lena/system.nix
   ];
 
-  networking.hostName = "vivobook";
+  networking = {
+    hostName = "vivobook";
+    firewall.allowedTCPPorts = [ 3389 ];
+  };
 
   my = {
     # lena's daily environment.
