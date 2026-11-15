@@ -18,6 +18,11 @@
       brightnessctl
       nix-output-monitor
       xdg-utils
+
+      # TERM=xterm-ghostty arrives with SSH sessions from Ghostty. Without
+      # this entry the remote zsh deletes in its buffer but cannot redraw the
+      # line (Backspace looks dead), and clear/less say "unknown terminal type".
+      ghostty.terminfo
     ]
     ++ lib.optionals config.my.dev.enable (
       with pkgs;
