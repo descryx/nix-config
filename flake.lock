@@ -291,8 +291,7 @@
         "oniri": "oniri",
         "plasma-manager": "plasma-manager",
         "wshowkeys": "wshowkeys",
-        "zen-browser": "zen-browser",
-        "zen-browser-pinned": "zen-browser-pinned"
+        "zen-browser": "zen-browser"
       }
     },
     "systems": {
@@ -363,27 +362,6 @@
       "original": {
         "owner": "youwen5",
         "repo": "zen-browser-flake",
-        "type": "github"
-      }
-    },
-    "zen-browser-pinned": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1793356937,
-        "narHash": "sha256-zFC1H7pCbjOKTC0vIynCeAGG1RIGII0tJAdciFc//kU=",
-        "owner": "youwen5",
-        "repo": "zen-browser-flake",
-        "rev": "ae42b99b1dae36a2ac413db5615427338c1d8de6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "youwen5",
-        "repo": "zen-browser-flake",
-        "rev": "ae42b99b1dae36a2ac413db5615427338c1d8de6",
         "type": "github"
       }
     }

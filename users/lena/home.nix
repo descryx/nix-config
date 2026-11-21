@@ -33,10 +33,6 @@ in
     # maintainer's repo, and the configs still update on the next rebuild.
     dotfiles.live = false;
 
-    # Two releases behind the browser on desk, as requested. The upstream flake
-    # revision is pinned in flake.nix; this only selects it for this user.
-    zen.package = inputs.zen-browser-pinned.packages.${pkgs.stdenv.hostPlatform.system}.default;
-
     # KDE gets native window decorations; the owner's niri profile keeps
     # window-decoration = none.
     ghostty.windowDecorations = true;

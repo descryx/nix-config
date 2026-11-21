@@ -7,8 +7,9 @@
   ...
 }:
 {
-  # Per-user Zen package. The default is the input the owner uses; a user can
-  # override it with a pinned input without changing the other user's browser.
+  # Per-user Zen package. The default is the shared flake input, so both users
+  # get the same derivation and one build serves every host. A user can still
+  # override it with a different package without touching the other user.
   options.my.zen.package = lib.mkOption {
     type = lib.types.package;
     default = inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;

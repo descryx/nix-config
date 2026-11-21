@@ -27,13 +27,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Two releases behind the input above (1.24b vs 1.24.2b). Used only by
-    # lena's profile; see users/lena/home.nix.
-    zen-browser-pinned = {
-      url = "github:youwen5/zen-browser-flake/ae42b99b1dae36a2ac413db5615427338c1d8de6";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -20,7 +20,7 @@ How the repo fits together. Day-to-day commands are in
 
 `flake.nix` takes the inputs (`nixpkgs`, `nixpkgs-stable`, `home-manager`,
 `home-manager-stable`, `nix-flatpak`, `noctalia`, `zen-browser`,
-`zen-browser-pinned`, `plasma-manager`, `wshowkeys`, `oniri`,
+`plasma-manager`, `wshowkeys`, `oniri`,
 `mac-style-plymouth`, `nix-craftapps`, `git-hooks`) and exposes:
 
 - `nixosConfigurations.{desk,t480,vivobook}`, built by
