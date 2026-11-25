@@ -5,6 +5,9 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
+    # The cachix branch always points at a commit CI has cached. Do not add
+    # inputs.nixpkgs.follows: overriding an input changes the cache key.
+    luciole.url = "github:noctalia-dev/luciole/cachix";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     mac-style-plymouth = {

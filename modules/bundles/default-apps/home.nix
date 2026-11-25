@@ -37,7 +37,7 @@
           "x-scheme-handler/unknown" = "zen.desktop";
 
           "text/plain" = "nvim.desktop"; # Text editor
-          "inode/directory" = "thunar.desktop"; # File manager
+          "inode/directory" = "dev.noctalia.luciole.desktop"; # File manager
           "application/pdf" = "libreoffice-draw.desktop"; # PDF
 
           # Word processor

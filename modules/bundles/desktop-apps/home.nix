@@ -12,7 +12,6 @@
         gimp
         obsidian
         telegram-desktop
-        thunar
         libreoffice
         qbittorrent
         imv

@@ -79,7 +79,7 @@ that case. Categories:
   users, Nix settings, `nh`, power, audio, tools).
 - `desktop/` - the session and how it looks: `niri`, `noctalia`, `appearance`,
   `sddm`, `kde`.
-- `apps/` - one app or concern per folder, including `photocraft`.
+- `apps/` - one app or concern per folder, including `photocraft` and `luciole`.
 - `services/` - background daemons and device glue: `syncthing`, `kdeconnect`,
   `storage`.
 - `bundles/` - grouped package lists and default choices, with no per-app folders:
@@ -143,7 +143,7 @@ Because the option default is off, a feature mentioned nowhere is off.
 home-manager, not host switches.
 
 Watch the soft couplings: `default-apps` points at `zen.desktop`, `nvim.desktop`,
-`thunar.desktop`, `mpv.desktop`, `imv.desktop`, `libreoffice-*` and
+`dev.noctalia.luciole.desktop`, `mpv.desktop`, `imv.desktop`, `libreoffice-*` and
 `org.qbittorrent.qBittorrent.desktop`, so disabling those leaves dangling mime
 defaults (harmless, but tidy them up). The desk-only OBS override
 (`hosts/desk/obs.nix`) is gated by `my.obs.enable`, so it is inert when OBS is off.

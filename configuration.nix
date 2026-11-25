@@ -64,6 +64,7 @@ in
     cava.enable = lib.mkEnableOption "cava";
     fastfetch.enable = lib.mkEnableOption "fastfetch";
     yazi.enable = lib.mkEnableOption "yazi";
+    luciole.enable = lib.mkEnableOption "luciole file manager";
     defaultApps.enable = lib.mkEnableOption "the default apps / mime associations";
     desktopApps = {
       enable = lib.mkEnableOption "the desktop apps bundle";
@@ -107,6 +108,7 @@ in
       cava.enable = lib.mkDefault true;
       fastfetch.enable = lib.mkDefault true;
       yazi.enable = lib.mkDefault true;
+      luciole.enable = lib.mkDefault true;
       defaultApps.enable = lib.mkDefault true;
       desktopApps = {
         enable = lib.mkDefault true;
