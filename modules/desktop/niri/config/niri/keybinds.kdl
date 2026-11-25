@@ -9,7 +9,7 @@ binds {
     Mod+B hotkey-overlay-title="Control Center" { spawn-sh "noctalia msg panel-toggle control-center"; }
     Mod+Alt+B hotkey-overlay-title="Settings" { spawn-sh "noctalia msg settings-toggle"; }
     Mod+Ctrl+B hotkey-overlay-title="Toggle Bar" { spawn-sh "noctalia msg bar-toggle"; }
-    Mod+Shift+F hotkey-overlay-title="Yazi" { spawn-sh "ghostty -e yazi"; }
+    Mod+Shift+F hotkey-overlay-title="Luciole" { spawn-sh "luciole"; }
     Mod+Shift+B hotkey-overlay-title="Browser Zen" { spawn "zen"; }
     Mod+F3 hotkey-overlay-title="Witgets" { spawn-sh "noctalia msg desktop-widgets-toggle"; }
     Mod+Tab hotkey-overlay-title="Session" { spawn-sh "noctalia msg panel-toggle session"; }
