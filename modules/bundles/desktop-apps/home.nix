@@ -18,6 +18,7 @@
         mpvpaper
         pavucontrol
         localsend
+        proton-pass
         # anki
       ];
 
