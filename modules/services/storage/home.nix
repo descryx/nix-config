@@ -12,6 +12,7 @@
       ffmpegthumbnailer
       poppler-utils
       webp-pixbuf-loader
+      nextcloud-client
     ];
 
     services.udiskie = {

@@ -133,6 +133,23 @@ The key is the one committed in `hosts/vivobook/default.nix`; a second desk or
 recovery key is added there, never by appending to the laptop's
 `authorized_keys` (NixOS rewrites that file on activation).
 
+## Nextcloud desktop client
+
+`nextcloud-client` comes from `my.storage`. The account is paired at runtime,
+like Syncthing, so nothing about it is in this repo. On each machine:
+
+1. Launch Nextcloud and enter `https://<instance>.your-storageshare.de`.
+2. Log in with the Nextcloud username and an app password (avatar -> Personal
+   settings -> Security -> Create new app password), not the main password.
+3. Choose `~/Nextcloud` as the local folder. Tick only the folders that should
+   have a local copy; unticked folders stay in the cloud.
+4. To upload a local folder (screenshots, wallpapers), use Add Folder and pair
+   the local folder with its target on the server.
+
+The client keeps a full local copy of every ticked folder, so check free space
+before ticking a large one. Quitting the client is safe: it resumes the
+transfer on the next start and does not corrupt completed files.
+
 ## Checks
 
 `nix flake check` evaluates all hosts and builds the pre-commit check, but does
