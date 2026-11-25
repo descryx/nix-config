@@ -90,7 +90,6 @@ in
       gaming.enable = lib.mkDefault true;
       obs.enable = lib.mkDefault true;
       storage.enable = lib.mkDefault true;
-      syncthing.enable = lib.mkDefault true;
       dev = {
         enable = lib.mkDefault true;
         godot.enable = lib.mkDefault true;
@@ -119,6 +118,7 @@ in
       # Off except where a host turns it on.
       kdeconnect.enable = lib.mkDefault false;
       nextcloudMount.enable = lib.mkDefault false;
+      syncthing.enable = lib.mkDefault false;
       kde.enable = lib.mkDefault false;
       kdePim.enable = lib.mkDefault false;
       photocraft.enable = lib.mkDefault false;
