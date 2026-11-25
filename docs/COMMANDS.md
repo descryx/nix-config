@@ -179,6 +179,10 @@ systemctl --user restart nextcloud-mount.service   # refresh the directory cache
 If the config is missing or the app password is revoked, the service fails and
 retries; fix `rclone.conf` and restart it.
 
+Desk is enabled. t480 is not yet: when it is needed, create a separate app
+password and `rclone.conf` there, test `rclone lsd storage-share:`, then set
+`my.nextcloudMount.enable = true` in `hosts/t480/default.nix`.
+
 ## Checks
 
 `nix flake check` evaluates all hosts and builds the pre-commit check, but does
