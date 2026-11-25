@@ -29,6 +29,7 @@ order = [ "default" ]
         "group:g6",
         "group:g2",
         "group:g5",
+        "ram",
         "group:g4",
         "brightness",
         "input_volume",
@@ -83,7 +84,7 @@ order = [ "default" ]
         enabled = true
         fill = "surface_container"
         id = "g4"
-        members = [ "temp", "seperator", "ram", "visual-seperator", "sysmon", "visual-seperator", "cpu", "visual-seperator" ]
+        members = [ "temp", "seperator", "visual-seperator", "sysmon", "visual-seperator", "cpu", "visual-seperator" ]
         opacity = 0.0
         padding = 0.0
         radius = 2.0
@@ -608,6 +609,9 @@ panel_placement = "floating"
 [plugin_settings."amancode22/global-menu"]
 menu_placement = "floating"
 
+[plugin_settings."aristides/udiskie"]
+file_manager_cmd = "thunar"
+
 [plugin_settings."arrifat346afs/systempulse"]
 panel_placement = "floating"
 panel_position = "bottom_left"
@@ -871,7 +875,6 @@ enabled = [
     "alexander/screen-toolkit",
     "elijaharch/wl-screen-mirror",
     "raycursive/niri-displays",
-    "rylos/syncthing",
     "luochen1990/niri-ribbon",
     "avivbintangaringga/nix-monitor",
     "shangshui0302/github-kanban",
@@ -884,7 +887,6 @@ enabled = [
     "yocraft/qrcode",
     "pulser/hover-widgets",
     "johnnyp0t/niri-workspace-stack",
-    "faented/opencode-monitor",
     "0rgl/localsend-plus",
     "dmopp/nixos-updates",
     "goldesquemoon/typing-stats",
@@ -894,7 +896,10 @@ enabled = [
     "weinguyen/shell-command",
     "nightwatch75/file-search",
     "amancode22/global-menu",
-    "omerfuyar/plugin-hub"
+    "omerfuyar/plugin-hub",
+    "faented/opencode-monitor",
+    "fisherman/mathsym",
+    "omerfuyar/media-downloader"
 ]
 
     [[plugins.source]]
@@ -1038,7 +1043,7 @@ source = "custom"
 wallpaper_scheme = "m3-rainbow"
 
     [theme.templates]
-    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "kcolorscheme", "kitty", "niri", "qt" ]
+    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "kcolorscheme", "kitty", "luciole", "niri", "qt" ]
     community_ids = [ "gimp", "libreoffice", "obs" ]
 
         [theme.templates.user.palette_creator_live]
@@ -1218,6 +1223,18 @@ transition_on_startup = true
     path = "/home/descryx/Pictures/lol/omfg.png"
     theme_mode = "dark"
 
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/lol/photo_2026-11-15_17-25-35.jpg"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    custom_palette = "redhc"
+    palette_source = "custom"
+    path = "/home/descryx/Pictures/lol/photo_2026-11-15_17-22-01.jpg"
+    theme_mode = "dark"
+
 [widget.Crashes]
 enabled = false
 glyph = "mood-crazy-happy"
@@ -1351,7 +1368,7 @@ type = "teagar/niri-workspace-preview:preview"
 hide_inactive = true
 
 [widget.ram]
-visualization = "graph"
+visualization = "none"
 
 [widget.ribbon]
 animation_speed = 2.0
