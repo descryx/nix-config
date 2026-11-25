@@ -4,6 +4,7 @@
     kdeconnect.enable = true;
     flatpak.enable = true;
     openrgb.enable = true;
+    nextcloudMount.enable = true;
   };
 
   imports = [

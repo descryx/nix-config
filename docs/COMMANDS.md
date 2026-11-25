@@ -133,22 +133,51 @@ The key is the one committed in `hosts/vivobook/default.nix`; a second desk or
 recovery key is added there, never by appending to the laptop's
 `authorized_keys` (NixOS rewrites that file on activation).
 
-## Nextcloud desktop client
+## Nextcloud
 
-`nextcloud-client` comes from `my.storage`. The account is paired at runtime,
-like Syncthing, so nothing about it is in this repo. On each machine:
+`nextcloud-client` comes from `my.storage`. The desktop client is for normal
+sync only (virtual files off). On Linux, do not add the account root as a
+virtual-files folder: OpenVFS hydration changes file mtimes and re-uploads
+unchanged files
+([nextcloud/desktop#11392](https://github.com/nextcloud/desktop/issues/11392)),
+which reorders the phone's Photos timeline. Use the read-only mount below for
+cloud -> PC on demand.
 
-1. Launch Nextcloud and enter `https://<instance>.your-storageshare.de`.
-2. Log in with the Nextcloud username and an app password (avatar -> Personal
-   settings -> Security -> Create new app password), not the main password.
-3. Choose `~/Nextcloud` as the local folder. Tick only the folders that should
-   have a local copy; unticked folders stay in the cloud.
-4. To upload a local folder (screenshots, wallpapers), use Add Folder and pair
-   the local folder with its target on the server.
+In the 35.x client the folder connections are on Settings -> General, not under
+Account -> Folders; use the three-dot menu on a folder row to remove one. Add
+only the local folders you want to sync and keep the phone folder out of the
+client. The client keeps a full local copy of every ticked folder, so check free
+space before ticking a large one. Quitting it is safe; it resumes on the next
+start.
 
-The client keeps a full local copy of every ticked folder, so check free space
-before ticking a large one. Quitting the client is safe: it resumes the
-transfer on the next start and does not corrupt completed files.
+### Read-only on-demand mount
+
+`my.nextcloudMount` mounts the whole account read-only at `~/StorageShare` with
+rclone. Reads go straight to WebDAV; nothing is uploaded, so it cannot change
+mtimes. The remote is configured once per machine outside the repo:
+
+1. Create an app password in Nextcloud (avatar -> Personal settings -> Security
+   -> Create new app password).
+2. Run `rclone config` and add a WebDAV remote named `storage-share`:
+   - URL: `https://<instance>.your-storageshare.de/remote.php/dav/files/<USER>/`
+   - vendor: `nextcloud`
+   - user: `<USER>`
+   - password: the app password
+   This writes `~/.config/rclone/rclone.conf` (mode 600). Do not commit it.
+3. Test with `rclone lsd storage-share:`. It must list the top-level folders.
+4. Enable `my.nextcloudMount.enable` for the host and rebuild.
+
+The mount is read-only. Open or copy files out of `~/StorageShare`; do not write
+or delete inside it. To download a file, copy it to `~/Downloads` or elsewhere.
+
+```sh
+systemctl --user status nextcloud-mount.service
+journalctl --user -u nextcloud-mount.service -b
+systemctl --user restart nextcloud-mount.service   # refresh the directory cache
+```
+
+If the config is missing or the app password is revoked, the service fails and
+retries; fix `rclone.conf` and restart it.
 
 ## Checks
 

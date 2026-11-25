@@ -44,6 +44,7 @@ in
     obs.enable = lib.mkEnableOption "OBS Studio";
     storage.enable = lib.mkEnableOption "storage services (tumbler, udisks2, gvfs)";
     syncthing.enable = lib.mkEnableOption "syncthing";
+    nextcloudMount.enable = lib.mkEnableOption "read-only on-demand Nextcloud mount";
     dev = {
       # Covers modules/apps/dev and modules/apps/dev/python: the python half owns
       # the single interpreter and is only meaningful alongside dev.
@@ -117,6 +118,7 @@ in
 
       # Off except where a host turns it on.
       kdeconnect.enable = lib.mkDefault false;
+      nextcloudMount.enable = lib.mkDefault false;
       kde.enable = lib.mkDefault false;
       kdePim.enable = lib.mkDefault false;
       photocraft.enable = lib.mkDefault false;
