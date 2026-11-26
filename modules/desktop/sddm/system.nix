@@ -82,18 +82,24 @@ let
     }).overrideAttrs
       (oldAttrs: {
         installPhase = oldAttrs.installPhase + ''
-          chmod u+w $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/
-          cp ${cfg.wallpaper} \
-            $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/${bgName}
+                    chmod u+w $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/
+                    cp ${cfg.wallpaper} \
+                      $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/${bgName}
 
-          # The package copies directly from $src, so patch the installed QML.
-          # It preselects model.lastIndex, i.e. the last session/user. The first
-          # entry is niri + descryx on the owner's machines, and the only
-          # session/user on the laptop, so index 0 is the intended default.
-          substituteInPlace $out/share/sddm/themes/sddm-astronaut-theme/Components/SessionButton.qml \
-            --replace-fail "currentIndex: model.lastIndex" "currentIndex: 0"
-          substituteInPlace $out/share/sddm/themes/sddm-astronaut-theme/Components/Input.qml \
-            --replace-fail "currentIndex: model.lastIndex" "currentIndex: 0"
+                    # The package copies directly from $src, so patch the installed QML.
+                    # SDDM's SessionModel NameRole is Qt.UserRole + 4 (SessionModel.h).
+                    # Pick the configured session by name and fall back to index 0, which
+                    # keeps the Vivobook (Plasma only) working unchanged.
+                    substituteInPlace $out/share/sddm/themes/sddm-astronaut-theme/Components/SessionButton.qml \
+                      --replace-fail "currentIndex: model.lastIndex" "currentIndex: {
+              for (var i = 0; i < sessionModel.count; ++i) {
+                  if (sessionModel.data(sessionModel.index(i, 0), Qt.UserRole + 4) === \"${cfg.preselectSession}\")
+                      return i;
+              }
+              return 0;
+          }"
+                    substituteInPlace $out/share/sddm/themes/sddm-astronaut-theme/Components/Input.qml \
+                      --replace-fail "currentIndex: model.lastIndex" "currentIndex: 0"
         '';
       });
 in

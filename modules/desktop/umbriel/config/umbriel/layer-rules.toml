@@ -1,0 +1,13 @@
+# Noctalia layer surfaces. The first rule enables blur for the bar, panels,
+# notifications, OSD and desktop widgets. The second uses the live blur path
+# for surfaces that open over windows, matching niri's xray false.
+
+[[layer_rule]]
+match.namespace = '^noctalia-(bar-[^"]+|notification|dock|panel|attached-panel|osd|desktop-widget-[^"]*)$'
+blur = true
+blur_ignore_alpha = 0.5
+blur_popups = true
+
+[[layer_rule]]
+match.namespace = "^noctalia-(notification|dock|panel|attached-panel|osd)$"
+blur_optimized = false

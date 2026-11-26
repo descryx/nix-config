@@ -31,6 +31,7 @@
     appearance.enable = false;
     niri.enable = false;
     noctalia.enable = false;
+    umbriel.enable = false;
     gaming.enable = false;
     obs.enable = false;
     dev.enable = false;
@@ -59,11 +60,12 @@
 
   services = {
     displayManager = {
-      # Only Plasma exists here; niri and noctalia are off.
+      # Only Plasma exists here; niri, noctalia and umbriel are off.
       defaultSession = "plasma";
 
-      # The SDDM theme preselects index 0. Hide the maintenance account so lena
-      # is the only entry and the default; descryx remains available over SSH.
+      # The SDDM theme preselects Umbriel by name and falls back to index 0
+      # when it is absent. Hide the maintenance account so lena is the only
+      # entry and the fallback default; descryx remains available over SSH.
       hiddenUsers = [
         "nobody"
         "descryx"

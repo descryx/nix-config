@@ -1,0 +1,34 @@
+# Umbriel configuration for the owner's machines.
+#
+# Ported from modules/desktop/niri/config/niri. niri uses KDL; Umbriel uses
+# TOML, so this is the same intent in Umbriel's schema, not a copy of the KDL.
+#
+# Most changes apply when the file is saved. Check an edit without a session:
+#   umbriel config validate
+
+[include]
+files = [
+  "input.toml",
+  "outputs.toml",
+  "layout.toml",
+  "appearance.toml",
+  "animation.toml",
+  "scratchpads.toml",
+  "window-rules.toml",
+  "layer-rules.toml",
+  "keybinds.toml",
+  "shaders.toml",
+]
+
+[general]
+# niri autostart.kdl. oniri is niri-IPC-only and is intentionally absent:
+# Umbriel's own layout already handles the "one window fills the workspace"
+# behavior that oniri -T provided.
+autostart = [ "noctalia", "wayscriber --daemon" ]
+
+# niri skips the hotkey overlay at startup; Umbriel's native cheatsheet is
+# bound to Mod+F1 instead.
+show_cheatsheet = false
+
+[include.optional]
+files = ["noctalia.toml"]

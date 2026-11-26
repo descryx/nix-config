@@ -8,6 +8,9 @@
     # The cachix branch always points at a commit CI has cached. Do not add
     # inputs.nixpkgs.follows: overriding an input changes the cache key.
     luciole.url = "github:noctalia-dev/luciole/cachix";
+    # Same rule as noctalia/luciole: track the cached branch and leave the
+    # input's own nixpkgs alone so its store paths keep matching the cache.
+    umbriel.url = "github:noctalia-dev/umbriel/cachix";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     mac-style-plymouth = {

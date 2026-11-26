@@ -1,0 +1,39 @@
+# niri input.kdl, expressed with Umbriel's input schema.
+
+[input.keyboard]
+# niri: layout "us, ru, us" / variant ",, intl" / options "caps:escape".
+# XKB lists are comma-separated without spaces.
+layout = "us,ru,us"
+variant = ",,intl"
+options = "caps:escape"
+numlock_toggle = false
+
+[input.touchpad]
+tap = true
+# niri: dwt (disable while typing).
+disable_while_typing = true
+# niri: drag-lock. "sticky" keeps the drag until the next tap.
+drag_lock = "sticky"
+natural_scroll = false
+accel_profile = "flat"
+scroll_method = "two_finger"
+
+[input.mouse]
+natural_scroll = false
+accel_profile = "flat"
+
+# niri also sets the trackpoint to flat acceleration. Umbriel has no trackpoint
+# class; [input.mouse] is the closest. A per-device rule needs the exact
+# libinput device name from the T480, so it is left for a follow-up.
+
+[input.cursor]
+theme = "Bibata-Original-Classic"
+size = 16
+hide_when_typing = true
+
+[input.focus]
+# niri: focus-follows-mouse max-scroll-amount="0%".
+follows_mouse = "sloppy"
+follows_mouse_max_scroll = 0.0
+# niri has no raise-on-hover; focus only.
+hover_raises = false

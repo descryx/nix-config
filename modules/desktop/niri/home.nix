@@ -20,6 +20,10 @@
     systemd.user.services.niri-zoomd = {
       Unit = {
         Description = "niri-zoom magnifier daemon";
+        # Only niri sets NIRI_SOCKET. Without this, the service also starts in
+        # the Umbriel session, where it has no niri socket and would restart in
+        # a loop.
+        ConditionEnvironment = "NIRI_SOCKET";
         PartOf = [ "graphical-session.target" ];
         After = [ "graphical-session.target" ];
       };

@@ -183,6 +183,55 @@ Desk is enabled. t480 is not yet: when it is needed, create a separate app
 password and `rclone.conf` there, test `rclone lsd storage-share:`, then set
 `my.nextcloudMount.enable = true` in `hosts/t480/default.nix`.
 
+## Umbriel config
+
+`modules/desktop/umbriel/config/umbriel/` is live-symlinked to
+`~/.config/umbriel`, so edits apply without a rebuild. Check a file before
+relying on it:
+
+```sh
+umbriel config validate
+umbriel layers    # layer namespaces for the blur rules
+umbriel windows   # app ids for the window rules
+```
+
+The niri module stays installed. The two sessions share Noctalia's config and
+state; `niri-zoomd` is gated on `NIRI_SOCKET`, so it only runs under niri.
+
+### Community shaders
+
+Only the selected community animations are vendored in
+`modules/desktop/umbriel/config/umbriel/shaders/community/`; `shaders.toml`
+includes the four preset files. The current selection is:
+
+| Preset | Slot |
+| --- | --- |
+| `panel-glide` | `animation.layers` |
+| `arcane.smuggled-signal` | `animation.scratchpad` |
+| `tv-glitch` | `animation.windows_in` and `animation.windows_out` |
+| `workspace-wipe` | `animation.workspaces` (with `style = "reveal"`) |
+
+`umbriel effects` lists the available presets. To change the selection, use the
+Noctalia **Umbriel Shaders** plugin, then transfer the generated
+`noctalia-shaders.toml` selectors into `animation.toml` and trim the vendored
+directories. The plugin's generated file is deliberately not included: it
+downloads its own copies and would duplicate these presets.
+
+For a quick temporary override:
+
+```sh
+umbriel config set animation.windows_in.effect "'tv-glitch'"
+umbriel config unset animation.windows_in.effect
+```
+
+`umbriel config validate` checks includes and preset names but does not compile
+GLSL; inspect the compositor log and the screen for shader errors.
+
+Audio-reactive presets such as `spectrum`, `music-radiance`, `music-smoke` and
+`speaker-ripple` need Noctalia's Umbriel audio provider. Enable it in Noctalia's
+settings and re-run `scripts/noctalia-export.sh` if you want it in the tracked
+baseline.
+
 ## Checks
 
 `nix flake check` evaluates all hosts and builds the pre-commit check, but does
@@ -199,8 +248,8 @@ hand with `nix develop -c pre-commit run --all-files`.
 
 ## KDE profile (lena's laptop)
 
-lena exists only on the Vivobook; desk and t480 are the owner's niri machines.
-Validate her profile with `nix build
+lena exists only on the Vivobook; desk and t480 are the owner's niri/Umbriel
+machines. Validate her profile with `nix build
 .#nixosConfigurations.vivobook.config.system.build.vm` and the VM (it autologs in
 as lena) instead of installing Plasma on desk.
 

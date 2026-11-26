@@ -33,6 +33,15 @@ in
         default = true;
         description = "Pre-fill the last logged-in user in the SDDM theme.";
       };
+      preselectSession = lib.mkOption {
+        type = lib.types.str;
+        default = "Umbriel";
+        description = ''
+          Session name preselected by the SDDM theme. Falls back to the first
+          entry when no session has this name, so hosts without Umbriel keep
+          their current default.
+        '';
+      };
     };
     kde.enable = lib.mkEnableOption "KDE Plasma 6";
     kdePim.enable = lib.mkEnableOption "KDE PIM base (Akonadi and the Google calendar resource)";
@@ -40,6 +49,7 @@ in
     printing.enable = lib.mkEnableOption "printing (CUPS + SANE)";
     niri.enable = lib.mkEnableOption "niri";
     noctalia.enable = lib.mkEnableOption "noctalia";
+    umbriel.enable = lib.mkEnableOption "umbriel";
     gaming.enable = lib.mkEnableOption "gaming (steam + gamemode)";
     obs.enable = lib.mkEnableOption "OBS Studio";
     storage.enable = lib.mkEnableOption "storage services (tumbler, udisks2, gvfs)";
@@ -87,6 +97,7 @@ in
       sddm.enable = lib.mkDefault true;
       niri.enable = lib.mkDefault true;
       noctalia.enable = lib.mkDefault true;
+      umbriel.enable = lib.mkDefault true;
       gaming.enable = lib.mkDefault true;
       obs.enable = lib.mkDefault true;
       storage.enable = lib.mkDefault true;

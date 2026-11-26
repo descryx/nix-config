@@ -25,7 +25,7 @@ user gets store copies so her config never depends on my home directory.
 
 | User | Where | Session |
 |------|-------|---------|
-| `descryx` | desk, t480, vivobook (SSH/console only) | niri + Noctalia |
+| `descryx` | desk, t480, vivobook (SSH/console only) | Umbriel + Noctalia (niri kept) |
 | `lena` | vivobook | KDE Plasma |
 
 ## How to use
@@ -36,7 +36,8 @@ and nix-direnv.
 
 **Dotfiles only.** Every feature keeps its config in
 `modules/<category>/<feature>/config/`; browse `modules/*/*/config/` and copy what
-you need. Most of it assumes [Niri](https://github.com/YaLTeR/niri) with
+you need. Most of it assumes [Niri](https://github.com/YaLTeR/niri) or
+[Umbriel](https://github.com/noctalia-dev/umbriel) with
 [Noctalia](https://github.com/noctalia-dev/noctalia), and several files hardcode
 `/home/descryx` paths.
 

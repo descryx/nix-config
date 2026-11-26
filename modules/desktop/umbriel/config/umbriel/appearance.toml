@@ -1,0 +1,56 @@
+# niri layout.kdl (focus ring / border), window-rules.kdl (corners) and
+# noctalia.kdl (red accents), expressed with Umbriel's appearance schema.
+
+[appearance]
+# niri: prefer-no-csd.
+prefer_no_csd = true
+# niri has focus-ring width 1 and border off. Umbriel has a single border, so
+# the focused window gets the red ring and unfocused stays transparent to keep
+# niri's look.
+border_width = 1
+# outer_border_width = 2
+# niri's unconditional window rule: geometry-corner-radius 2.
+corner_radius = 2
+# niri does not dim a window while it is dragged.
+drag_opacity = 1.0
+
+[colors]
+# niri insert-hint color.
+insert_hint = "#bb000080"
+
+[colors.border]
+focused = "#bb0000FF"
+unfocused = "#00000000"
+outer = "#00000000"
+
+[colors.tab_bar]
+# niri tab-indicator / noctalia.kdl.
+active = "#bb0000FF"
+active_unfocused = "#380000FF"
+urgent = "#bb0000FF"
+
+[appearance.tab_bar]
+# niri: tab-indicator place-within-column width 2.
+style = "indicator"
+height = 2
+hide_when_single = true
+
+[appearance.blur]
+enabled = true
+optimized = true
+# niri: passes 1, offset 1.5. radius is Umbriel's own blur knob, so 3 is the
+# closest documented value from the upstream example, not a conversion.
+passes = 1
+radius = 3
+noise = 0.02
+brightness = 0.9
+contrast = 0.9
+saturation = 1.1
+
+[appearance.shadow]
+# niri draws no window shadows.
+enabled = false
+
+[overview]
+# niri: overview zoom 0.35.
+zoom = 0.35

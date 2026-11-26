@@ -1,0 +1,17 @@
+# Replaces config/niri/scripts/obsidian-scratchpad.sh for Umbriel.
+#
+# The niri script stays in the niri module. Umbriel has native scratchpads, so
+# this needs no niri IPC and no opacity trick: Mod+Y hides/shows the pad, and
+# an empty pad launches Obsidian on the vault.
+
+[[scratchpad]]
+name = "obsidian"
+spawn_when_empty = "obsidian \"$HOME/vaults/obsidian\""
+hide_when_empty = true
+
+# SoundCloud as a Chrome app. The Wayland app id is derived from the domain and
+# stays stable while the page title changes; the window rule below uses it.
+[[scratchpad]]
+name = "music"
+spawn_when_empty = "google-chrome --app=https://soundcloud.com"
+hide_when_empty = true

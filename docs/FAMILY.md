@@ -8,7 +8,7 @@ in [ARCHITECTURE.md](ARCHITECTURE.md); everyday commands are in
 
 - NixOS 26.05 stable, `linuxPackages_latest` (7.3) for the MediaTek MT7902
   Wi-Fi/Bluetooth, `hardware.enableRedistributableFirmware = true`.
-- KDE Plasma 6, only Wayland session, no niri/noctalia.
+- KDE Plasma 6, only Wayland session, no niri/umbriel/noctalia.
 - `lena`: daily user, KDE, non-wheel, home-manager profile.
 - `descryx`: maintenance account, wheel, SSH key, zsh, no home-manager profile.
   Hidden from SDDM on this host with `services.displayManager.hiddenUsers`, so

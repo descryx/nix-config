@@ -1,0 +1,48 @@
+[animation]
+enabled = true
+duration_ms = 150
+curve = "ease out"
+
+[animation.layers]
+enabled = true
+effect = "panel-glide"
+duration_ms = 150
+curve = "ease out"
+
+[animation.scratchpad]
+enabled = true
+effect = "tv-glitch"
+duration_ms = 200
+curve = "ease out"
+
+[animation.windows_in]
+enabled = true
+effect = "tv-glitch"
+duration_ms = 300
+curve = "ease out"
+
+[animation.windows_out]
+enabled = true
+effect = "tv-glitch"
+duration_ms = 300
+curve = "ease out"
+
+[animation.windows_move]
+duration_ms = 150
+curve = "ease out"
+
+[animation.workspaces]
+enabled = true
+effect = "workspace-wipe"
+duration_ms = 200
+curve = "ease out"
+style = "reveal"
+
+[animation.overview]
+duration_ms = 150
+curve = "ease out"
+
+[animation.windows_resize]
+enabled = true
+duration_ms = 150
+curve = "ease out"

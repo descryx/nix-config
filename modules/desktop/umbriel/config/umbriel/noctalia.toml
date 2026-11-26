@@ -1,0 +1,50 @@
+[colors]
+background = "#000000FF"
+text_primary = "#eeeeeeFF"
+text_muted = "#ccccccFF"
+accent_primary = "#bb0000FF"
+accent_secondary = "#ddddddFF"
+warning = "#aaaaaaFF"
+error = "#bb0000FF"
+insert_hint = "#aaaaaa80"
+backdrop = "#000000FF"
+
+[colors.border]
+focused = "#bb0000FF"
+unfocused = "#000000FF"
+outer = "#000000FF"
+
+[colors.overview]
+background_tint = "#00000088"
+badge = "#bb0000FF"
+workspace_background = "#000000FF"
+
+[colors.tab_bar]
+background = "#000000FF"
+text = "#ccccccFF"
+active = "#bb0000FF"
+active_text = "#000000FF"
+active_unfocused = "#000000FF"
+active_unfocused_text = "#eeeeeeFF"
+urgent = "#bb0000FF"
+urgent_text = "#000000FF"
+
+[colors.title_bar]
+background = "#000000FF"
+background_unfocused = "#000000FF"
+text = "#eeeeeeFF"
+text_unfocused = "#ccccccFF"
+close = "#bb0000FF"
+close_glyph = "#000000FF"
+close_glyph_hover = "#000000FF"
+maximize = "#bb0000FF"
+maximize_glyph = "#000000FF"
+maximize_glyph_hover = "#000000FF"
+minimize = "#ddddddFF"
+minimize_glyph = "#000000FF"
+minimize_glyph_hover = "#000000FF"
+
+[[window_rule]]
+match.is_scratchpad = true
+border_color_focused = "#aaaaaaFF"
+border_color_unfocused = "#333333FF"

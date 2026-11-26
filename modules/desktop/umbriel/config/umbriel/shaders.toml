@@ -1,0 +1,12 @@
+# Selected community Umbriel shaders.
+#
+# Chosen with the Noctalia Umbriel Shaders plugin. Only these presets are
+# vendored under shaders/community; see shaders/community/SOURCE.md.
+
+[include]
+files = [
+  "shaders/community/animation/panel-glide/effect.toml",
+  "shaders/community/animation/arcane-smuggled-signal/effect.toml",
+  "shaders/community/animation/tv-glitch/effect.toml",
+  "shaders/community/animation/workspace-wipe/effect.toml",
+]

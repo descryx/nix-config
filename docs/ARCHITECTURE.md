@@ -19,7 +19,7 @@ How the repo fits together. Day-to-day commands are in
 ## Flake structure
 
 `flake.nix` takes the inputs (`nixpkgs`, `nixpkgs-stable`, `home-manager`,
-`home-manager-stable`, `nix-flatpak`, `noctalia`, `zen-browser`,
+`home-manager-stable`, `nix-flatpak`, `noctalia`, `umbriel`, `zen-browser`,
 `plasma-manager`, `wshowkeys`, `oniri`,
 `mac-style-plymouth`, `nix-craftapps`, `git-hooks`) and exposes:
 
@@ -77,8 +77,8 @@ that case. Categories:
 
 - `core/` - machine foundation that has no natural app (boot, networking,
   users, Nix settings, `nh`, power, audio, tools).
-- `desktop/` - the session and how it looks: `niri`, `noctalia`, `appearance`,
-  `sddm`, `kde`.
+- `desktop/` - the session and how it looks: `niri`, `umbriel`, `noctalia`,
+  `appearance`, `sddm`, `kde`.
 - `apps/` - one app or concern per folder, including `photocraft` and `luciole`.
 - `services/` - background daemons and device glue: `syncthing`, `kdeconnect`,
   `storage`, `nextcloud-mount`.
@@ -130,7 +130,7 @@ Because the option default is off, a feature mentioned nowhere is off.
 
 | Group | Switch | Enabled in |
 |---|---|---|
-| core (niri, noctalia, zsh, nvim, gaming, ...) | `my.<feature>.enable` | `configuration.nix` (on), overridden per host |
+| core (niri, umbriel, noctalia, zsh, nvim, gaming, ...) | `my.<feature>.enable` | `configuration.nix` (on), overridden per host |
 | kde | `my.kde.enable` | `hosts/vivobook/default.nix` |
 | kdePim | `my.kdePim.enable` | `hosts/vivobook/default.nix` |
 | photocraft | `my.photocraft.enable` | `hosts/vivobook/default.nix` |
@@ -138,7 +138,8 @@ Because the option default is off, a feature mentioned nowhere is off.
 | kdeconnect | `my.kdeconnect.enable` | `hosts/desk/default.nix` |
 | optional (flatpak, minecraft, ollama, openrgb, tmux) | `my.<feature>.enable` | `hosts/<host>/default.nix` |
 
-`my.sddm.wallpaper` and `my.sddm.forceLastUser` are value options, not switches.
+`my.sddm.wallpaper`, `my.sddm.forceLastUser` and `my.sddm.preselectSession`
+are value options, not switches.
 `my.dotfiles.live` and `my.zen.package` are per-user options declared in
 home-manager, not host switches.
 
@@ -163,10 +164,10 @@ declared unconditionally and only the interpreter package is gated by
 or for large and hand-edited files, keep it as a dotfile. Each feature keeps its
 dotfiles in `modules/<category>/<feature>/config/`, and `home.nix` links them into
 `~/.config` with `mkOutOfStoreSymlink`, which points at the live repo instead of a
-copy in the Nix store, so edits apply immediately. Examples: `niri`, `noctalia`,
-`nvim`, `yazi` and `ghostty` are dotfiles; `git`, `zsh`, `mpv`, GTK, the mime
-associations, `btop`/`cava` (`programs.btop`/`programs.cava`) and the clangd user
-config are Nix.
+copy in the Nix store, so edits apply immediately. Examples: `niri`, `umbriel`,
+`noctalia`, `nvim`, `yazi` and `ghostty` are dotfiles; `git`, `zsh`, `mpv`, GTK,
+the mime associations, `btop`/`cava` (`programs.btop`/`programs.cava`) and the
+clangd user config are Nix.
 
 Generated files stay live even when their feature is Nix: Noctalia writes the
 `btop`/`cava`/`yazi` themes into the real `~/.config/<app>/themes/` (or
@@ -214,10 +215,14 @@ look-and-feel defaults are patched to Breeze for those pieces.
   (`configurationLimit` and `nh clean --keep 5`).
 - On the Vivobook, `descryx` is a maintenance account reachable over SSH and a
   TTY but hidden from SDDM with `services.displayManager.hiddenUsers`; lena is
-  the only visible user. The theme's index-0 default then selects lena.
-- The SDDM astronaut theme is patched to preselect index 0 instead of
-  `model.lastIndex`. On desk/t480 that is niri + descryx; on the Vivobook the only
-  session is Plasma and the only visible user is lena.
+  the only visible user. The theme's fallback index 0 then selects lena.
+- The SDDM astronaut theme is patched to preselect the session named by
+  `my.sddm.preselectSession` (default `Umbriel`) and to fall back to index 0
+  when no session has that name. On desk/t480 that is Umbriel + descryx; on the
+  Vivobook Umbriel is off, so the fallback is Plasma + lena.
+- The niri session and its module stay available; niri is not removed. The
+  `niri-zoomd` user service only runs when `NIRI_SOCKET` is set, so it does not
+  start inside an Umbriel session.
 - Desk and t480 do not run Plasma at all; lena's profile is only on the Vivobook.
   Changes to it are validated by building the Vivobook toplevel or its VM on
   desk, never by logging into Plasma on desk.

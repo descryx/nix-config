@@ -1,0 +1,72 @@
+# niri window-rules.kdl, expressed with Umbriel's window-rule schema.
+# Rules combine in order; later values win.
+
+# Zen picture-in-picture, floating at the niri size.
+[[window_rule]]
+match.app_id = "^zen$"
+match.title = "^Picture-in-Picture$"
+default_floating = true
+default_floating_size_px = { width = 1280, height = 720 }
+
+# niri: variable-refresh-rate false for gamescope.
+[[window_rule]]
+match.app_id = "^gamescope$"
+vrr = "disabled"
+
+# scrcpy, floating bottom-right at 8,8.
+[[window_rule]]
+match.app_id = "^\\.scrcpy-wrapped$"
+default_floating = true
+default_position = { x = 8, y = 8, anchor = "bottom_right" }
+default_floating_size_px = { width = 270, height = 480 }
+
+# Window blur for the terminals and Chrome. niri used xray false, which is
+# Umbriel's live blur path (blur_optimized = false).
+[[window_rule]]
+match.app_id = [ "^ghostty$", "^kitty$", "^chrome$" ]
+blur = true
+blur_optimized = false
+
+# Noctalia's settings window, floating at the niri size.
+[[window_rule]]
+match.app_id = "^dev.noctalia.Noctalia$"
+default_floating = true
+default_floating_size_px = { width = 1080, height = 920 }
+blur = true
+blur_optimized = false
+
+# Steam game windows float, but the Steam library window stays tiled.
+# niri's "exclude title" has no Umbriel equivalent, so the title selector uses
+# an ECMAScript negative lookahead.
+[[window_rule]]
+match.app_id = "^steam$"
+match.title = "^(?!Steam$)"
+default_floating = true
+default_scrolling_extent = 1.00
+
+# Browser and Telegram blur, matching the niri rule (xray false).
+[[window_rule]]
+match.app_id = [ "^zen$", "org\\.telegram\\.desktop" ]
+blur = true
+blur_optimized = false
+default_scrolling_extent = 1.00
+
+# imv, floating at the niri size.
+[[window_rule]]
+match.app_id = "^imv$"
+default_floating = true
+default_floating_size_px = { width = 1280, height = 720 }
+
+# Obsidian joins the native scratchpad. default_focused reveals the pad when
+# the window opens outside Mod+Y.
+[[window_rule]]
+match.app_id = "^[Oo]bsidian$"
+default_scratchpad = "obsidian"
+default_focused = true
+
+# SoundCloud Chrome app. Chromium's Wayland app id for --app windows is
+# chrome-<domain>__-<profile>, not the changing page title.
+[[window_rule]]
+match.app_id = "^chrome-soundcloud\\.com"
+default_scratchpad = "music"
+default_focused = true

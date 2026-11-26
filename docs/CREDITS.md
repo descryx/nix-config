@@ -14,7 +14,10 @@ below keeps its own license.
 
 Projects this configuration depends on or is inspired by:
 
-- [Niri](https://github.com/YaLTeR/niri) - the Wayland compositor.
+- [Niri](https://github.com/YaLTeR/niri) - the Wayland compositor, kept as a
+  second session.
+- [Umbriel](https://github.com/noctalia-dev/umbriel) - the default Wayland
+  compositor, with [xdg-desktop-portal-umbriel](https://github.com/noctalia-dev/xdg-desktop-portal-umbriel).
 - [Noctalia](https://github.com/noctalia-dev/noctalia) - desktop shell; several
   plugins plug into it.
 - [LazyVim](https://github.com/LazyVim/LazyVim) - Neovim base.
@@ -53,6 +56,14 @@ license; the MIT notice is reproduced at the bottom.
 | `modules/apps/vesktop/config/themes/mytheme.theme.css` | [refact0r/midnight-discord](https://github.com/refact0r/midnight-discord) | © 2025 refact0r | MIT |
 | `modules/apps/opencode/config/skills/obsidian-skills/` | [kepano/obsidian-skills](https://github.com/kepano/obsidian-skills) | © 2026 Steph Ango (@kepano) | MIT |
 | `modules/apps/opencode/config/skills/daydream/` | [glebis/claude-skills](https://github.com/glebis/claude-skills) | © 2025–2026 Gleb Kalinin | MIT |
+| `modules/desktop/umbriel/config/umbriel/shaders/community/` | [noctalia-dev/community-umbriel-shaders](https://github.com/noctalia-dev/community-umbriel-shaders) | selected authors, see its `LICENSES/` | MIT (`panel-glide`, `arcane.smuggled-signal`, `workspace-wipe`), GPL-3.0-or-later (`tv-glitch`) |
+
+The shader subset is pinned at
+`3ae677854bb4fa309fd3bd9260a4a92a12a58920`. Its notices are kept in
+`modules/desktop/umbriel/config/umbriel/shaders/community/LICENSES/`.
+`animation/tv-glitch` is GPL-3.0-or-later; its notice is
+`LICENSES/BurnMyWindows-GPL-3.0-or-later.txt` in the same directory.
+Only the four selected presets are vendored; see `SOURCE.md` in that directory.
 
 ## Fetched upstream (packaged at build time)
 

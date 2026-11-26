@@ -1,0 +1,26 @@
+# niri desktop-kinks.kdl / laptop-kinks.kdl.
+#
+# Umbriel ignores output sections for connectors that are not present, so desk
+# and t480 share this file. A fixed inventory of 10 workspaces matches the
+# Mod+1..0 binds; niri could grow past 10 dynamically, Umbriel cannot.
+
+[output.DP-1]
+mode = "1920x1080@239.989"
+position = [ 0, 0 ]
+scale = 1.0
+transform = "normal"
+focus_at_startup = true
+workspaces = 10
+
+[output.DP-2]
+mode = "1920x1080@100.087"
+position = [ -1920, 0 ]
+scale = 1.0
+workspaces = 10
+
+[output.eDP-1]
+mode = "1920x1080@60"
+position = [ 0, 0 ]
+scale = 1.0
+transform = "normal"
+workspaces = 10
