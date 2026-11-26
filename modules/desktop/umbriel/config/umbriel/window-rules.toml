@@ -13,6 +13,10 @@ default_floating_size_px = { width = 1280, height = 720 }
 match.app_id = "^gamescope$"
 vrr = "disabled"
 
+[[window_rule]]
+match.is_alone = true
+default_maximize = true
+
 # scrcpy, floating bottom-right at 8,8.
 [[window_rule]]
 match.app_id = "^\\.scrcpy-wrapped$"
