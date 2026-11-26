@@ -37,15 +37,15 @@ hide_when_single = true
 
 [appearance.blur]
 enabled = true
-optimized = true
+optimized = false
 # niri: passes 1, offset 1.5. radius is Umbriel's own blur knob, so 3 is the
 # closest documented value from the upstream example, not a conversion.
 passes = 1
-radius = 3
-noise = 0.02
-brightness = 0.9
-contrast = 0.9
-saturation = 1.1
+radius = 1
+# noise = 0.02
+# brightness = 0.9
+# contrast = 0.9
+# saturation = 1.1
 
 [appearance.shadow]
 # niri draws no window shadows.
@@ -53,4 +53,4 @@ enabled = false
 
 [overview]
 # niri: overview zoom 0.35.
-zoom = 0.35
+zoom = 0.30

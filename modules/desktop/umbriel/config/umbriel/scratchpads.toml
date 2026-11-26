@@ -9,9 +9,14 @@ name = "obsidian"
 spawn_when_empty = "obsidian \"$HOME/vaults/obsidian\""
 hide_when_empty = true
 
-# SoundCloud as a Chrome app. The Wayland app id is derived from the domain and
-# stays stable while the page title changes; the window rule below uses it.
+# SoundCloud as a Chrome app. The pad is tiled so the all-Chrome
+# default_scrolling_extent = 1.0 rule applies; the spawn_when_empty launch
+# token places the new window in the pad.
 [[scratchpad]]
 name = "music"
 spawn_when_empty = "google-chrome --app=https://soundcloud.com"
 hide_when_empty = true
+# Scratchpads default to stacking (floating). Tile this one so the Chrome
+# window rule's default_scrolling_extent = 1.0 can make it full width.
+layout.mode = "scrolling"
+layout.scrolling.default_extent_fraction = 1.0

@@ -34,15 +34,17 @@ curve = "ease out"
 [animation.workspaces]
 enabled = true
 effect = "workspace-wipe"
-duration_ms = 200
+duration_ms = 150
 curve = "ease out"
 style = "reveal"
 
 [animation.overview]
+enabled = true
 duration_ms = 150
 curve = "ease out"
 
 [animation.windows_resize]
 enabled = true
-duration_ms = 150
+# add animation
+duration_ms = 121
 curve = "ease out"

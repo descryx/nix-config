@@ -21,11 +21,18 @@ default_position = { x = 8, y = 8, anchor = "bottom_right" }
 default_floating_size_px = { width = 270, height = 480 }
 
 # Window blur for the terminals and Chrome. niri used xray false, which is
-# Umbriel's live blur path (blur_optimized = false).
+# Umbriel's live blur path (blur_optimized = false). Chrome is matched by
+# prefix so --app/PWA windows (chrome-<domain>__-<profile>) are included.
 [[window_rule]]
-match.app_id = [ "^ghostty$", "^kitty$", "^chrome$" ]
+match.app_id = [ "^ghostty$","^com\\.mitchellh\\.ghostty$", "^kitty$", "^chrome" ]
 blur = true
 blur_optimized = false
+
+# All Chrome windows open at one full viewport column width, including
+# --app windows whose suffix changes with the profile and app.
+[[window_rule]]
+match.app_id = "^(chrome|google-chrome)"
+default_scrolling_extent = 1.0
 
 # Noctalia's settings window, floating at the niri size.
 [[window_rule]]
@@ -64,9 +71,6 @@ match.app_id = "^[Oo]bsidian$"
 default_scratchpad = "obsidian"
 default_focused = true
 
-# SoundCloud Chrome app. Chromium's Wayland app id for --app windows is
-# chrome-<domain>__-<profile>, not the changing page title.
-[[window_rule]]
-match.app_id = "^chrome-soundcloud\\.com"
-default_scratchpad = "music"
-default_focused = true
+# The music scratchpad relies on the spawn_when_empty launch token. Chrome's
+# --app id suffix changes, so an app_id window rule is not reliable; do not
+# try to match SoundCloud by id here.
