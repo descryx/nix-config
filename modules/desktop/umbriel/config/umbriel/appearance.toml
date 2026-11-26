@@ -18,6 +18,11 @@ drag_opacity = 1.0
 # niri insert-hint color.
 insert_hint = "#bb000080"
 
+[colors.overview]
+background_tint = "#10101488"
+workspace_background = "#00000088"
+badge = "#7AA3FFFF"
+
 [colors.border]
 focused = "#bb0000FF"
 unfocused = "#00000000"
@@ -54,3 +59,6 @@ enabled = false
 [overview]
 # niri: overview zoom 0.35.
 zoom = 0.30
+background_blur = false
+workspace_wallpaper = false
+

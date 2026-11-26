@@ -31,4 +31,7 @@ autostart = [ "noctalia", "wayscriber --daemon" ]
 show_cheatsheet = false
 
 [include.optional]
-files = ["noctalia.toml"]
+files = [
+    "noctalia.toml",
+    "noctalia-override.toml",
+]
