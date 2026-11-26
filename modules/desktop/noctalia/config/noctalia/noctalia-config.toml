@@ -47,7 +47,7 @@ order = [ "default" ]
     radius = 0
     scale = 0.7500000037252903
     shadow = false
-    start = [ "stack", "ribbon", "active_window" ]
+    start = [ "stack", "bar_11", "active_window" ]
     thickness = 18
 
         [bar.default.monitor.DP-2]
@@ -61,7 +61,7 @@ order = [ "default" ]
         enabled = true
         fill = "surface_container"
         id = "g2"
-        members = [ "bluetooth", "seperator", "status_3", "mirror_2", "bar_2" ]
+        members = [ "bluetooth", "seperator", "status_3", "mirror_2", "bar_12" ]
         opacity = 0.0
         padding = 0.0
 
@@ -107,7 +107,7 @@ order = [ "default" ]
         enabled = true
         fill = "surface_container"
         id = "g1"
-        members = [ "status_5", "seperator", "bar_6", "github", "widget_8" ]
+        members = [ "status_5", "seperator", "github", "widget_8" ]
         opacity = 0.0
         padding = 0.0
 
@@ -780,6 +780,9 @@ panel_position = "top_right"
 [plugin_settings."noctalia/translator"]
 target_lang = "ru"
 
+[plugin_settings."noctalia/umbriel-companion"]
+panel_placement = "floating"
+
 [plugin_settings."noctalia/wallhaven"]
 browser_placement = "floating"
 browser_position = "bottom_left"
@@ -788,6 +791,9 @@ download_dir = "~/Pictures/Walheaven/"
 [plugin_settings."noctalia/wallpaper_depth"]
 manager_open_near_click = true
 manager_placement = "floating"
+
+[plugin_settings."prponkshe/umbriel-displays"]
+panel_placement = "floating"
 
 [plugin_settings."raycursive/niri-displays"]
 panel_placement = "floating"
@@ -879,7 +885,6 @@ enabled = [
     "avivbintangaringga/nix-monitor",
     "shangshui0302/github-kanban",
     "kenn/keybind-cheatsheet",
-    "srounce/systemd",
     "knyrps/nix-search",
     "aristides/udiskie",
     "zumik3-del/opencode-go-usage",
@@ -893,13 +898,14 @@ enabled = [
     "gustav0ar/drive-health",
     "theblackdon/theme-switcher",
     "descryx/pibble-clipboard",
-    "weinguyen/shell-command",
     "nightwatch75/file-search",
     "amancode22/global-menu",
-    "omerfuyar/plugin-hub",
     "faented/opencode-monitor",
     "fisherman/mathsym",
-    "omerfuyar/media-downloader"
+    "omerfuyar/media-downloader",
+    "0rz0rz0rz/umbriel-settings",
+    "samxu29/umbriel-scratchpad",
+    "noctalia/umbriel-companion"
 ]
 
     [[plugins.source]]
@@ -939,6 +945,7 @@ show_location = false
 telemetry_enabled = false
 time_format = "[{:%H:%M:%S}]"
 ui_scale = 0.95000000670552254
+umbriel_audio_provider_enabled = true
 
     [shell.animation]
     speed = 2.0000000298023224
@@ -1043,7 +1050,7 @@ source = "custom"
 wallpaper_scheme = "m3-rainbow"
 
     [theme.templates]
-    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "kcolorscheme", "kitty", "luciole", "niri", "qt" ]
+    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "kcolorscheme", "kitty", "luciole", "niri", "qt", "umbriel" ]
     community_ids = [ "gimp", "libreoffice", "obs" ]
 
         [theme.templates.user.palette_creator_live]
@@ -1272,6 +1279,14 @@ type = "noctalia/timer:bar"
 enabled = false
 type = "eternalself-2328/undershell:bar"
 
+[widget.bar_11]
+group_by_scratchpad = false
+type = "samxu29/umbriel-scratchpad:bar"
+
+[widget.bar_12]
+enabled = false
+type = "raycursive/niri-displays:bar"
+
 [widget.bar_2]
 show_resolution = false
 type = "raycursive/niri-displays:bar"
@@ -1394,7 +1409,7 @@ type = "alok-debnath/shelf:shelf"
 [widget.stack]
 compact = true
 displayMode = "numbered_rail"
-show_empty = false
+show_empty = true
 show_windows = false
 type = "johnnyp0t/niri-workspace-stack:stack"
 visible_workspaces = 3
@@ -1484,7 +1499,7 @@ type = "0rgl/localsend-plus:widget"
 active_pill_size = 2.0
 capsule_radius = 8
 colorize_icons = true
-enabled = false
+enabled = true
 focused_output_only = true
 hide_when_empty = true
 minimal = true
