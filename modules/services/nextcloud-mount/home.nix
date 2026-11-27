@@ -1,14 +1,14 @@
 {
   osConfig,
+  config,
   pkgs,
   lib,
-  local,
   ...
 }:
 let
   cfg = osConfig.my.nextcloudMount;
-  mountPoint = "${local.homeDir}/StorageShare";
-  rcloneConfig = "${local.homeDir}/.config/rclone/rclone.conf";
+  mountPoint = "${config.home.homeDirectory}/StorageShare";
+  rcloneConfig = "${config.home.homeDirectory}/.config/rclone/rclone.conf";
 in
 {
   config = lib.mkIf cfg.enable {
