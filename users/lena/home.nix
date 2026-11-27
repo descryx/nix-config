@@ -16,10 +16,13 @@ in
     ../../modules/apps/nvim/home.nix
     ../../modules/apps/zen/home.nix
     ../../modules/apps/learnharness/home.nix
+    ../../modules/services/nextcloud-mount/home.nix
+    ../../modules/services/nextcloud-upload/home.nix
     ./plasma.nix
     ./plasma-desktop.nix
     ./theme.nix
     ./default-apps.nix
+    ./nextcloud.nix
   ];
 
   home = {

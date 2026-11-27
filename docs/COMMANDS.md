@@ -179,9 +179,36 @@ systemctl --user restart nextcloud-mount.service   # refresh the directory cache
 If the config is missing or the app password is revoked, the service fails and
 retries; fix `rclone.conf` and restart it.
 
-Desk is enabled. t480 is not yet: when it is needed, create a separate app
-password and `rclone.conf` there, test `rclone lsd storage-share:`, then set
-`my.nextcloudMount.enable = true` in `hosts/t480/default.nix`.
+Desk and the Vivobook (lena) are enabled. t480 is not yet: when it is needed,
+create a separate app password and `rclone.conf` there, test
+`rclone lsd storage-share:`, then set `my.nextcloudMount.enable = true` in
+`hosts/t480/default.nix`.
+
+### Lena's Vivobook
+
+lena gets the read-only mount plus a one-way upload of `Documents`:
+
+- Create a separate app password in her account, then run `rclone config` as
+  lena with the URL `https://<instance>.your-storageshare.de/remote.php/dav/files/<HER-USER>/`
+  and remote name `storage-share`. This writes
+  `/home/lena/.config/rclone/rclone.conf` (mode 600).
+- Test `rclone lsd storage-share:` and `rclone about storage-share:`; the latter
+  shows the 350 GB quota.
+- `users/lena/nextcloud.nix` enables `my.nextcloudUpload` for `Documents`. It
+  runs `rclone copy --update`, so it uploads new or newer files only. It never
+  downloads content and never deletes remote files. A local delete leaves the
+  cloud copy; a rename leaves the old remote copy too.
+- The timer and a manual run:
+
+```sh
+systemctl --user list-timers nextcloud-upload.timer
+systemctl --user start nextcloud-upload.service
+journalctl --user -u nextcloud-upload.service -b
+```
+
+Thunar's thumbnail mode is set to always for the Vivobook in
+`users/lena/nextcloud.nix`; `hosts/vivobook/default.nix` enables `programs.xfconf`
+so Thunar can read it.
 
 ## Umbriel config
 

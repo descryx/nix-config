@@ -25,6 +25,7 @@
     photocraft.enable = true;
     printing.enable = true;
     storage.enable = true;
+    nextcloudMount.enable = true;
     sddm.enable = true;
 
     # Owner-only / developer / optional features.
@@ -57,6 +58,9 @@
 
     sddm.wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/DarkestHour/contents/images/2560x1600.jpg";
   };
+
+  # Thunar 4.20 keeps its settings in Xfconf, including the thumbnail mode.
+  programs.xfconf.enable = true;
 
   services = {
     displayManager = {

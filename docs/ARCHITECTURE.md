@@ -81,7 +81,7 @@ that case. Categories:
   `appearance`, `sddm`, `kde`.
 - `apps/` - one app or concern per folder, including `photocraft` and `luciole`.
 - `services/` - background daemons and device glue: `syncthing`, `kdeconnect`,
-  `storage`, `nextcloud-mount`.
+  `storage`, `nextcloud-mount`, `nextcloud-upload`.
 - `bundles/` - grouped package lists and default choices, with no per-app folders:
   `default-apps`, `desktop-apps`.
 - `optional/` - off by default; a host opts in with `my.<feature>.enable`.
@@ -136,12 +136,14 @@ Because the option default is off, a feature mentioned nowhere is off.
 | photocraft | `my.photocraft.enable` | `hosts/vivobook/default.nix` |
 | printing | `my.printing.enable` | `hosts/vivobook/default.nix` |
 | kdeconnect | `my.kdeconnect.enable` | `hosts/desk/default.nix` |
+| nextcloudMount | `my.nextcloudMount.enable` | `hosts/desk/default.nix`, `hosts/vivobook/default.nix` |
 | optional (flatpak, minecraft, ollama, openrgb, tmux) | `my.<feature>.enable` | `hosts/<host>/default.nix` |
 
 `my.sddm.wallpaper`, `my.sddm.forceLastUser` and `my.sddm.preselectSession`
 are value options, not switches.
-`my.dotfiles.live` and `my.zen.package` are per-user options declared in
-home-manager, not host switches.
+`my.dotfiles.live`, `my.zen.package` and `my.nextcloudUpload` are per-user
+options declared in home-manager, not host switches. lena enables the one-way
+`Documents` upload.
 
 Watch the soft couplings: `default-apps` points at `zen.desktop`, `nvim.desktop`,
 `dev.noctalia.luciole.desktop`, `mpv.desktop`, `imv.desktop`, `libreoffice-*` and
@@ -241,9 +243,9 @@ Rule: never put a secret value in the repo. What is kept out, and why:
   [COMMANDS.md](COMMANDS.md#noctalia-config--secrets).
 - Syncthing pairs at runtime (`~/.config/syncthing/config.xml`), so no device IDs
   live here; filesystems are mounted by label, so no disk UUIDs live here.
-- The Nextcloud read-only mount reads `~/.config/rclone/rclone.conf` (mode 600)
-  at login. It holds the server URL, username and a revocable app password; the
-  repo only names the remote `storage-share`.
+- The Nextcloud mount and upload timer read `~/.config/rclone/rclone.conf` (mode
+  600) in each user's home. It holds the server URL, username and a revocable app
+  password; the repo only names the remote `storage-share`.
 - The git identity uses the GitHub noreply address (`local.nix`).
 - The Vivobook host carries the `descryx` SSH **public** key; public keys are not
   secrets and are safe in the repo. Private keys and passwords never are.
