@@ -4,7 +4,7 @@
 uniform vec2 umbriel_workspace_axis;
 
 float workspace_sign() {
-    return umbriel_workspace_axis.x + umbriel_workspace_axis.y < 0.0 ? -1.0 : 1.0;
+    return umbriel_workspace_axis.x + umbriel_workspace_axis.y < 0.0 ? 1.0 : -1.0;
 }
 
 vec4 animation(vec2 uv) {
