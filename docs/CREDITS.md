@@ -80,10 +80,22 @@ which is MIT and links the LocalSend core, which is Apache-2.0:
   (`modules/desktop/noctalia/localsend-controller.nix`) - MIT; built from the
   plugin's own `controller/` sources, which link the
   [LocalSend](https://github.com/localsend/localsend) core.
+- [Fluent-kde](https://github.com/vinceliuice/Fluent-kde)
+  (`users/lena/theme/fluent-kde.nix`) - GPL-3.0-only. The Fluent Round Dark
+  look-and-feel and Aurorae decoration are installed; the look-and-feel defaults
+  are patched to the Win11 color scheme/icons, Breeze Plasma style, Bibata
+  cursors and the Kuro OLED splash. The Windows wallpaper and Kvantum theme are
+  not used.
+- [Kuro OLED splash](https://github.com/bouteillerAlan/kuro)
+  (`users/lena/theme/kuro-splash.nix`) - GPL-3.0-only. The `a2n.kuro.oled`
+  splash package is installed unmodified.
+- [Bibata cursors](https://github.com/ful1e5/Bibata_Cursor) - GPL-3.0-only,
+  installed from nixpkgs as `bibata-cursors`.
 - [Win11OS-dark KDE theme](https://github.com/yeyushengfan258/Win11OS-kde)
-  (`users/lena/theme/win11os-kde.nix`) - GPL-3.0-only. The look-and-feel, Plasma
-  style, Aurorae decoration and color scheme are installed. The Windows
-  wallpaper, Kvantum theme and KDE Store dependency list are not shipped.
+  (`users/lena/theme/win11os-kde.nix`) - GPL-3.0-only. Only the color scheme is
+  used now; the packaged look-and-feel, Plasma style and Aurorae decoration are
+  installed but not applied. The Windows wallpaper, Kvantum theme and KDE Store
+  dependency list are not shipped.
 - [Win11 icon theme](https://github.com/yeyushengfan258/Win11-icon-theme)
   (`users/lena/theme/win11-icon-theme.nix`) - GPL-3.0-only. The upstream
   installer is patched only so `-t black` installs the black/dark variants.

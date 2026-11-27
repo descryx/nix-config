@@ -198,11 +198,15 @@ logs in, and dconf wins over `gtk-3.0/settings.ini` for GTK apps.
 (`environment.plasma6.excludePackages` drops Dolphin), and her Ghostty profile
 sets `my.ghostty.windowDecorations = true` to get `window-decoration = auto`.
 
-lena's Win11 look is packaged from two GPL-3.0 repos in
-`users/lena/theme/` and linked into her home: the look-and-feel, Plasma style,
-Aurorae decoration, color scheme and the black/dark icon set. The Windows
-wallpaper, Kvantum theme and KDE Store dependency list are not shipped; the
-look-and-feel defaults are patched to Breeze for those pieces.
+lena's look is the Fluent Round Dark global theme from a GPL-3.0 repo in
+`users/lena/theme/fluent-kde.nix`, with its look-and-feel defaults patched to
+the Win11 color scheme and black/dark icon set
+(`theme/win11os-kde.nix`, `theme/win11-icon-theme.nix`), Breeze Plasma style,
+Bibata cursors (`pkgs.bibata-cursors`) and the Kuro OLED splash
+(`theme/kuro-splash.nix`). The Win11 look-and-feel, Plasma style and Aurorae
+decoration are no longer applied. The Windows wallpaper, Kvantum theme and KDE
+Store dependency list are not shipped; the wallpaper is the Plasma slideshow
+and its image list is live.
 
 ## Hosts & deploy
 

@@ -282,7 +282,8 @@ as lena) instead of installing Plasma on desk.
 
 Files: `users/lena/plasma.nix` holds the high-level plasma-manager options
 (keyboard layouts, wallpaper, look-and-feel); `plasma-desktop.nix` holds the
-settings captured from her session; `theme.nix` packages the Win11 assets. Thunar
+settings captured from her session; `theme.nix` packages the Fluent global
+theme, Win11 color scheme/icons, Bibata cursors and Kuro splash. Thunar
 is her file manager, Dolphin is excluded, and Ghostty uses native KDE decorations
 (`my.ghostty.windowDecorations`). Home-manager generations are per user, the
 system generation is shared with descryx. No password is stored in the repo.

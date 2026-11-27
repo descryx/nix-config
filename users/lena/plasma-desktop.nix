@@ -313,7 +313,6 @@
       kdeglobals.Icons.Theme = "Win11-black-dark";
       kdeglobals.KDE.DefaultDarkLookAndFeel = "com.github.yeyushengfan258.Win11OS-dark";
       kdeglobals.KDE.AnimationDurationFactor = 0.5;
-      kdeglobals.KDE.contrast = 4;
       kdeglobals.KDE.frameContrast = 0.2;
       kdeglobals."KFileDialog Settings"."Allow Expansion" = false;
       kdeglobals."KFileDialog Settings"."Automatically select filename extension" = true;
@@ -330,12 +329,6 @@
       kdeglobals."KFileDialog Settings"."Sort reversed" = false;
       kdeglobals."KFileDialog Settings"."Speedbar Width" = 192;
       kdeglobals."KFileDialog Settings"."View Style" = "DetailTree";
-      kdeglobals.WM.activeBackground = "39,44,49";
-      kdeglobals.WM.activeBlend = "252,252,252";
-      kdeglobals.WM.activeForeground = "252,252,252";
-      kdeglobals.WM.inactiveBackground = "32,36,40";
-      kdeglobals.WM.inactiveBlend = "161,169,177";
-      kdeglobals.WM.inactiveForeground = "161,169,177";
       kscreenlockerrc.Daemon.Autolock = false;
       kscreenlockerrc.Daemon.Timeout = 0;
       kuriikwsfilterrc.General.EnableWebShortcuts = true;

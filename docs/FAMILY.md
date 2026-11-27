@@ -203,10 +203,11 @@ with `nh os rollback`.
 - MT7902 Wi-Fi and Bluetooth share one antenna; 2.4 GHz Wi-Fi is unstable with
   Bluetooth on. Use a 5 GHz SSID. The printer is USB, so it does not depend on
   the 2.4 GHz radio.
-- The Win11 look is packaged from the GPL upstream theme and icon repos. The
-  Windows wallpaper, Kvantum widget style and Win10 cursor are not shipped; the
-  look-and-feel defaults use Breeze for those pieces and DarkestHour for the
-  wallpaper.
+- The look is the Fluent Round Dark global theme from the GPL upstream repo.
+  Its look-and-feel defaults are patched to use the Win11 color scheme and
+  icons, Breeze Plasma style, Bibata cursors and the Kuro OLED splash. The
+  Windows wallpaper, Kvantum widget style and Win10 cursor are not used; the
+  wallpaper is the Plasma slideshow.
 - The installer ISO has no MT7902 driver; the installed system does.
 - No snapshots: keep an external backup for documents. The system generations
   are for rollback, not for data. The disk is deliberately not LUKS-encrypted,
