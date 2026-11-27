@@ -6,7 +6,7 @@
 layout = "us,ru,us"
 variant = ",,intl"
 options = "caps:escape"
-numlock_toggle = false
+numlock_toggle = true
 
 [input.touchpad]
 tap = true

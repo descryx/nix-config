@@ -114,6 +114,7 @@ in
       package = lib.mkDefault pkgs.kdePackages.sddm;
       theme = "sddm-astronaut-theme";
       wayland.enable = true;
+      autoNumlock = true;
       extraPackages = [
         pkgs.kdePackages.qtmultimedia
       ];

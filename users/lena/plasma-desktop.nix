@@ -306,7 +306,7 @@
       plasmashell."toggle do not disturb" = [ ];
     };
     configFile = {
-      kcminputrc.Keyboard.NumLock = 0;
+      kcminputrc.Keyboard.NumLock = 1;
       kded5rc.Module-device_automounter.autoload = false;
       kdeglobals.General.TerminalApplication = "ghostty --gtk-single-instance=true";
       kdeglobals.General.TerminalService = "com.mitchellh.ghostty.desktop";
