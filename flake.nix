@@ -82,7 +82,6 @@
         localsend-controller = final.callPackage ./modules/desktop/noctalia/localsend-controller.nix { };
         learnharness = final.callPackage ./modules/apps/learnharness/package.nix { };
         drawy = final.callPackage ./modules/apps/drawy/package.nix { };
-        blurredwallpaper = final.callPackage ./modules/apps/blurredwallpaper/package.nix { };
       };
       pkgsWithOverlay = pkgs.extend overlay;
       mkSystem = import ./lib/mk-system.nix {
@@ -101,7 +100,6 @@
           localsend-controller
           learnharness
           drawy
-          blurredwallpaper
           ;
       };
       overlays.default = overlay;

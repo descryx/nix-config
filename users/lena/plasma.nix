@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+_: {
   programs.plasma = {
     enable = true;
 
@@ -21,7 +21,16 @@
     };
 
     workspace = {
-      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/DarkestHour/contents/images/2560x1600.jpg";
+      # The image list is deliberately not managed: pick it once in Desktop
+      # Settings -> Wallpaper -> Slideshow. Only the plugin and the three-day
+      # interval are declarative.
+      wallpaperCustomPlugin = {
+        plugin = "org.kde.slideshow";
+        config.General = {
+          SlideInterval = 3 * 24 * 60 * 60;
+          FillMode = 2; # preserveAspectCrop
+        };
+      };
       lookAndFeel = "com.github.yeyushengfan258.Win11OS-dark";
       iconTheme = "Win11-black-dark";
     };

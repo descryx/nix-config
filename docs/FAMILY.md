@@ -147,14 +147,15 @@ if output is unacceptable, `cnijfilter2` has only the generic TS5000 series PPD.
 ## Apps and Google Calendar
 
 lena's profile ships Parley (vocabulary trainer), Drawy (infinite whiteboard) and
-Merkuro (calendar and contacts). Drawy and the Active Blur wallpaper plugin are
-not in nixpkgs, so they live in `modules/apps/` and reach the hosts through the
-flake overlay.
+Merkuro (calendar and contacts). Drawy is not in nixpkgs, so it lives in
+`modules/apps/` and reaches the hosts through the flake overlay.
 
-The wallpaper is a third-party QML plugin (`a2n.blur`). It is installed into
-`~/.local/share/plasma/wallpapers/` by home-manager; select it in Desktop
-Settings -> Wallpaper Type -> Active blur. The choice lives in the Plasma
-applet config, which is not managed declaratively, so this is a live step.
+The wallpaper is Plasma's built-in slideshow plugin. Nix sets the plugin and a
+three-day interval; pick the images once in Desktop Settings -> Wallpaper ->
+Slideshow. The image list lives in the Plasma applet config, not in this repo, so
+it survives rebuilds. Plasma's UI only offers up to 24 hours in its interval
+field; do not change it there, or run `nh os switch` afterwards to restore the
+three-day value.
 
 Google Calendar goes through Akonadi, not Online Accounts. KAccounts would need
 `signon-ui`, which is not packaged, while the Akonadi Google resource does its

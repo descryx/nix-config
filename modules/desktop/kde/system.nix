@@ -34,9 +34,9 @@ in
         MOZ_ENABLE_WAYLAND = "1";
       };
 
-      # lena's desktop wallpaper comes from this package. Install it explicitly
-      # so the path cannot be garbage-collected while it is only referenced as a
-      # string in her home-manager config.
+      # The SDDM theme and Plasma's wallpaper picker use this package. Install it
+      # explicitly so it cannot be garbage-collected while referenced only as a
+      # string.
       systemPackages = [ pkgs.kdePackages.plasma-workspace-wallpapers ];
     };
 
