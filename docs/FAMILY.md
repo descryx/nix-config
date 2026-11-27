@@ -173,6 +173,16 @@ That selection is live as well. If Google rejects the OAuth client, fall back to
 the calendar's secret iCal address with the iCal resource: read-only and no
 OAuth, but it works without the account.
 
+## Spickzettel
+
+`users/lena/cheatsheet.nix` generates a German, print-ready keybinding sheet at
+`~/.local/share/spickzettel/spickzettel.html` and binds it to `Meta+H` through
+plasma-manager. The page is built from the Nix lists in that file, so add or
+change rows there, not in the installed HTML. It is laid out for A4 with two
+columns; `Strg+P` prints it. Plasma applies the hotkey on the next login, not
+during the rebuild. `Meta+F1` was not used because lena's captured KWin config
+already has it on "Switch to Desktop 1".
+
 ## Updates
 
 Only desk touches `flake.lock`:

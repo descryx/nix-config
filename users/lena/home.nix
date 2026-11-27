@@ -23,6 +23,7 @@ in
     ./theme.nix
     ./default-apps.nix
     ./nextcloud.nix
+    ./cheatsheet.nix
   ];
 
   home = {
