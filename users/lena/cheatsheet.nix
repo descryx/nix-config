@@ -207,7 +207,7 @@ let
       margin: 0;
       padding: 24px;
       background: #000000;
-      color: #1d1d1f;
+      color: #ffffff;
       font-family: "Noto Sans", "DejaVu Sans", sans-serif;
       font-size: 16px;
       line-height: 1.45;
@@ -221,7 +221,7 @@ let
       box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
     }
     h1 { margin: 0 0 2px; font-size: 2rem; }
-    .sub { margin: 0 0 18px; color: #555; }
+    .sub { margin: 0 0 18px; color: #999; }
     .note {
       margin: 0 0 22px;
       padding: 10px 14px;
