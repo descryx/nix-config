@@ -256,7 +256,7 @@ let
       font-size: .92em;
       font-weight: 600;
     }
-    .tip { margin: 6px 0 0; padding-top: 12px; border-top: 1px solid #000000; color: #333; }
+    .tip { margin: 6px 0 0; padding-top: 12px; border-top: 1px solid #000000; color: #fff; }
     @media print {
       @page { size: A4 portrait; margin: 12mm; }
       body { padding: 0; background: #000000; font-size: 11.5pt; }
@@ -265,7 +265,7 @@ let
       section { margin-bottom: 6mm; }
       h1 { font-size: 20pt; }
       h2 { font-size: 12.5pt; }
-      .note { background: #000000; border: 1px solid #888; }
+      .note { background: #000000; border: 1px solid #fff; }
     }
     @media (max-width: 700px) {
       .grid { columns: 1; }
