@@ -194,8 +194,9 @@ let
   '';
 
   # The PDF is the artefact that gets installed, so this stylesheet is a print
-  # stylesheet only: no screen background, no shadows, no media-width query
-  # (WeasyPrint ignores those and warns).
+  # stylesheet only: no shadows, no media-width query (WeasyPrint ignores those
+  # and warns). It is dark for on-screen reading in Okular; printing it costs a
+  # lot of toner, so ask for a light variant if the sheet is to be printed.
   page = ''
     <!doctype html>
     <html lang="de">
@@ -203,22 +204,22 @@ let
     <meta charset="utf-8">
     <title>Spickzettel</title>
     <style>
-    @page { size: A4 portrait; margin: 12mm; }
+    @page { size: A4 portrait; margin: 12mm; background: #000000; }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      background: #ffffff;
-      color: #1d1d1f;
+      background: #000000;
+      color: #ffffff;
       font-family: "DejaVu Sans", sans-serif;
       font-size: 10.5pt;
       line-height: 1.4;
     }
     h1 { margin: 0 0 2pt; font-size: 19pt; }
-    .sub { margin: 0 0 7pt; color: #555555; font-size: 11pt; }
+    .sub { margin: 0 0 7pt; color: #a0a8b0; font-size: 11pt; }
     .note {
       margin: 0 0 9pt;
       padding: 5pt 8pt;
-      background: #eaf6fd;
+      background: #10202b;
       border-left: 3pt solid #3daee9;
       border-radius: 3pt;
     }
@@ -241,13 +242,14 @@ let
     kbd {
       display: inline-block;
       padding: 0.5pt 4pt;
-      background: #eef1f5;
-      border: 0.75pt solid #b9c2cc;
+      background: #1e2329;
+      border: 0.75pt solid #566270;
       border-bottom-width: 1.5pt;
       border-radius: 3pt;
       font-family: inherit;
       font-size: 9.5pt;
       font-weight: 600;
+      color: #ffffff;
     }
     </style>
     </head>
