@@ -114,10 +114,32 @@ in
       package = lib.mkDefault pkgs.kdePackages.sddm;
       theme = "sddm-astronaut-theme";
       wayland.enable = true;
+      # X11 greeter only: SDDM 0.21's Wayland keyboard backend is a no-op.
+      # KWin reads [Keyboard] NumLock from the sddm user's kcminputrc instead,
+      # hence the sddm-numlock unit below.
       autoNumlock = true;
       extraPackages = [
         pkgs.kdePackages.qtmultimedia
       ];
+    };
+
+    # SDDM 0.21 ignores [General] Numlock on the Wayland greeter. With Plasma
+    # the greeter runs KWin, which applies [Keyboard] NumLock from the sddm
+    # user's kcminputrc at startup (0 = on, 1 = off, 2 = unchanged). Write that
+    # key before the display manager starts; kwriteconfig6 keeps whatever else
+    # is in the file. Gated on KDE because a Weston greeter never reads it.
+    systemd.services.sddm-numlock = lib.mkIf config.my.kde.enable {
+      description = "Enable NumLock in the SDDM greeter (KWin)";
+      wantedBy = [ "graphical.target" ];
+      before = [ "display-manager.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        User = "sddm";
+        Group = "sddm";
+        ExecStartPre = "${pkgs.coreutils}/bin/install -d -m 0700 /var/lib/sddm/.config";
+        ExecStart = "${pkgs.kdePackages.kconfig}/bin/kwriteconfig6 --file /var/lib/sddm/.config/kcminputrc --group Keyboard --key NumLock 0";
+      };
     };
   };
 }

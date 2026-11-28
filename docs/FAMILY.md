@@ -16,6 +16,11 @@ in [ARCHITECTURE.md](ARCHITECTURE.md); everyday commands are in
 - Generations: keep 5 system generations (`configurationLimit` and
   `nh clean --keep 5`). No btrfs snapshot service.
 - Printer: Canon PIXMA TS5050, USB only.
+- NumLock at the SDDM greeter: SDDM's `Numlock=on` only works with its X11
+  greeter. Vivobook runs the Wayland greeter under KWin, which reads
+  `[Keyboard] NumLock` from `/var/lib/sddm/.config/kcminputrc` (0 = on).
+  `modules/desktop/sddm/system.nix` writes that key with a oneshot before the
+  display manager; lena's own `kcminputrc` uses the same value.
 
 ## Before installing
 
