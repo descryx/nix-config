@@ -193,121 +193,112 @@ let
     </section>
   '';
 
+  # The PDF is the artefact that gets installed, so this stylesheet is a print
+  # stylesheet only: no screen background, no shadows, no media-width query
+  # (WeasyPrint ignores those and warns).
   page = ''
     <!doctype html>
     <html lang="de">
     <head>
-    <Super charset="utf-8">
-    <Super name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
     <title>Spickzettel</title>
     <style>
-    :root { color-scheme: light; }
+    @page { size: A4 portrait; margin: 12mm; }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 24px;
-      background: #000000;
-      color: #ffffff;
-      font-family: "Noto Sans", "DejaVu Sans", sans-serif;
-      font-size: 16px;
-      line-height: 1.45;
+      background: #ffffff;
+      color: #1d1d1f;
+      font-family: "DejaVu Sans", sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.4;
     }
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 28px 32px 32px;
-      background: #000000;
-      border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
-    }
-    h1 { margin: 0 0 2px; font-size: 2rem; }
-    .sub { margin: 0 0 18px; color: #999; }
+    h1 { margin: 0 0 2pt; font-size: 19pt; }
+    .sub { margin: 0 0 7pt; color: #555555; font-size: 11pt; }
     .note {
-      margin: 0 0 22px;
-      padding: 10px 14px;
-      background: #000000;
-      border-left: 4px solid #3daee9;
-      border-radius: 6px;
+      margin: 0 0 9pt;
+      padding: 5pt 8pt;
+      background: #eaf6fd;
+      border-left: 3pt solid #3daee9;
+      border-radius: 3pt;
     }
-    .note p { margin: 4px 0; }
-    .grid { columns: 2; column-gap: 32px; }
+    .note p { margin: 2pt 0; }
+    .grid { columns: 2; column-gap: 7mm; }
     section {
       break-inside: avoid;
       page-break-inside: avoid;
-      margin: 0 0 18px;
+      margin: 0 0 6mm;
     }
     h2 {
-      margin: 0 0 8px;
-      padding-bottom: 4px;
-      font-size: 1.15rem;
-      border-bottom: 2px solid #3daee9;
+      margin: 0 0 4pt;
+      padding-bottom: 2pt;
+      font-size: 12.5pt;
+      border-bottom: 1.5pt solid #3daee9;
     }
     table { width: 100%; border-collapse: collapse; }
-    td { padding: 3px 0; vertical-align: top; }
-    td.keys { width: 42%; padding-right: 10px; white-space: nowrap; }
+    td { padding: 1.5pt 0; vertical-align: top; }
+    td.keys { width: 37%; padding-right: 6pt; white-space: nowrap; }
     kbd {
       display: inline-block;
-      padding: 1px 6px;
-      background: #000000;
-      border: 1px solid #cfd6df;
-      border-bottom-width: 2px;
-      border-radius: 5px;
+      padding: 0.5pt 4pt;
+      background: #eef1f5;
+      border: 0.75pt solid #b9c2cc;
+      border-bottom-width: 1.5pt;
+      border-radius: 3pt;
       font-family: inherit;
-      font-size: .92em;
+      font-size: 9.5pt;
       font-weight: 600;
-    }
-    .tip { margin: 6px 0 0; padding-top: 12px; border-top: 1px solid #000000; color: #fff; }
-    @media print {
-      @page { size: A4 portrait; margin: 12mm; }
-      body { padding: 0; background: #000000; font-size: 11.5pt; }
-      main { max-width: none; padding: 0; border-radius: 0; box-shadow: none; }
-      .grid { columns: 2; column-gap: 10mm; }
-      section { margin-bottom: 6mm; }
-      h1 { font-size: 20pt; }
-      h2 { font-size: 12.5pt; }
-      .note { background: #000000; border: 1px solid #fff; }
-    }
-    @media (max-width: 700px) {
-      .grid { columns: 1; }
     }
     </style>
     </head>
     <body>
-    <main>
     <h1>Spickzettel</h1>
     <p class="sub">Tastenkürzel für den Alltag am Laptop</p>
     <div class="note">
     <p><strong>Wichtig:</strong> Die Taste <kbd>Ctrl</kbd> heißt auf dieser Tastatur <kbd>Strg</kbd>.
     <kbd>Super</kbd> ist die Windows-Taste, <kbd>Shift</kbd> ist Shift.</p>
     <p>Diesen Zettel ausdrucken: <kbd>Strg</kbd> + <kbd>P</kbd>.</p>
+    <p>Tipp: Etwas versehentlich gelöscht? <kbd>Strg</kbd> + <kbd>Z</kbd>.
+    Tab aus Versehen geschlossen? <kbd>Strg</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>.
+    Fenster weg? <kbd>Alt</kbd> + <kbd>Tab</kbd>.</p>
     </div>
     <div class="grid">
     ${lib.concatMapStrings renderSection sections}
     </div>
-    <p class="tip">Tipp: Etwas versehentlich gelöscht? <kbd>Strg</kbd> + <kbd>Z</kbd>.
-    Tab aus Versehen geschlossen? <kbd>Strg</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>.
-    Fenster weg? <kbd>Alt</kbd> + <kbd>Tab</kbd>.</p>
-    </main>
     </body>
     </html>
   '';
+
+  # WeasyPrint runs at build time only; nothing of it lands in lena's profile.
+  # DejaVu is the only font the stylesheet asks for, so the sandbox needs just
+  # that one font directory.
+  pdf =
+    pkgs.runCommand "spickzettel.pdf"
+      {
+        nativeBuildInputs = [ pkgs.python3Packages.weasyprint ];
+        FONTCONFIG_FILE = pkgs.makeFontsConf {
+          fontDirectories = [ pkgs.dejavu_fonts ];
+        };
+        SOURCE_DATE_EPOCH = "1";
+      }
+      ''
+        export HOME=$TMPDIR
+        weasyprint ${pkgs.writeText "spickzettel.html" page} "$out"
+      '';
 in
 {
-  # xdg-open is what the hotkey launches; home-manager does not put it on PATH
-  # by itself (checked in the 26.05 xdg modules).
-  home.packages = [ pkgs.xdg-utils ];
+  # Store copy like the rest of lena's config: the PDF is generated from this
+  # file, so edit the lists above and rebuild, never the installed PDF.
+  home.file.".local/share/spickzettel/spickzettel.pdf".source = pdf;
 
-  # Store copy like the rest of lena's config: the page is generated from this
-  # file, so edit the lists above, never the installed HTML.
-  home.file.".local/share/spickzettel/spickzettel.html".text = page;
-
-  # Super+H opens the sheet. Super+F1 would have been the obvious choice, but
-  # lena's captured kwin config already binds it to "Switch to Desktop 1".
+  # "Super" is what the sheet calls the key; KDE's shortcut syntax and Qt's
+  # parser only know it as "Meta". Meta+F1 would have been the obvious choice,
+  # but lena's captured kwin config already binds it to "Switch to Desktop 1".
   # Plasma only picks the shortcut up on the next login.
   programs.plasma.hotkeys.commands.spickzettel = {
     name = "Spickzettel";
     comment = "Spickzettel mit Tastenkürzeln öffnen";
-    key = "Super+H";
-    command = "xdg-open ${config.home.homeDirectory}/.local/share/spickzettel/spickzettel.html";
+    key = "Meta+H";
+    command = "okular --unique ${config.home.homeDirectory}/.local/share/spickzettel/spickzettel.pdf";
   };
 }

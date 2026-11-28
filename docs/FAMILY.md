@@ -176,12 +176,14 @@ OAuth, but it works without the account.
 ## Spickzettel
 
 `users/lena/cheatsheet.nix` generates a German, print-ready keybinding sheet at
-`~/.local/share/spickzettel/spickzettel.html` and binds it to `Meta+H` through
-plasma-manager. The page is built from the Nix lists in that file, so add or
-change rows there, not in the installed HTML. It is laid out for A4 with two
-columns; `Strg+P` prints it. Plasma applies the hotkey on the next login, not
-during the rebuild. `Meta+F1` was not used because lena's captured KWin config
-already has it on "Switch to Desktop 1".
+`~/.local/share/spickzettel/spickzettel.pdf` and binds it to `Meta+H` through
+plasma-manager. WeasyPrint turns the HTML built from the Nix lists into an A4
+PDF at build time; Okular opens it in its own window (`--unique`, so repeating
+Meta+H reuses it). `Strg+P` prints from Okular. Edit the lists in that file,
+not the installed PDF. Plasma applies the hotkey on the next login, not during
+the rebuild. `Meta+F1` was not used because lena's captured KWin config already
+has it on "Switch to Desktop 1". The sheet calls the Windows key "Super";
+KDE's own shortcut syntax only knows it as `Meta`.
 
 ## Updates
 
