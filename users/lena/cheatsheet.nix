@@ -16,16 +16,16 @@ let
           what = "Drucken (auch diesen Spickzettel)";
         }
         {
-          keys = "Strg + +";
-          what = "Hineinzoomen";
+          keys = "Strg + '+'";
+          what = "Groser machen (zoom)";
         }
         {
-          keys = "Strg + -";
-          what = "Herauszoomen";
+          keys = "Strg + '-'";
+          what = "Kleiner machen (zoom)";
         }
         {
           keys = "Strg + 0";
-          what = "Zoom zurücksetzen";
+          what = "Normal machen (zoom)";
         }
         {
           keys = "Strg + T";
@@ -36,32 +36,24 @@ let
           what = "Tab schließen";
         }
         {
-          keys = "Strg + Umschalt + T";
+          keys = "Strg + Shift + T";
           what = "Geschlossenen Tab wieder öffnen";
         }
         {
-          keys = "Strg + L";
-          what = "Adresszeile auswählen";
-        }
-        {
           keys = "Strg + F";
-          what = "Auf der Seite suchen";
+          what = "Text auf der seite suchen";
         }
         {
           keys = "F5";
           what = "Seite neu laden";
         }
         {
-          keys = "Strg + D";
-          what = "Lesezeichen speichern";
+          keys = "Alt + <-";
+          what = "Eine seite zuruck";
         }
         {
-          keys = "Strg + Umschalt + P";
-          what = "Privates Fenster";
-        }
-        {
-          keys = "Alt + ←";
-          what = "Zurück zur letzten Seite";
+          keys = "Alt + ->";
+          what = "Eine seite nach vorne";
         }
       ];
     }
@@ -69,98 +61,63 @@ let
       title = "Allgemein";
       rows = [
         {
-          keys = "Strg + C";
-          what = "Kopieren";
-        }
-        {
-          keys = "Strg + X";
-          what = "Ausschneiden";
-        }
-        {
-          keys = "Strg + V";
-          what = "Einfügen";
-        }
-        {
-          keys = "Strg + Umschalt + V";
-          what = "Einfügen ohne Formatierung";
-        }
-        {
           keys = "Strg + A";
           what = "Alles auswählen";
         }
         {
           keys = "Strg + Z";
-          what = "Rückgängig (Fehler passiert)";
+          what = "Rückgängig machen (Fehler passiert)";
         }
         {
-          keys = "Strg + Y";
-          what = "Wiederherstellen";
+          keys = "Strg + Shift + Z";
+          what = "Rückgang Rückgängig machen";
         }
         {
           keys = "Strg + S";
           what = "Speichern";
         }
         {
-          keys = "Umschalt + Pfeil";
-          what = "Text markieren";
+          keys = "Strg + P";
+          what = "Drucken";
         }
-        {
-          keys = "Entf";
-          what = "Löschen";
-        }
-        {
-          keys = "Esc";
-          what = "Abbrechen / Fenster schließen";
-        }
+
       ];
     }
     {
       title = "KDE Plasma (Desktop)";
       rows = [
         {
-          keys = "Meta";
-          what = "Startmenü und Suche";
-        }
-        {
-          keys = "Alt + Leertaste";
-          what = "Suche (KRunner)";
-        }
-        {
-          keys = "Alt + Tab";
-          what = "Zwischen Fenstern wechseln";
+          keys = "Super + W";
+          what = "Fenster Uberblick";
         }
         {
           keys = "Alt + F4";
           what = "Fenster schließen";
         }
         {
-          keys = "Meta + Pfeil";
+          keys = "Super + Pfeil";
           what = "Fenster an den Rand (halber Bildschirm)";
         }
         {
-          keys = "Meta + L";
+          keys = "Super + L";
           what = "Bildschirm sperren";
         }
         {
           keys = "Druck";
-          what = "Bildschirmfoto aufnehmen (Spectacle)";
+          what = "Bildschirmfoto aufnehmen (screenshot von region)";
         }
         {
-          keys = "Umschalt + Druck";
-          what = "Ganzen Bildschirm aufnehmen";
+          keys = "Shift + Druck";
+          what = "Ganzen Bildschirm aufnehmen(screenshot)";
         }
         {
-          keys = "Meta + Druck";
-          what = "Aktives Fenster aufnehmen";
-        }
-        {
-          keys = "Meta + Umschalt + Druck";
-          what = "Bereich auswählen und aufnehmen";
+          keys = "Super + Shift + Druck";
+          what = "Bereich auswählen und aufnehmen(screen video)";
         }
       ];
     }
     {
-      title = "Dateien (Thunar)";
+      title = "Dateienmanager (Thunar)";
       rows = [
         {
           keys = "Strg + L";
@@ -175,15 +132,11 @@ let
           what = "In den Papierkorb";
         }
         {
-          keys = "Umschalt + Entf";
+          keys = "Shift + Entf";
           what = "Endgültig löschen";
         }
         {
-          keys = "Strg + H";
-          what = "Versteckte Dateien anzeigen";
-        }
-        {
-          keys = "Strg + Umschalt + N";
+          keys = "Strg + Shift + N";
           what = "Neuer Ordner";
         }
         {
@@ -204,7 +157,7 @@ let
           what = "Speichern";
         }
         {
-          keys = "Strg + Umschalt + S";
+          keys = "Strg + Shift + S";
           what = "Speichern unter";
         }
         {
@@ -244,8 +197,8 @@ let
     <!doctype html>
     <html lang="de">
     <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <Super charset="utf-8">
+    <Super name="viewport" content="width=device-width, initial-scale=1">
     <title>Spickzettel</title>
     <style>
     :root { color-scheme: light; }
@@ -253,7 +206,7 @@ let
     body {
       margin: 0;
       padding: 24px;
-      background: #f4f5f7;
+      background: #000000;
       color: #1d1d1f;
       font-family: "Noto Sans", "DejaVu Sans", sans-serif;
       font-size: 16px;
@@ -263,7 +216,7 @@ let
       max-width: 1100px;
       margin: 0 auto;
       padding: 28px 32px 32px;
-      background: #fff;
+      background: #000000;
       border-radius: 10px;
       box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
     }
@@ -272,7 +225,7 @@ let
     .note {
       margin: 0 0 22px;
       padding: 10px 14px;
-      background: #eaf6fd;
+      background: #000000;
       border-left: 4px solid #3daee9;
       border-radius: 6px;
     }
@@ -295,7 +248,7 @@ let
     kbd {
       display: inline-block;
       padding: 1px 6px;
-      background: #eef1f5;
+      background: #000000;
       border: 1px solid #cfd6df;
       border-bottom-width: 2px;
       border-radius: 5px;
@@ -303,16 +256,16 @@ let
       font-size: .92em;
       font-weight: 600;
     }
-    .tip { margin: 6px 0 0; padding-top: 12px; border-top: 1px solid #dde1e6; color: #333; }
+    .tip { margin: 6px 0 0; padding-top: 12px; border-top: 1px solid #000000; color: #333; }
     @media print {
       @page { size: A4 portrait; margin: 12mm; }
-      body { padding: 0; background: #fff; font-size: 11.5pt; }
+      body { padding: 0; background: #000000; font-size: 11.5pt; }
       main { max-width: none; padding: 0; border-radius: 0; box-shadow: none; }
       .grid { columns: 2; column-gap: 10mm; }
       section { margin-bottom: 6mm; }
       h1 { font-size: 20pt; }
       h2 { font-size: 12.5pt; }
-      .note { background: #fff; border: 1px solid #888; }
+      .note { background: #000000; border: 1px solid #888; }
     }
     @media (max-width: 700px) {
       .grid { columns: 1; }
@@ -325,14 +278,14 @@ let
     <p class="sub">Tastenkürzel für den Alltag am Laptop</p>
     <div class="note">
     <p><strong>Wichtig:</strong> Die Taste <kbd>Ctrl</kbd> heißt auf dieser Tastatur <kbd>Strg</kbd>.
-    <kbd>Meta</kbd> ist die Windows-Taste, <kbd>Umschalt</kbd> ist Shift.</p>
+    <kbd>Super</kbd> ist die Windows-Taste, <kbd>Shift</kbd> ist Shift.</p>
     <p>Diesen Zettel ausdrucken: <kbd>Strg</kbd> + <kbd>P</kbd>.</p>
     </div>
     <div class="grid">
     ${lib.concatMapStrings renderSection sections}
     </div>
     <p class="tip">Tipp: Etwas versehentlich gelöscht? <kbd>Strg</kbd> + <kbd>Z</kbd>.
-    Tab aus Versehen geschlossen? <kbd>Strg</kbd> + <kbd>Umschalt</kbd> + <kbd>T</kbd>.
+    Tab aus Versehen geschlossen? <kbd>Strg</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>.
     Fenster weg? <kbd>Alt</kbd> + <kbd>Tab</kbd>.</p>
     </main>
     </body>
@@ -348,13 +301,13 @@ in
   # file, so edit the lists above, never the installed HTML.
   home.file.".local/share/spickzettel/spickzettel.html".text = page;
 
-  # Meta+H opens the sheet. Meta+F1 would have been the obvious choice, but
+  # Super+H opens the sheet. Super+F1 would have been the obvious choice, but
   # lena's captured kwin config already binds it to "Switch to Desktop 1".
   # Plasma only picks the shortcut up on the next login.
   programs.plasma.hotkeys.commands.spickzettel = {
     name = "Spickzettel";
     comment = "Spickzettel mit Tastenkürzeln öffnen";
-    key = "Meta+H";
+    key = "Super+H";
     command = "xdg-open ${config.home.homeDirectory}/.local/share/spickzettel/spickzettel.html";
   };
 }
